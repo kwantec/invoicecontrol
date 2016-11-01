@@ -15,21 +15,25 @@
                 url: '/employees',
                 template: '<ui-view/>'
             })
-
             .state('employees.create', {
                 url: '/create',
                 controller: 'EmployeesClientController',
                 templateUrl: 'modules/employees/client/views/form-employees.client.view.html'
             })
-            .state('employees.update',{
-                url:'/update',
+            .state('employees.update', {
+                url: '/update',
                 controller: 'EmployeesClientController',
-                templateUrl:'modules/employees/client/views/edit-employee.client.view.html'
+                templateUrl: 'modules/employees/client/views/edit-employee.client.view.html'
             })
             .state('employees.list', {
                 url: '/list',
                 controller: 'EmployeesListClientController',
                 templateUrl: 'modules/employees/client/views/list-employees.client.view.html'
+            })
+            .state('employees.view', {
+                url: '/:employeeId',
+                controller: 'EmployeesClientController',
+                templateUrl: 'modules/employees/client/views/view-employee.client.view.html'
             });
     }
 }());

@@ -28,3 +28,20 @@ exports.list = function (req, res) {
         }
     });
 };
+
+exports.read = function (req, res) {
+    Employee.findById(req.params.employeeId).exec(function (err, employee) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            if (!employee) {
+                return res.status(404).send({
+                    message: 'No se encontró el empleado'
+                });
+            }
+            res.json(employee);
+        }
+    });
+};

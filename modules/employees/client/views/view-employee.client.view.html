@@ -1,0 +1,15 @@
+<section ng-init="findEmployee()">
+    <div>
+        <h1 ng-bind="(employee.name) + (employee.lastName)"></h1>
+        <p ng-bind="'$' + employee.salary"></p>
+        <p ng-bind="employee.dob"></p>
+    </div>
+    <div class="pull-right">
+        <a class="btn btn-primary">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+</section>

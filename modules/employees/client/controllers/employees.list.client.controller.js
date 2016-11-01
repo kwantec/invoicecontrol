@@ -9,9 +9,7 @@
     EmployeesListClientController.$inject = ['$scope', '$resource'];
 
     function EmployeesListClientController($scope, $resource) {
-
         var Employee = $resource('/api/employees');
         $scope.employees = Employee.query();
     }
-
 }());
