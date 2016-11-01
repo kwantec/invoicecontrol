@@ -1,5 +1,5 @@
 'use strict';
-<<<<<<< HEAD
+
 var path = require('path');
 var mongoose = require("mongoose");
 var Employee = mongoose.model("Employee");
