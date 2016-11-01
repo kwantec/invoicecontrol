@@ -24,9 +24,9 @@
                 $scope.newEmployee.lastName = "";
                 $scope.newEmployee.Salary = "";
             });
-        }
+        };
 
-        $scope.findEmployee = function () 
+        $scope.findEmployee = function () {
             $scope.employee = Employees.get({
                 employeeId: $stateParams.employeeId
             });
