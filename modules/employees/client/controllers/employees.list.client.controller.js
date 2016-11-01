@@ -12,7 +12,6 @@
 
         var Employee = $resource('/api/employees');
         $scope.employees = Employee.query();
-
     }
 
 }());

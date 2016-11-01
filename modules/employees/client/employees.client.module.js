@@ -3,5 +3,5 @@
  */
 (function (app) {
 'use strict';
-    app.registerModule('employees',['core','ui.router']);
+    app.registerModule('employees',['core','ui.router', 'ngMaterial']);
 }(ApplicationConfiguration));
