@@ -10,6 +10,7 @@
                 <td>{{employee.salary }}</td>
                 <td>
                     <a ng-href="/employees/{{employee._id}}"><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a ng-href="/employees/{{employee._id}}/edit"><i class="glyphicon glyphicon-pencil"></i></a>
                     <a ng-click="removeEmployee(employee._id);"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>

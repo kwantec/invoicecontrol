@@ -20,8 +20,8 @@
                 controller: 'EmployeesClientController',
                 templateUrl: 'modules/employees/client/views/form-employees.client.view.html'
             })
-            .state('employees.update', {
-                url: '/update',
+            .state('employees.edit', {
+                url: '/:employeeId/edit',
                 controller: 'EmployeesClientController',
                 templateUrl: 'modules/employees/client/views/edit-employee.client.view.html'
             })

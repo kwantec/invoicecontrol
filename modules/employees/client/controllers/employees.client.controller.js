@@ -7,13 +7,20 @@
         .module('employees')
         .controller('EmployeesClientController', EmployeesClientController);
 
-    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location'];
+    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location', '$timeout'];
 
-    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location) {
+    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $timeout) {
         $scope.newEmployee = {};
         $scope.newEmployee.name = "";
         $scope.newEmployee.lastName = "";
-        $scope.newEmployee.Salary = "";
+        $scope.newEmployee.salary = "";
+
+        $scope.employee = {
+            name : "",
+            lastName : "",
+            salary : 0,
+            dob : new Date()
+        };
 
         var Employee = $resource('/api/employees');
 
@@ -22,13 +29,27 @@
                 $scope.newEmployee = {};
                 $scope.newEmployee.name = "";
                 $scope.newEmployee.lastName = "";
-                $scope.newEmployee.Salary = "";
+                $scope.newEmployee.salary = "";
             });
         };
 
         $scope.findEmployee = function () {
-            $scope.employee = Employees.get({
+            var employee = Employees.get({
                 employeeId: $stateParams.employeeId
+            });
+            $timeout(function(){
+                employee.dob = new Date(employee.dob);
+                $scope.employee = employee;
+            }, 0);
+        };
+
+        $scope.update = function(){
+            var employee = $scope.employee;
+
+            employee.$update(function () {
+                $location.path('employees/' + employee._id);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
             });
         };
 

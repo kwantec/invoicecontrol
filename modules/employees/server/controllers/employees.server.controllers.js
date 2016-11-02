@@ -19,6 +19,36 @@ exports.create = function (req, res) {
     });
 };
 
+
+exports.update = function (req, res) {
+    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            if (!employee) {
+                return res.status(404).send({
+                    message: 'No se encontró el empleado'
+                });
+            }
+            employee.name = req.body.name;
+            employee.lastName = req.body.lastName;
+            employee.salary = req.body.salary;
+            employee.dob = req.body.dob;
+            employee.save(function (err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.json(employee);
+                }
+            });
+        }
+    });
+};
+
 exports.list = function (req, res) {
     Employee.find({}, function (err, employees) {
         if (err) {

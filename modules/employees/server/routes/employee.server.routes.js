@@ -16,5 +16,6 @@ module.exports = function (app) {
 
     app.route('/api/employees/:employeeId')
         .get(employees.read)
+        .put(employees.update)
         .delete(employees.delete);
 };

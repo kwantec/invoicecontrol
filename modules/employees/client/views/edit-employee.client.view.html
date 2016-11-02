@@ -1,13 +1,34 @@
-<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+
+<md-toolbar class="md-theme-light">
+  <h2 class="md-toolbar-tools">
+    <span>Editar Empleado</span>
+  </h2>
+</md-toolbar>
+<md-content flex layout-padding ng-init="findEmployee()">
   <div>
-    <md-input-container>
+    <md-input-container layout-gt-xs="row">
       <label>Nombre</label>
-      <input ng-model="user.title">
+      <input ng-model="employee.name">
     </md-input-container>
 
-    <md-input-container>
+    <md-input-container layout-gt-xs="row">
       <label>Apellido</label>
-      <input ng-model="user.email" type="text">
+      <input ng-model="employee.lastName" type="text">
     </md-input-container>
+
+    <md-input-container layout-gt-xs="row">
+      <label>Salario</label>
+      <input ng-model="employee.salary" type="number">
+    </md-input-container>
+
+    <div layout-gt-xs="row">
+      <div flex-gt-xs>
+        <h4>Fecha de nacimiento</h4>
+        <md-datepicker ng-model="employee.dob" md-placeholder="Enter date"></md-datepicker>
+      </div>
+    </div>
+
+    <md-button ng-click="update()" class="md-raised md-primary">Guardar</md-button>
+
   </div>
 </md-content>
