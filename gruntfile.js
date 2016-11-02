@@ -6,8 +6,10 @@
 var _ = require('lodash'),
   defaultAssets = require('./config/assets/default'),
   testAssets = require('./config/assets/test'),
+  testConfig = require('./config/env/test'),
   fs = require('fs'),
-  path = require('path');
+  path = require('path'),
+  wiredep = require('wiredep');
 
 module.exports = function (grunt) {
   // Project Configuration
@@ -33,7 +35,7 @@ module.exports = function (grunt) {
       },
       serverJS: {
         files: _.union(defaultAssets.server.gruntConfig, defaultAssets.server.allJS),
-        tasks: ['jshint'],
+        tasks: ['eslint'],
         options: {
           livereload: true
         }
@@ -46,7 +48,7 @@ module.exports = function (grunt) {
       },
       clientJS: {
         files: defaultAssets.client.js,
-        tasks: ['jshint'],
+        tasks: ['eslint'],
         options: {
           livereload: true
         }
@@ -73,6 +75,34 @@ module.exports = function (grunt) {
         }
       }
     },
+    wiredep: {
+      fileTypes: {
+        src: 'config/assets/default.js',
+        ignorePath: '../../',
+        js: {
+          replace: {
+            css: function (filePath) {
+              var minFilePath = filePath.replace('.css', '.min.css');
+              var fullPath = path.join(process.cwd(), minFilePath);
+              if (!fs.existsSync(fullPath)) {
+                return '\'' + filePath + '\',';
+              } else {
+                return '\'' + minFilePath + '\',';
+              }
+            },
+            js: function (filePath) {
+              var minFilePath = filePath.replace('.js', '.min.js');
+              var fullPath = path.join(process.cwd(), minFilePath);
+              if (!fs.existsSync(fullPath)) {
+                return '\'' + filePath + '\',';
+              } else {
+                return '\'' + minFilePath + '\',';
+              }
+            }
+          }
+        }
+      }
+    },
     nodemon: {
       dev: {
         script: 'server.js',
@@ -90,16 +120,9 @@ module.exports = function (grunt) {
         logConcurrentOutput: true
       }
     },
-    jshint: {
-      all: {
-        src: _.union(defaultAssets.server.gruntConfig, defaultAssets.server.allJS, defaultAssets.client.js, testAssets.tests.server, testAssets.tests.client, testAssets.tests.e2e),
-        options: {
-          jshintrc: true,
-          node: true,
-          mocha: true,
-          jasmine: true
-        }
-      }
+    eslint: {
+      options: {},
+      target: _.union(defaultAssets.server.gruntConfig, defaultAssets.server.allJS, defaultAssets.client.js, testAssets.tests.server, testAssets.tests.client, testAssets.tests.e2e)
     },
     csslint: {
       options: {
@@ -142,7 +165,7 @@ module.exports = function (grunt) {
           rename: function (base, src) {
             return src.replace('/scss/', '/css/');
           }
-				}]
+        }]
       }
     },
     less: {
@@ -154,7 +177,7 @@ module.exports = function (grunt) {
           rename: function (base, src) {
             return src.replace('/less/', '/css/');
           }
-				}]
+        }]
       }
     },
     'node-inspector': {
@@ -173,7 +196,24 @@ module.exports = function (grunt) {
     mochaTest: {
       src: testAssets.tests.server,
       options: {
-        reporter: 'spec'
+        reporter: 'spec',
+        timeout: 10000
+      }
+    },
+    mocha_istanbul: {
+      coverage: {
+        src: testAssets.tests.server,
+        options: {
+          print: 'detail',
+          coverage: true,
+          require: 'test.js',
+          coverageFolder: 'coverage/server',
+          reportFormats: ['cobertura', 'lcovonly'],
+          check: {
+            lines: 40,
+            statements: 40
+          }
+        }
       }
     },
     karma: {
@@ -184,8 +224,8 @@ module.exports = function (grunt) {
     protractor: {
       options: {
         configFile: 'protractor.conf.js',
-        keepAlive: true,
-        noColor: false
+        noColor: false,
+        webdriverManagerUpdate: true
       },
       e2e: {
         options: {
@@ -196,19 +236,27 @@ module.exports = function (grunt) {
     copy: {
       localConfig: {
         src: 'config/env/local.example.js',
-        dest: 'config/env/local.js',
+        dest: 'config/env/local-development.js',
         filter: function () {
-          return !fs.existsSync('config/env/local.js');
+          return !fs.existsSync('config/env/local-development.js');
         }
       }
     }
   });
 
+  grunt.event.on('coverage', function(lcovFileContents, done) {
+    // Set coverage config so karma-coverage knows to run coverage
+    testConfig.coverage = true;
+    require('coveralls').handleInput(lcovFileContents, function(err) {
+      if (err) {
+        return done(err);
+      }
+      done();
+    });
+  });
+
   // Load NPM tasks
   require('load-grunt-tasks')(grunt);
-
-  // Making grunt default to force in order not to break the project.
-  grunt.option('force', true);
 
   // Make sure upload directory exists
   grunt.task.registerTask('mkdir:upload', 'Task that makes sure upload directory exists.', function () {
@@ -234,6 +282,26 @@ module.exports = function (grunt) {
     });
   });
 
+  // Drops the MongoDB database, used in e2e testing
+  grunt.task.registerTask('dropdb', 'drop the database', function () {
+    // async mode
+    var done = this.async();
+
+    // Use mongoose configuration
+    var mongoose = require('./config/lib/mongoose.js');
+
+    mongoose.connect(function (db) {
+      db.connection.db.dropDatabase(function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Successfully dropped db: ', db.connection.db.databaseName);
+        }
+        db.connection.db.close(done);
+      });
+    });
+  });
+
   grunt.task.registerTask('server', 'Starting the server', function () {
     // Get the callback
     var done = this.async();
@@ -246,15 +314,26 @@ module.exports = function (grunt) {
   });
 
   // Lint CSS and JavaScript files.
-  grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
+  grunt.registerTask('lint', ['sass', 'less', 'eslint', 'csslint']);
+
+  grunt.registerMultiTask('wiredep', 'Inject Bower dependencies.', function () {
+    this.requiresConfig(['wiredep', this.target, 'src']);
+
+    var options = this.options(this.data);
+    wiredep(options);
+  });
 
   // Lint project files and minify them into two production files.
-  grunt.registerTask('build', ['env:dev', 'lint', 'ngAnnotate', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['env:dev', 'wiredep', 'lint', 'ngAnnotate', 'uglify', 'cssmin']);
 
   // Run the project tests
-  grunt.registerTask('test', ['env:test', 'lint', 'mkdir:upload', 'copy:localConfig', 'server', 'mochaTest', 'karma:unit']);
+  grunt.registerTask('test', ['env:test', 'lint', 'mkdir:upload', 'copy:localConfig', 'server', 'mochaTest', 'karma:unit', 'protractor']);
   grunt.registerTask('test:server', ['env:test', 'lint', 'server', 'mochaTest']);
-  grunt.registerTask('test:client', ['env:test', 'lint', 'server', 'karma:unit']);
+  grunt.registerTask('test:client', ['env:test', 'lint', 'karma:unit']);
+  grunt.registerTask('test:e2e', ['env:test', 'lint', 'dropdb', 'server', 'protractor']);
+  // Run project coverage
+  grunt.registerTask('coverage', ['env:test', 'lint', 'mocha_istanbul:coverage', 'karma:unit']);
+
   // Run the project in development mode
   grunt.registerTask('default', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
 

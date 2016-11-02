@@ -5,12 +5,13 @@
  */
 var _ = require('lodash'),
   defaultAssets = require('./config/assets/default'),
-  testAssets = require('./config/assets/test');
+  testAssets = require('./config/assets/test'),
+  testConfig = require('./config/env/test'),
+  karmaReporters = ['progress'];
 
 // Karma configuration
 module.exports = function (karmaConfig) {
   karmaConfig.set({
-    // Frameworks to use
     frameworks: ['jasmine'],
 
     preprocessors: {
@@ -21,8 +22,8 @@ module.exports = function (karmaConfig) {
       moduleName: 'mean',
 
       cacheIdFromPath: function (filepath) {
-        return filepath.replace('/client', '');
-      },
+        return filepath;
+      }
     },
 
     // List of files / patterns to load in the browser
@@ -30,7 +31,7 @@ module.exports = function (karmaConfig) {
 
     // Test results reporter to use
     // Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['progress'],
+    reporters: karmaReporters,
 
     // Web server port
     port: 9876,

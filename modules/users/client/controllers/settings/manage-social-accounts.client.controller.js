@@ -1,38 +1,47 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('users').controller('SocialAccountsController', ['$scope', '$http', 'Authentication',
-  function ($scope, $http, Authentication) {
-    $scope.user = Authentication.user;
+  angular
+    .module('users')
+    .controller('SocialAccountsController', SocialAccountsController);
+
+  SocialAccountsController.$inject = ['$scope', 'UsersService', 'Authentication'];
+
+  function SocialAccountsController($scope, UsersService, Authentication) {
+    var vm = this;
+
+    vm.user = Authentication.user;
+    vm.hasConnectedAdditionalSocialAccounts = hasConnectedAdditionalSocialAccounts;
+    vm.isConnectedSocialAccount = isConnectedSocialAccount;
+    vm.removeUserSocialAccount = removeUserSocialAccount;
 
     // Check if there are additional accounts
-    $scope.hasConnectedAdditionalSocialAccounts = function (provider) {
-      for (var i in $scope.user.additionalProvidersData) {
-        return true;
-      }
-
-      return false;
-    };
+    function hasConnectedAdditionalSocialAccounts() {
+      return (vm.user.additionalProvidersData && Object.keys(vm.user.additionalProvidersData).length);
+    }
 
     // Check if provider is already in use with current user
-    $scope.isConnectedSocialAccount = function (provider) {
-      return $scope.user.provider === provider || ($scope.user.additionalProvidersData && $scope.user.additionalProvidersData[provider]);
-    };
+    function isConnectedSocialAccount(provider) {
+      return vm.user.provider === provider || (vm.user.additionalProvidersData && vm.user.additionalProvidersData[provider]);
+    }
 
     // Remove a user social account
-    $scope.removeUserSocialAccount = function (provider) {
-      $scope.success = $scope.error = null;
+    function removeUserSocialAccount(provider) {
+      vm.success = vm.error = null;
 
-      $http.delete('/api/users/accounts', {
-        params: {
-          provider: provider
-        }
-      }).success(function (response) {
-        // If successful show success message and clear form
-        $scope.success = true;
-        $scope.user = Authentication.user = response;
-      }).error(function (response) {
-        $scope.error = response.message;
-      });
-    };
+      UsersService.removeSocialAccount(provider)
+        .then(onRemoveSocialAccountSuccess)
+        .catch(onRemoveSocialAccountError);
+    }
+
+    function onRemoveSocialAccountSuccess(response) {
+      // If successful show success message and clear form
+      vm.success = true;
+      vm.user = Authentication.user = response;
+    }
+
+    function onRemoveSocialAccountError(response) {
+      vm.error = response.message;
+    }
   }
-]);
+}());

@@ -4,7 +4,7 @@ var defaultEnvConfig = require('./default');
 
 module.exports = {
   db: {
-    uri: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean-dev',
+    uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean-dev',
     options: {
       user: '',
       pass: ''
@@ -13,12 +13,15 @@ module.exports = {
     debug: process.env.MONGODB_DEBUG || false
   },
   log: {
+    // logging with Morgan - https://github.com/expressjs/morgan
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
     format: 'dev',
-    // Stream defaults to process.stdout
-    // Uncomment to enable logging to a log on the file system
-    options: {
-      //stream: 'access.log'
+    fileLogger: {
+      directoryPath: process.cwd(),
+      fileName: 'app.log',
+      maxsize: 10485760,
+      maxFiles: 2,
+      json: false
     }
   },
   app: {
@@ -65,5 +68,29 @@ module.exports = {
       }
     }
   },
-  livereload: true
+  livereload: true,
+  seedDB: {
+    seed: process.env.MONGO_SEED === 'true',
+    options: {
+      logResults: process.env.MONGO_SEED_LOG_RESULTS !== 'false',
+      seedUser: {
+        username: process.env.MONGO_SEED_USER_USERNAME || 'user',
+        provider: 'local',
+        email: process.env.MONGO_SEED_USER_EMAIL || 'user@localhost.com',
+        firstName: 'User',
+        lastName: 'Local',
+        displayName: 'User Local',
+        roles: ['user']
+      },
+      seedAdmin: {
+        username: process.env.MONGO_SEED_ADMIN_USERNAME || 'admin',
+        provider: 'local',
+        email: process.env.MONGO_SEED_ADMIN_EMAIL || 'admin@localhost.com',
+        firstName: 'Admin',
+        lastName: 'Local',
+        displayName: 'Admin Local',
+        roles: ['user', 'admin']
+      }
+    }
+  }
 };

@@ -1,72 +1,56 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('users').controller('ChangeProfilePictureController', ['$scope', '$timeout', '$window', 'Authentication', 'FileUploader',
-  function ($scope, $timeout, $window, Authentication, FileUploader) {
-    $scope.user = Authentication.user;
-    $scope.imageURL = $scope.user.profileImageURL;
+  angular
+    .module('users')
+    .controller('ChangeProfilePictureController', ChangeProfilePictureController);
 
-    // Create file uploader instance
-    $scope.uploader = new FileUploader({
-      url: 'api/users/picture'
-    });
+  ChangeProfilePictureController.$inject = ['$timeout', 'Authentication', 'Upload'];
 
-    // Set file uploader image filter
-    $scope.uploader.filters.push({
-      name: 'imageFilter',
-      fn: function (item, options) {
-        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-      }
-    });
+  function ChangeProfilePictureController($timeout, Authentication, Upload) {
+    var vm = this;
 
-    // Called after the user selected a new picture file
-    $scope.uploader.onAfterAddingFile = function (fileItem) {
-      if ($window.FileReader) {
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(fileItem._file);
+    vm.user = Authentication.user;
+    vm.fileSelected = false;
 
-        fileReader.onload = function (fileReaderEvent) {
-          $timeout(function () {
-            $scope.imageURL = fileReaderEvent.target.result;
-          }, 0);
-        };
-      }
+    vm.upload = function (dataUrl, name) {
+      vm.success = vm.error = null;
+
+      Upload.upload({
+        url: 'api/users/picture',
+        data: {
+          newProfilePicture: Upload.dataUrltoBlob(dataUrl, name)
+        }
+      }).then(function (response) {
+        $timeout(function () {
+          onSuccessItem(response.data);
+        });
+      }, function (response) {
+        if (response.status > 0) onErrorItem(response.data);
+      }, function (evt) {
+        vm.progress = parseInt(100.0 * evt.loaded / evt.total, 10);
+      });
     };
 
     // Called after the user has successfully uploaded a new picture
-    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+    function onSuccessItem(response) {
       // Show success message
-      $scope.success = true;
+      vm.success = true;
 
       // Populate user object
-      $scope.user = Authentication.user = response;
+      vm.user = Authentication.user = response;
 
-      // Clear upload buttons
-      $scope.cancelUpload();
-    };
+      // Reset form
+      vm.fileSelected = false;
+      vm.progress = 0;
+    }
 
     // Called after the user has failed to uploaded a new picture
-    $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
-      // Clear upload buttons
-      $scope.cancelUpload();
+    function onErrorItem(response) {
+      vm.fileSelected = false;
 
       // Show error message
-      $scope.error = response.message;
-    };
-
-    // Change user profile picture
-    $scope.uploadProfilePicture = function () {
-      // Clear messages
-      $scope.success = $scope.error = null;
-
-      // Start upload
-      $scope.uploader.uploadAll();
-    };
-
-    // Cancel the upload process
-    $scope.cancelUpload = function () {
-      $scope.uploader.clearQueue();
-      $scope.imageURL = $scope.user.profileImageURL;
-    };
+      vm.error = response.message;
+    }
   }
-]);
+}());

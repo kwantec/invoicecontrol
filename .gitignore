@@ -15,6 +15,7 @@ app/tests/coverage/
 .bower-*/
 .idea/
 coverage/
+.coveralls.yml
 
 # MEAN.js app and assets
 # ======================
@@ -22,6 +23,7 @@ public/dist/
 uploads
 modules/users/client/img/profile/uploads
 config/env/local.js
+config/env/local-*.js
 *.pem
 
 # Ignoring MEAN.JS's gh-pages branch for documenation

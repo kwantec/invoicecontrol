@@ -1,20 +1,43 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('users').controller('ChangePasswordController', ['$scope', '$http', 'Authentication',
-  function ($scope, $http, Authentication) {
-    $scope.user = Authentication.user;
+  angular
+    .module('users')
+    .controller('ChangePasswordController', ChangePasswordController);
+
+  ChangePasswordController.$inject = ['$scope', '$http', 'Authentication', 'UsersService', 'PasswordValidator'];
+
+  function ChangePasswordController($scope, $http, Authentication, UsersService, PasswordValidator) {
+    var vm = this;
+
+    vm.user = Authentication.user;
+    vm.changeUserPassword = changeUserPassword;
+    vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
 
     // Change user password
-    $scope.changeUserPassword = function () {
-      $scope.success = $scope.error = null;
+    function changeUserPassword(isValid) {
+      vm.success = vm.error = null;
 
-      $http.post('/api/users/password', $scope.passwordDetails).success(function (response) {
-        // If successful show success message and clear form
-        $scope.success = true;
-        $scope.passwordDetails = null;
-      }).error(function (response) {
-        $scope.error = response.message;
-      });
-    };
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.passwordForm');
+
+        return false;
+      }
+
+      UsersService.changePassword(vm.passwordDetails)
+        .then(onChangePasswordSuccess)
+        .catch(onChangePasswordError);
+    }
+
+    function onChangePasswordSuccess(response) {
+      // If successful show success message and clear form
+      $scope.$broadcast('show-errors-reset', 'vm.passwordForm');
+      vm.success = true;
+      vm.passwordDetails = null;
+    }
+
+    function onChangePasswordError(response) {
+      vm.error = response.data.message;
+    }
   }
-]);
+}());

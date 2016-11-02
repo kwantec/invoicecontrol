@@ -1,46 +1,81 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication',
-  function ($scope, $stateParams, $http, $location, Authentication) {
-    $scope.authentication = Authentication;
+  angular
+    .module('users')
+    .controller('PasswordController', PasswordController);
 
-    //If user is signed in then redirect back home
-    if ($scope.authentication.user) {
+  PasswordController.$inject = ['$scope', '$stateParams', 'UsersService', '$location', 'Authentication', 'PasswordValidator'];
+
+  function PasswordController($scope, $stateParams, UsersService, $location, Authentication, PasswordValidator) {
+    var vm = this;
+
+    vm.resetUserPassword = resetUserPassword;
+    vm.askForPasswordReset = askForPasswordReset;
+    vm.authentication = Authentication;
+    vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
+
+    // If user is signed in then redirect back home
+    if (vm.authentication.user) {
       $location.path('/');
     }
 
     // Submit forgotten password account id
-    $scope.askForPasswordReset = function () {
-      $scope.success = $scope.error = null;
+    function askForPasswordReset(isValid) {
+      vm.success = vm.error = null;
 
-      $http.post('/api/auth/forgot', $scope.credentials).success(function (response) {
-        // Show user success message and clear form
-        $scope.credentials = null;
-        $scope.success = response.message;
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.forgotPasswordForm');
 
-      }).error(function (response) {
-        // Show user error message and clear form
-        $scope.credentials = null;
-        $scope.error = response.message;
-      });
-    };
+        return false;
+      }
+
+      UsersService.requestPasswordReset(vm.credentials)
+        .then(onRequestPasswordResetSuccess)
+        .catch(onRequestPasswordResetError);
+    }
 
     // Change user password
-    $scope.resetUserPassword = function () {
-      $scope.success = $scope.error = null;
+    function resetUserPassword(isValid) {
+      vm.success = vm.error = null;
 
-      $http.post('/api/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(function (response) {
-        // If successful show success message and clear form
-        $scope.passwordDetails = null;
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.resetPasswordForm');
 
-        // Attach user profile
-        Authentication.user = response;
+        return false;
+      }
 
-        // And redirect to the index page
-        $location.path('/password/reset/success');
-      }).error(function (response) {
-        $scope.error = response.message;
-      });
-    };
+      UsersService.resetPassword($stateParams.token, vm.passwordDetails)
+        .then(onResetPasswordSuccess)
+        .catch(onResetPasswordError);
+    }
+
+    // Password Reset Callbacks
+
+    function onRequestPasswordResetSuccess(response) {
+      // Show user success message and clear form
+      vm.credentials = null;
+      vm.success = response.message;
+    }
+
+    function onRequestPasswordResetError(response) {
+      // Show user error message and clear form
+      vm.credentials = null;
+      vm.error = response.data.message;
+    }
+
+    function onResetPasswordSuccess(response) {
+      // If successful show success message and clear form
+      vm.passwordDetails = null;
+
+      // Attach user profile
+      Authentication.user = response;
+      // And redirect to the index page
+      $location.path('/password/reset/success');
+    }
+
+    function onResetPasswordError(response) {
+      vm.error = response.data.message;
+    }
   }
-]);
+}());
