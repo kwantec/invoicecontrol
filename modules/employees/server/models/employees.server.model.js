@@ -4,7 +4,7 @@
  * Module dependencies
  */
 var mongoose = require('mongoose'),
-  momentTimezone = require("moment-timezone"),
+  momentTimezone = require('moment-timezone'),
   Schema = mongoose.Schema;
 
 var getNow = function(){
