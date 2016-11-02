@@ -1,3 +1,11 @@
-<section>
-	Hola
+<section ng-init="findEmployee()">
+	<div class="page-header">
+		<h1>Empleado: <span ng-bind="findedEmployee._id"></span></h1>
+	</div>
+	<h3>Información del empleado</h3>
+	<p>Fecha de creación: <span ng-bind="findedEmployee.created | date : format : timezone"></span></p>
+	<p>Nombre: <span ng-bind="findedEmployee.name"></span></p>
+	<p>Apellido: <span ng-bind="findedEmployee.lastname"></span></p>
+	<p>Salario: <span ng-bind="findedEmployee.salary | currency"></span></p>
+	<p>Cumpleaños: <span ng-bind="findedEmployee.dateOfBirthday | date : format : timezone"></span></p>
 </section>

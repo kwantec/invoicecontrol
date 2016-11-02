@@ -17,7 +17,7 @@
 			template: '<ui-view/>'
 		})
 		.state('employees.view', {
-			url: '/test',
+			url: '/:employeeId',
 			templateUrl: 'modules/employees/client/views/view-employee.client.view.html',
 			controller: 'EmployeesController'
 		})
@@ -27,11 +27,5 @@
 			controller: 'EmployeesController'
 		});
 	}
-
-	// getEmployee.$inject = ['$stateParams', 'EmployeesService'];
-
-	// function getEmployee($stateParams, EmployeesService){
-	// 	// return 
-	// }
 
 }());

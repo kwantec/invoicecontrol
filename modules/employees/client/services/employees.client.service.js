@@ -5,11 +5,16 @@
 
   function EmployeesService($http){
     return {
-      createEmployee: createEmployee
+      createEmployee: createEmployee,
+      findEmployee: findEmployee
     };
 
     function createEmployee(employee) {
       return $http({ method: 'POST', data: employee, url: 'http://localhost:3000/api/employees' });
+    }
+
+    function findEmployee(id) {
+      return $http({ method: 'GET', url: 'http://localhost:3000/api/employees/' + id });
     }
   }
 
