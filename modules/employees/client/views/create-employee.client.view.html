@@ -1,7 +1,11 @@
 <section>
 	<div class="page-header">
 		<h1>Crear nuevo empleado</h1>
-  	</div>
+	</div>
+	<div class="alert alert-success" ng-show="showSuccessAlert">
+		<button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
+		<strong>¡Hecho!</strong> {{successTextAlert}}
+	</div>
 	<form name="formEmployee" ng-submit="submit()">
 		<div class="form-group" ng-class = "{'has-success has-feedback': formEmployee.name.$touched && formEmployee.name.$valid, 'has-warning has-feedback': formEmployee.name.$touched && formEmployee.name.$invalid}">
 			<label for="name">Nombre</label>
@@ -27,6 +31,6 @@
 			<i ng-show="formEmployee.birthday.$touched && formEmployee.birthday.$valid" class="glyphicon glyphicon-ok form-control-feedback"></i>
 			<i ng-show="formEmployee.birthday.$touched && formEmployee.birthday.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></i>
 		</div>
-		<button type="submit" class="btn btn-primary" ng-click="submitted=true">Crear empleado</button>
+		<button type="submit" class="btn btn-primary">Crear empleado</button>
 	</form>
 </section>

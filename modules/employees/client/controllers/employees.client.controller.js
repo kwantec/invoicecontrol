@@ -1,27 +1,27 @@
 (function () {
-  'use strict';
+	'use strict';
 
-  // Employees controller
-  angular.module('employees').controller('EmployeesController', ['$scope', '$http', 'EmployeesService',
-    function ($scope, $http, EmployeesService) {
+	// Employees controller
+	angular.module('employees').controller('EmployeesController', ['$scope', '$http', 'EmployeesService',
+		function ($scope, $http, EmployeesService) {
 
-      $scope.employee = {};
-      // $scope.clickedSubmit = function () {
-      //   // EmployeesService.createEmployee($scope.employee);
-      //   EmployeesService.createEmployee($scope.employee).then(function(response){
-      //     console.log("éxito", response);
-      //   }).catch(function(err) {
-      //     console.log("err", err);
-      //   });
-      // };
+			$scope.successTextAlert = "Some content";
+			$scope.showSuccessAlert = false;
+			$scope.employee = {};
 
-      $scope.submit = function(form){
-        EmployeesService.createEmployee($scope.employee).then(function(response){
-          console.log("éxito", response);
-        }).catch(function(err) {
-          console.log("err", err);
-        });
-      };
-    }
-  ]);
+			$scope.switchBool = function(value) {
+				$scope[value] = !$scope[value];
+			};
+
+			$scope.submit = function(form){
+				EmployeesService.createEmployee($scope.employee).then(function(response){
+					console.log("éxito", response);
+					$scope.successTextAlert = 'Se ha creado al empleado correctamente!';
+					$scope.showSuccessAlert = true;
+				}).catch(function(err) {
+					console.log("err", err);
+				});
+			};
+		}
+	]);
 }());
