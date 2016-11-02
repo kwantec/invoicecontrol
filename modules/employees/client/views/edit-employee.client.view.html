@@ -6,29 +6,31 @@
 </md-toolbar>
 <md-content flex layout-padding ng-init="findEmployee()">
   <div>
-    <md-input-container layout-gt-xs="row">
-      <label>Nombre</label>
-      <input ng-model="employee.name">
-    </md-input-container>
+    <form name="editEmployee" ng-submit="update()">
+      <md-input-container layout-gt-xs="row">
+        <label>Nombre</label>
+        <input ng-model="employee.name" required>
+      </md-input-container>
 
-    <md-input-container layout-gt-xs="row">
-      <label>Apellido</label>
-      <input ng-model="employee.lastName" type="text">
-    </md-input-container>
+      <md-input-container layout-gt-xs="row">
+        <label>Apellido</label>
+        <input ng-model="employee.lastName" type="text" required>
+      </md-input-container>
 
-    <md-input-container layout-gt-xs="row">
-      <label>Salario</label>
-      <input ng-model="employee.salary" type="number">
-    </md-input-container>
+      <md-input-container layout-gt-xs="row">
+        <label>Salario</label>
+        <input ng-model="employee.salary" type="number" required>
+      </md-input-container>
 
-    <div layout-gt-xs="row">
-      <div flex-gt-xs>
-        <h4>Fecha de nacimiento</h4>
-        <md-datepicker ng-model="employee.dob" md-placeholder="Enter date"></md-datepicker>
+      <div layout-gt-xs="row">
+        <div flex-gt-xs>
+          <h4>Fecha de nacimiento</h4>
+          <md-datepicker ng-model="employee.dob" md-placeholder="Enter date" required></md-datepicker>
+        </div>
       </div>
-    </div>
 
-    <md-button ng-click="update()" class="md-raised md-primary">Guardar</md-button>
+      <md-button ng-disabled="!editEmployee.$valid" type="submit" class="md-raised md-primary">Guardar</md-button>
+    </form>
 
   </div>
 </md-content>
