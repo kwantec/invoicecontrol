@@ -15,5 +15,6 @@ module.exports = function (app) {
         .post(employees.create);
 
     app.route('/api/employees/:employeeId')
-        .get(employees.read);
+        .get(employees.read)
+        .delete(employees.delete);
 };

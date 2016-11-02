@@ -7,9 +7,9 @@
         .module('employees')
         .controller('EmployeesClientController', EmployeesClientController);
 
-    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees'];
+    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location'];
 
-    function EmployeesClientController($scope, $resource, $stateParams, Employees) {
+    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location) {
         $scope.newEmployee = {};
         $scope.newEmployee.name = "";
         $scope.newEmployee.lastName = "";
@@ -29,6 +29,12 @@
         $scope.findEmployee = function () {
             $scope.employee = Employees.get({
                 employeeId: $stateParams.employeeId
+            });
+        };
+
+        $scope.removeEmployee = function () {
+            $scope.employee.$delete({employeeId: $stateParams.employeeId}, function () {
+                $location.path('employees/list');
             });
         };
     }

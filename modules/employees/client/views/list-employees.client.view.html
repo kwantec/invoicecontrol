@@ -8,8 +8,10 @@
                 <td>{{employee.name}}</td>
                 <td>{{employee.lastName }}</td>
                 <td>{{employee.salary }}</td>
-                <td>{{employee.employeeId }}</td>
-                <td><a ng-href="/employees/{{employee._id}}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+                <td>
+                    <a ng-href="/employees/{{employee._id}}"><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a ng-click="removeEmployee(employee._id);"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
             </tr>
         </table>
     </div>

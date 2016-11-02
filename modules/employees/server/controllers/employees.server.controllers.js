@@ -45,3 +45,15 @@ exports.read = function (req, res) {
         }
     });
 };
+
+exports.delete = function (req, res) {
+    Employee.findById(req.params.employeeId).remove(function (err, employee) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.json(employee);
+        }
+    });
+};
