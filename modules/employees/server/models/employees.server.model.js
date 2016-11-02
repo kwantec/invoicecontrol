@@ -35,10 +35,6 @@ var EmployeeSchema = new Schema({
   salary: {
     type: Number
   }
-  // team: {
-  //   type: Schema.ObjectId,
-  //   ref: 'Team'
-  // }
 });
 
 mongoose.model('Employee', EmployeeSchema);
