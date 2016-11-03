@@ -12,7 +12,8 @@ module.exports = function (app) {
         .post(employee.create);
 
     app.route('/api/employees/:employeeId')
-        .get(employee.read);
+        .get(employee.read)
+        .delete(employee.delete);
 
     // Finish by binding the employee middleware
     app.param('employeeId', employee.employeeById);

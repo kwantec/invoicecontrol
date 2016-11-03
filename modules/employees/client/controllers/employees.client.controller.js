@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-
+	
 	// Employees controller
 	angular.module('employees').controller('EmployeesController', ['$scope', '$stateParams', '$http', 'EmployeesService',
 		function ($scope, $stateParams, $http, EmployeesService) {
@@ -35,4 +35,14 @@
 			};
 		}
 	]);
+
+	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService',
+		function($scope,EmployeesService){
+			EmployeesService.listEmployees().then(function(response){
+				$scope.listEmployees = response.data;
+				console.log($scope.listEmployees);
+			}).catch(function(err){
+				console.log("Error")
+			})
+		}]);
 }());

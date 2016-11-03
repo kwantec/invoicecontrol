@@ -21,5 +21,10 @@
 			state: 'employees.create',
 			roles: ['*']
 		});
+		menuService.addSubMenuItem('topbar', 'employees', {
+			title: 'Lista de empleados',
+			state: 'employees.list',
+			roles: ['*']
+		});
 	}
 }());

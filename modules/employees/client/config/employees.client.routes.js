@@ -25,7 +25,13 @@
 			url: '/create',
 			templateUrl: 'modules/employees/client/views/create-employee.client.view.html',
 			controller: 'EmployeesController'
+		})
+		.state('employees.list',{
+			url: '/list',
+			templateUrl: 'modules/employees/client/views/list-employee.client.view.html',
+			controller: 'ListEmployeesController'
 		});
+
 	}
 
 }());

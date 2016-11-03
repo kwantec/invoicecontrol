@@ -78,5 +78,22 @@ exports.list = function (req, res) {
       res.json(articles);
     }
   });
+};
 
+// delete employee
+exports.delete = function (req, res) {
+  var employee = req.employee;
+
+  employee.remove(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // res.json(employee);
+      res.status(200).send({
+        message: 'deleted'
+      })
+    }
+  });
 };
