@@ -6,20 +6,30 @@
     angular
         .module('employees')
         .controller('EmployeesListClientController', EmployeesListClientController);
-    EmployeesListClientController.$inject = ['$scope', '$resource', 'Employees'];
+    EmployeesListClientController.$inject = ['$scope', '$resource', '$filter', '$mdToast', 'Employees'];
 
-    function EmployeesListClientController($scope, $resource, Employees) {
+    function EmployeesListClientController($scope, $resource, $filter, $mdToast, Employees) {
         var Employee = $resource('/api/employees');
         $scope.employees = Employee.query();
 
         $scope.removeEmployee = function (employeeId) {
-            Employees.delete({employeeId: employeeId}).exec();
+            Employees.delete(
+                {employeeId: employeeId},
+                function () {
+                    $scope.employees = $filter('filter')($scope.employees, function(employee) {
+                        return employee._id !== employeeId;
+                    });
 
-            for (var i in $scope.employees) {
-                if ($scope.employees[i].employeeId === employeeId) {
-                    $scope.employees.splice(i, 1);
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Employee Succesfully Deleted!')
+                            .hideDelay(3000)
+                    );
+                },
+                function (errorResponse) {
+                    $scope.error = errorResponse.data.message;
                 }
-            }
+            );
         };
     }
 }());
