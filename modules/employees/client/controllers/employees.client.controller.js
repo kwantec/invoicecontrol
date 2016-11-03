@@ -34,14 +34,6 @@
 					console.log("err", err);
 				});
 			};
-
-			$scope.onEdit = function() {
-				console.log("Here to edit...");
-			};
-
-			$scope.onRemove = function() {
-				console.log("Here to remove...");
-			};
 		}
 	]);
 }());
