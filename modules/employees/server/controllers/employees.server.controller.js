@@ -65,3 +65,18 @@ exports.employeeById = function (req, res, next, id) {
     next();
   });
 };
+
+
+// get list off employees
+exports.list = function (req, res) {
+  Employee.find().exec(function (err, articles) {
+    if (err) {
+      return res.status(404).send({
+        message: 'Failed to read employees'
+      });
+    } else {
+      res.json(articles);
+    }
+  });
+
+};
