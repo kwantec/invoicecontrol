@@ -97,3 +97,26 @@ exports.delete = function (req, res) {
     }
   });
 };
+
+//update employee
+exports.update = function (req, res) {
+  var employee = req.employee;
+
+  employee.name = req.body.name;
+  employee.lastname = req.body.lastname;
+  employee.dateOfBirthday = req.body.dateOfBirthday;
+  employee.salary = req.body.salary
+
+  employee.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // res.json(employee);
+      res.status(200).send({
+        message: 'modified'
+      })
+    }
+  });
+};

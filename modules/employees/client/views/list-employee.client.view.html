@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="row col-md-6 col-md-offset-2 custyle">
+    <div class="row col-md-12 custyle">
         <table class="table table-striped custab">
             <thead>
-            <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a>
+            <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Crear nuevo empleado</a>
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>
@@ -13,7 +13,7 @@
             </thead>
             <tr ng-repeat="employee in listEmployees track by $index" id="employee._id">
                 <td>{{employee.name}}</td>
-                <td>{{employee.lastName}}</td>
+                <td>{{employee.lastname}}</td>
                 <td>{{employee.dateOfBirthday}}</td>
                 <td>{{employee.salary}}</td>
                 <td class="text-center">

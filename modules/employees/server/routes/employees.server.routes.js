@@ -13,6 +13,7 @@ module.exports = function (app) {
 
     app.route('/api/employees/:employeeId')
         .get(employee.read)
+        .put(employee.update)
         .delete(employee.delete);
 
     // Finish by binding the employee middleware

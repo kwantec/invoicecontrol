@@ -38,7 +38,6 @@
 
 	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService',
 		function($scope,EmployeesService){
-
 			EmployeesService.listEmployees().then(function(response){
 				$scope.listEmployees = response.data;
 				console.log($scope.listEmployees);
