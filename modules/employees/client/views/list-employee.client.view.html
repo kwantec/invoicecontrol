@@ -1,26 +1,44 @@
 <div class="container">
-    <div class="row col-md-12 custyle">
-        <table class="table table-striped custab">
-            <thead>
-            <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Crear nuevo empleado</a>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Fecha de cumpleaños</th>
-                <th>Salario</th>
-                <th class="text-center">Action</th>
-            </tr>
-            </thead>
-            <tr ng-repeat="employee in listEmployees track by $index" id="employee._id">
-                <td>{{employee.name}}</td>
-                <td>{{employee.lastname}}</td>
-                <td>{{employee.dateOfBirthday}}</td>
-                <td>{{employee.salary}}</td>
-                <td class="text-center">
-                    <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                    <a href="#" class="btn btn-danger btn-xs" ng-click="delete_employee($index)"><span class="glyphicon glyphicon-remove" ></span> Del</a>
-                </td>
-            </tr>
-        </table>
-    </div>
+	<div class="page-header">
+		<h1>Lista de empleados</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<a ng-href="employees/create" class="btn btn-primary pull-right">
+				<i class="glyphicon glyphicon-plus"></i>
+				Crear nuevo empleado
+			</a>
+		</div>
+	</div>
+	<hr>
+	<div class="row custyle">
+		<div class="col-md-12">
+			<div class="alert alert-info" ng-show="listEmployees.length <= 0">
+				<strong>¡Advertencia!</strong> No existen empleados para mostrar
+			</div>
+			<div ng-show="listEmployees.length > 0">
+				<table class="table table-striped custab">
+					<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Fecha de cumpleaños</th>
+						<th>Salario</th>
+						<th class="text-center">Action</th>
+					</tr>
+					</thead>
+					<tr ng-repeat="employee in listEmployees track by $index" id="employee._id">
+						<td>{{employee.name}}</td>
+						<td>{{employee.lastname}}</td>
+						<td>{{employee.dateOfBirthday | date : format : timezone}}</td>
+						<td>{{employee.salary | currency}}</td>
+						<td class="text-center">
+							<a class='btn-sm btn btn-info' href="#"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+							<a href="#" class="btn-sm btn btn-danger" ng-click="delete_employee($index)"><span class="glyphicon glyphicon-remove" ></span> Borrar</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
