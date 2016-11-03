@@ -9,7 +9,8 @@
     return {
       createEmployee: createEmployee,
       findEmployee: findEmployee,
-      listEmployees: listEmployees
+      listEmployees: listEmployees,
+      deleteEmployee : deleteEmployee
     };
 
     function createEmployee(employee) {
@@ -22,6 +23,10 @@
 
     function listEmployees(){
       return $http({method:'GET',url: url})
+    }
+
+    function deleteEmployee(id){
+      return $http({method:'DELETE',url: url + id })
     }
   }
 

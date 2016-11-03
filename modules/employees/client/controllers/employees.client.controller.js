@@ -38,11 +38,25 @@
 
 	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService',
 		function($scope,EmployeesService){
+
 			EmployeesService.listEmployees().then(function(response){
 				$scope.listEmployees = response.data;
 				console.log($scope.listEmployees);
 			}).catch(function(err){
-				console.log("Error")
-			})
+				console.log("Error");
+			});
+
+			$scope.delete_employee = function(index){
+				var id = $scope.listEmployees[index]._id;
+				EmployeesService.deleteEmployee(id).then(function(response){
+					console.log(response.data)
+					if(response.data.message =='deleted'){
+						$scope.listEmployees.splice(index,1);
+						console.log($scope.listEmployees);
+					}
+				}).catch(function(err){
+					console.log('error');
+				});
+			}
 		}]);
 }());

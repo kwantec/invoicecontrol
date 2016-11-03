@@ -11,12 +11,15 @@
                 <th class="text-center">Action</th>
             </tr>
             </thead>
-            <tr ng-repeat="employee in listEmployees">
+            <tr ng-repeat="employee in listEmployees track by $index" id="employee._id">
                 <td>{{employee.name}}</td>
                 <td>{{employee.lastName}}</td>
                 <td>{{employee.dateOfBirthday}}</td>
                 <td>{{employee.salary}}</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <td class="text-center">
+                    <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a href="#" class="btn btn-danger btn-xs" ng-click="delete_employee($index)"><span class="glyphicon glyphicon-remove" ></span> Del</a>
+                </td>
             </tr>
         </table>
     </div>
