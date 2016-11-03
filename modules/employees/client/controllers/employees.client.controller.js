@@ -5,7 +5,7 @@
 	angular.module('employees').controller('EmployeesController', ['$scope', '$log', '$uibModal', '$location', '$stateParams', '$http', 'EmployeesService',
 		function ($scope, $log, $uibModal, $location, $stateParams, $http, EmployeesService) {
 			var $ctrl = this;
-
+		
 			$scope.successTextAlert = "Some content";
 			$scope.showSuccessAlert = false;
 			$scope.employee = {};
@@ -15,11 +15,14 @@
 				$scope[value] = !$scope[value];
 			};
 
+			console.log($scope.employee);
+
 			$scope.submit = function(form){
 				EmployeesService.createEmployee($scope.employee).then(function(response){
 					$scope.successTextAlert = 'Se ha creado al empleado correctamente!';
 					$scope.showSuccessAlert = true;
-					$location.path('/employees/' + response.data._id);
+					$scope.employee = {};
+					$scope.formEmployee.$setUntouched();
 				}).catch(function(err) {
 					console.log("err", err);
 				});
@@ -48,8 +51,8 @@
 		}
 	]);
 
-	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService',
-		function($scope,EmployeesService){
+	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService','SweetAlert',
+		function($scope,EmployeesService,SweetAlert){
 			EmployeesService.listEmployees().then(function(response){
 				$scope.listEmployees = response.data;
 				console.log($scope.listEmployees);
@@ -59,15 +62,36 @@
 
 			$scope.delete_employee = function(index){
 				var id = $scope.listEmployees[index]._id;
-				EmployeesService.deleteEmployee(id).then(function(response){
-					console.log(response.data)
-					if(response.data.message =='deleted'){
-						$scope.listEmployees.splice(index,1);
-						console.log($scope.listEmployees);
-					}
-				}).catch(function(err){
-					console.log('error');
-				});
+
+				SweetAlert.swal({
+						title: "¿Estás seguro(a) de borrar el empleado?",
+						text: "No podras recuperar este registro",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",confirmButtonText: "Si",
+						cancelButtonText: "No",
+						closeOnConfirm: false,
+						closeOnCancel: false },
+					function(isConfirm){
+						if (isConfirm) {
+
+							EmployeesService.deleteEmployee(id).then(function(response){
+								console.log(response.data);
+								if(response.data.message =='deleted'){
+									$scope.listEmployees.splice(index,1);
+									console.log($scope.listEmployees);
+									SweetAlert.swal("Borrado!","", "success");
+								}
+							}).catch(function(err){
+								SweetAlert.swal("Error!","", "error");
+							});
+
+						} else {
+							SweetAlert.swal("Cancelado", "", "error");
+						}
+					});
+
+
 			};
 		}]);
 }());
