@@ -2,8 +2,9 @@
 	'use strict';
 
 	// Employees controller
-	angular.module('employees').controller('EmployeesController', ['$scope', '$location', '$stateParams', '$http', 'EmployeesService',
-		function ($scope, $location, $stateParams, $http, EmployeesService) {
+	angular.module('employees').controller('EmployeesController', ['$scope', '$log', '$uibModal', '$location', '$stateParams', '$http', 'EmployeesService',
+		function ($scope, $log, $uibModal, $location, $stateParams, $http, EmployeesService) {
+			var $ctrl = this;
 
 			$scope.successTextAlert = "Some content";
 			$scope.showSuccessAlert = false;
@@ -32,6 +33,14 @@
 				}).catch(function (err) {
 					console.log("err", err);
 				});
+			};
+
+			$scope.onEdit = function() {
+				console.log("Here to edit...");
+			};
+
+			$scope.onRemove = function() {
+				console.log("Here to remove...");
 			};
 		}
 	]);
