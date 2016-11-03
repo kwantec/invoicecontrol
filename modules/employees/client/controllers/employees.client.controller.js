@@ -28,11 +28,22 @@
 				});
 			};
 
+			$scope.edit = function () {
+				var id = $stateParams.employeeId;
+				EmployeesService.editEmployee($scope.findedEmployee, id).then(function () {
+					$scope.successTextAlert = 'Se ha editado al empleado correctamente!';
+					$scope.showSuccessAlert = true;
+				}).catch(function (err) {
+					console.log("err", err);
+				});
+			};
+
 			$scope.findEmployee = function () {
 				var id = $stateParams.employeeId;
 				console.log("El id es: ", id);
 				EmployeesService.findEmployee(id).then(function (response) {
 					$scope.findedEmployee = response.data;
+					$scope.findedEmployee.dateOfBirthday = new Date(response.data.dateOfBirthday);
 				}).catch(function (err) {
 					console.log("err", err);
 				});
@@ -53,8 +64,8 @@
 				var id = $scope.listEmployees[index]._id;
 
 				SweetAlert.swal({
-						title: "¿Estas de seguro de borrar el empleado?",
-						text: "No padras recuperar este registro",
+						title: "¿Estás seguro(a) de borrar el empleado?",
+						text: "No podras recuperar este registro",
 						type: "warning",
 						showCancelButton: true,
 						confirmButtonColor: "#DD6B55",confirmButtonText: "Si",
@@ -65,7 +76,7 @@
 						if (isConfirm) {
 
 							EmployeesService.deleteEmployee(id).then(function(response){
-								console.log(response.data)
+								console.log(response.data);
 								if(response.data.message =='deleted'){
 									$scope.listEmployees.splice(index,1);
 									console.log($scope.listEmployees);
@@ -81,6 +92,6 @@
 					});
 
 
-			}
+			};
 		}]);
 }());

@@ -1,0 +1,36 @@
+<section ng-init="findEmployee()">
+	<div class="page-header">
+		<h1>Editar empleado</h1>
+	</div>
+	<div class="alert alert-success" ng-show="showSuccessAlert">
+		<button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
+		<strong>¡Hecho!</strong> {{successTextAlert}}
+	</div>
+	<form name="formEmployee" ng-submit="edit()">
+		<div class="form-group" ng-class = "{'has-success has-feedback': formEmployee.name.$touched && formEmployee.name.$valid, 'has-warning has-feedback': formEmployee.name.$touched && formEmployee.name.$invalid}">
+			<label for="name">Nombre</label>
+			<input name="name" type="text" class="form-control" placeholder="nombre..." ng-model="findedEmployee.name" required>
+			<i ng-show="formEmployee.name.$touched && formEmployee.name.$valid" class="glyphicon glyphicon-ok form-control-feedback"></i>
+			<i ng-show="formEmployee.name.$touched && formEmployee.name.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></i>
+		</div>
+		<div class="form-group" ng-class = "{'has-success has-feedback': formEmployee.lastname.$touched && formEmployee.lastname.$valid, 'has-warning has-feedback': formEmployee.lastname.$touched && formEmployee.lastname.$invalid}">
+			<label for="lastname">Apellido</label>
+			<input name="lastname" type="text" class="form-control" placeholder="apellido..." ng-model="findedEmployee.lastname" required>
+			<i ng-show="formEmployee.lastname.$touched && formEmployee.lastname.$valid" class="glyphicon glyphicon-ok form-control-feedback"></i>
+			<i ng-show="formEmployee.lastname.$touched && formEmployee.lastname.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></i>
+		</div>
+		<div class="form-group" ng-class = "{'has-success has-feedback': formEmployee.salary.$touched && formEmployee.salary.$valid, 'has-warning has-feedback': formEmployee.salary.$touched && formEmployee.salary.$invalid}">
+			<label for="salary">Salario</label>
+			<input name="salary" type="number" step="any" class="form-control" placeholder="salario..." ng-model="findedEmployee.salary" required>
+			<i ng-show="formEmployee.salary.$touched && formEmployee.salary.$valid" class="glyphicon glyphicon-ok form-control-feedback"></i>
+			<i ng-show="formEmployee.salary.$touched && formEmployee.salary.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></i>
+		</div>
+		<div class="form-group" ng-class = "{'has-success has-feedback': formEmployee.birthday.$touched && formEmployee.birthday.$valid, 'has-warning has-feedback': formEmployee.birthday.$touched && formEmployee.birthday.$invalid}">
+			<label for="birthday">Cumpleaños</label>
+			<input name="birthday" type="date" class="form-control" placeholder="cumpleaños..." ng-model="findedEmployee.dateOfBirthday" required>
+			<i ng-show="formEmployee.birthday.$touched && formEmployee.birthday.$valid" class="glyphicon glyphicon-ok form-control-feedback"></i>
+			<i ng-show="formEmployee.birthday.$touched && formEmployee.birthday.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></i>
+		</div>
+		<button type="submit" class="btn btn-primary">Editar empleado</button>
+	</form>
+</section>

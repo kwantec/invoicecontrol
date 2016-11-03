@@ -10,7 +10,8 @@
       createEmployee: createEmployee,
       findEmployee: findEmployee,
       listEmployees: listEmployees,
-      deleteEmployee : deleteEmployee
+      deleteEmployee : deleteEmployee,
+      editEmployee: editEmployee
     };
 
     function createEmployee(employee) {
@@ -22,11 +23,15 @@
     }
 
     function listEmployees(){
-      return $http({method:'GET',url: url})
+      return $http({method:'GET',url: url});
     }
 
     function deleteEmployee(id){
-      return $http({method:'DELETE',url: url + id })
+      return $http({method:'DELETE',url: url + id });
+    }
+
+    function editEmployee(employee, id){
+      return $http({method: 'PUT', data: employee, url: url + id} );
     }
   }
 
