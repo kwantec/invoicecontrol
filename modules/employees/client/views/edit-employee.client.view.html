@@ -1,36 +1,35 @@
-
-<md-toolbar class="md-theme-light">
-  <h2 class="md-toolbar-tools">
-    <span>Editar Empleado</span>
-  </h2>
+<md-toolbar class="md-theme-light" style="background-color:#3c3c3c">
+    <h2 class="md-toolbar-tools">
+        <span>Edit Employee</span>
+    </h2>
 </md-toolbar>
 <md-content flex layout-padding ng-init="findEmployee()">
-  <div>
-    <form name="editEmployee" ng-submit="update()">
-      <md-input-container layout-gt-xs="row">
-        <label>Nombre</label>
-        <input ng-model="employee.name" required>
-      </md-input-container>
+    <div>
+        <form name="editEmployee" ng-submit="update()">
+            <md-input-container layout-gt-xs="row">
+                <label>Name</label>
+                <input ng-model="employee.name" required>
+            </md-input-container>
 
-      <md-input-container layout-gt-xs="row">
-        <label>Apellido</label>
-        <input ng-model="employee.lastName" type="text" required>
-      </md-input-container>
+            <md-input-container layout-gt-xs="row">
+                <label>Last Name</label>
+                <input ng-model="employee.lastName" type="text" required>
+            </md-input-container>
 
-      <md-input-container layout-gt-xs="row">
-        <label>Salario</label>
-        <input ng-model="employee.salary" type="number" required>
-      </md-input-container>
+            <md-input-container layout-gt-xs="row">
+                <label>Salary</label>
+                <input ng-model="employee.salary" type="number" required>
+            </md-input-container>
 
-      <div layout-gt-xs="row">
-        <div flex-gt-xs>
-          <h4>Fecha de nacimiento</h4>
-          <md-datepicker ng-model="employee.dob" md-placeholder="Enter date" required></md-datepicker>
-        </div>
-      </div>
+            <div layout-gt-xs="row">
+                <div flex-gt-xs>
+                    <h4>Date Of Birth</h4>
+                    <md-datepicker ng-model="employee.dob" md-placeholder="Enter date" required></md-datepicker>
+                </div>
+            </div>
 
-      <md-button ng-disabled="!editEmployee.$valid" type="submit" class="md-raised md-primary">Guardar</md-button>
-    </form>
+            <md-button ng-disabled="!editEmployee.$valid" type="submit" class="md-raised md-primary">Guardar</md-button>
+        </form>
 
-  </div>
+    </div>
 </md-content>

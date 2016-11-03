@@ -7,13 +7,14 @@
         .module('employees')
         .controller('EmployeesClientController', EmployeesClientController);
 
-    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location'];
+    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location','$mdToast'];
 
-    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location) {
+    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location,$mdToast) {
         $scope.newEmployee = {};
         $scope.newEmployee.name = "";
         $scope.newEmployee.lastName = "";
         $scope.newEmployee.salary = "";
+        $scope.newEmployee.dob = "";
 
         var Employee = $resource('/api/employees');
 
@@ -23,6 +24,8 @@
                 $scope.newEmployee.name = "";
                 $scope.newEmployee.lastName = "";
                 $scope.newEmployee.salary = "";
+                $scope.newEmployee.dob = "";
+                $scope.showToastSave();
             });
         };
 
@@ -49,5 +52,15 @@
                 $location.path('employees/list');
             });
         };
+
+
+        $scope.showToastSave = function() {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Employee Created!')
+                    .hideDelay(3000)
+            );
+        };
+
     }
 }());

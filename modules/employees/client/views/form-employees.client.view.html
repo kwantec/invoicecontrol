@@ -1,9 +1,36 @@
 <section>
-    <form class="form-horizontal" ng-submit="addEmployee()">
-        <input type="text" ng-model="newEmployee.name" title="name"><br>
-        <input type="text" ng-model="newEmployee.lastName" title="lastName"><br>
-        <input type="number" ng-model="newEmployee.salary" title="salary"><br>
-        <input type="date" ng-model="newEmployee.dob" title="date">
-        <input type="submit" class="btn btn-default" value="Create">
-    </form>
+    <md-toolbar class="md-theme-light" style="background-color:#3c3c3c">
+        <h2 class="md-toolbar-tools">
+            <span>Create Employee</span>
+        </h2>
+    </md-toolbar>
+    <md-content flex layout-padding>
+        <div>
+            <form class="form-horizontal" ng-submit="addEmployee()">
+                <md-input-container layout-gt-xs="row">
+                    <label>Name</label>
+                    <input type="text" ng-model="newEmployee.name" title="name" required>
+                </md-input-container>
+
+                <md-input-container layout-gt-xs="row">
+                    <label>Last Name</label>
+                    <input type="text" ng-model="newEmployee.lastName" title="lastName" required>
+                </md-input-container>
+
+                <md-input-container layout-gt-xs="row">
+                    <label>Salary</label>
+                    <input type="number" ng-model="newEmployee.salary" title="salary" required>
+                </md-input-container>
+
+                <div layout-gt-xs="row">
+                    <div flex-gt-xs>
+                        <h4>Date Of Birth</h4>
+                        <md-datepicker ng-model="newEmployee.dob" md-placeholder="Enter date" required></md-datepicker>
+                    </div>
+                </div>
+                <md-button type="submit" class="md-raised md-primary">Save</md-button>
+
+            </form>
+        </div>
+    </md-content>
 </section>

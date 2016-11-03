@@ -5,7 +5,7 @@ angular.module('employees').run(['Menus',
   function (Menus) {
     // Add the articles dropdown item
     Menus.addMenuItem('topbar', {
-      title: 'Empleados',
+      title: 'Employees',
       state: 'employees',
       type: 'dropdown',
       roles: ['*']
@@ -13,15 +13,14 @@ angular.module('employees').run(['Menus',
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'employees', {
-      title: 'Lista de Empleados',
+      title: 'Employee List',
       state: 'employees.list'
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'employees', {
-      title: 'Nuevo empleado',
-      state: 'employees.create',
-      roles: ['user']
+      title: 'New Employee',
+      state: 'employees.create'
     });
   }
 ]);
