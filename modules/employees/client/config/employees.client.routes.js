@@ -22,7 +22,7 @@
 			controller: 'EmployeesController'
 		})
 		.state('employees.list', {
-			url: '/list',
+			url: '',
 			templateUrl: 'modules/employees/client/views/list-employee.client.view.html',
 			controller: 'ListEmployeesController'
 		})
