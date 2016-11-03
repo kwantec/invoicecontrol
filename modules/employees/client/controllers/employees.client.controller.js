@@ -37,8 +37,8 @@
 		}
 	]);
 
-	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService',
-		function($scope,EmployeesService){
+	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService','SweetAlert',
+		function($scope,EmployeesService,SweetAlert){
 			EmployeesService.listEmployees().then(function(response){
 				$scope.listEmployees = response.data;
 				console.log($scope.listEmployees);
@@ -48,15 +48,36 @@
 
 			$scope.delete_employee = function(index){
 				var id = $scope.listEmployees[index]._id;
-				EmployeesService.deleteEmployee(id).then(function(response){
-					console.log(response.data)
-					if(response.data.message =='deleted'){
-						$scope.listEmployees.splice(index,1);
-						console.log($scope.listEmployees);
-					}
-				}).catch(function(err){
-					console.log('error');
-				});
+
+				SweetAlert.swal({
+						title: "¿Estas de seguro de borrar el empleado?",
+						text: "No padras recuperar este registro",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",confirmButtonText: "Si",
+						cancelButtonText: "No",
+						closeOnConfirm: false,
+						closeOnCancel: false },
+					function(isConfirm){
+						if (isConfirm) {
+
+							EmployeesService.deleteEmployee(id).then(function(response){
+								console.log(response.data)
+								if(response.data.message =='deleted'){
+									$scope.listEmployees.splice(index,1);
+									console.log($scope.listEmployees);
+									SweetAlert.swal("Borrado!","", "success");
+								}
+							}).catch(function(err){
+								SweetAlert.swal("Error!","", "error");
+							});
+
+						} else {
+							SweetAlert.swal("Cancelado", "", "error");
+						}
+					});
+
+
 			}
 		}]);
 }());
