@@ -2,8 +2,8 @@
 	'use strict';
 
 	// Employees controller
-	angular.module('employees').controller('EmployeesController', ['$scope', '$stateParams', '$http', 'EmployeesService',
-		function ($scope, $stateParams, $http, EmployeesService) {
+	angular.module('employees').controller('EmployeesController', ['$scope', '$location', '$stateParams', '$http', 'EmployeesService',
+		function ($scope, $location, $stateParams, $http, EmployeesService) {
 
 			$scope.successTextAlert = "Some content";
 			$scope.showSuccessAlert = false;
@@ -16,9 +16,9 @@
 
 			$scope.submit = function(form){
 				EmployeesService.createEmployee($scope.employee).then(function(response){
-					console.log("éxito", response);
 					$scope.successTextAlert = 'Se ha creado al empleado correctamente!';
 					$scope.showSuccessAlert = true;
+					$location.path('/employees/' + response.data._id);
 				}).catch(function(err) {
 					console.log("err", err);
 				});
