@@ -1,15 +1,21 @@
-<section ng-init="findEmployee()">
-    <div>
-        <h1 ng-bind="(employee.name) + (employee.lastName)"></h1>
-        <p ng-bind="'$' + employee.salary"></p>
-        <p ng-bind="employee.dob"></p>
-    </div>
-    <div class="pull-right">
-        <a class="btn btn-primary" ng-href="/employees/{{employee._id}}/edit">
-            <i class="glyphicon glyphicon-edit"></i>
-        </a>
-        <a class="btn btn-primary" ng-click="removeEmployee();">
-            <i class="glyphicon glyphicon-trash"></i>
-        </a>
-    </div>
+<section ng-init="findEmployee();">
+    <md-toolbar class="md-theme-light" style="background-color:#3c3c3c">
+        <h2 class="md-toolbar-tools">
+            <span ng-bind="(employee.name) + ' ' + (employee.lastName)"></span>
+        </h2>
+    </md-toolbar>
+    <md-content flex layout-padding>
+        <div>
+            <p class="md-body-2">Salary</p>
+            <p class="md-body-1" ng-bind="'$' + employee.salary"></p>
+
+            <p class="md-body-2">Birthday</p>
+            <p class="md-body-1" ng-bind="employee.dob | date: 'fullDate'"></p>
+        </div>
+
+        <div class="pull-right">
+            <md-button ng-href="/employees/{{employee._id}}/edit" class="md-raised md-primary">Editar</md-button>
+            <md-button ng-click="removeEmployee();" class="md-raised md-primary">Borrar</md-button>
+        </div>
+    </md-content>
 </section>

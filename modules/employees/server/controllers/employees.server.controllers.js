@@ -19,7 +19,6 @@ exports.create = function (req, res) {
     });
 };
 
-
 exports.update = function (req, res) {
     var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
         if (err) {
@@ -60,7 +59,7 @@ exports.list = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    Employee.findById(req.params.employeeId, function (err, employee) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -71,6 +70,7 @@ exports.read = function (req, res) {
                     message: 'No se encontró el empleado'
                 });
             }
+
             res.json(employee);
         }
     });
@@ -83,6 +83,7 @@ exports.delete = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            /* TODO: Check if object returned by remove actually contains the deleted document */
             res.json(employee);
         }
     });
