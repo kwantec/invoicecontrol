@@ -1,0 +1,57 @@
+h1 {
+    margin: 0;
+}
+
+.view-employee {
+    margin-top: 30px;
+}
+
+.page-img-profile img {
+    width: 100%;
+}
+
+.table {
+    margin-bottom: 40px;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+hr, .page-header {
+    border-top: 2px solid #dddddd;
+}
+
+
+.left-panel, .page-title, .page-info {
+    background-color: #eee;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.form-group {
+    padding: 10px;
+}
+
+.employee-list {
+    margin: 10px;
+}
+
+.employee-list-item {
+    padding: 10px;
+    margin: 10px;
+    border: #707070 solid 1px;
+    transition: background-color 0.5s ease;
+    background-color: #919191;
+    border-radius: 5px;
+}
+
+.employee-list-item:hover {
+    background-color: #EEEEEE;
+    cursor: pointer;
+}

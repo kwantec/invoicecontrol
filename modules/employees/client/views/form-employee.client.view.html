@@ -1,0 +1,44 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.employee._id ? 'Edit Employee' : 'New Employee'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.employeeForm" class="form-horizontal" ng-submit="vm.save(vm.form.employeeForm.$valid)" novalidate>
+      <fieldset>
+        <div class="col-sm-6">
+          <div class="form-group" show-errors>
+            <label class="control-label" for="name">Name</label>
+            <input name="name" type="text" ng-model="vm.employee.name" id="name" class="form-control" placeholder="Name" required>
+            <div ng-messages="vm.form.employeeForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Employee name is required.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group" show-errors>
+            <label for="lastname" class="control-label">Lastname</label>
+            <input name="lastname" type="text" ng-model="vm.employee.lastname" id="lastname" class="form-control" placeholder="Lastname" required>
+            <div ng-messages="vm.form.employeeForm.lastname.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Employee lastname is required.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group" show-errors>
+            <label for="salary" class="control-label">Salary</label>
+            <input name="salary" type="text" ng-model="vm.employee.salary" id="salary" class="form-control" placeholder="Salary" required>
+            <div ng-messages="vm.form.employeeForm.salary.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Employee salary is required.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success">{{vm.employee._id ? 'Update' : 'Create'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

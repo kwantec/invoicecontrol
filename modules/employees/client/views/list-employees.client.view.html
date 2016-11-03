@@ -1,0 +1,24 @@
+<section>
+  <div class="page-header">
+    <h2>Employees</h2>
+  </div>
+
+  <div class="employee-list">
+    <div ng-repeat="employee in vm.employees"
+         ui-sref="employees.view({ employeeId: employee._id })"
+         class="employee-list-item col-xs-12">
+      <div class="col-xs-2">
+        <img ng-src="{{employee.employeeImageURL}}"
+             class="img-responsive"
+             alt="holis">
+      </div>
+      <div class="col-xs-10">
+        <h4 ng-bind="employee.name"></h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-warning text-center" ng-if="vm.employees.$resolved && !vm.employees.length">
+    No Employees yet, why don't you <a ui-sref="employees.create">create one</a>?
+  </div>
+</section>

@@ -1,0 +1,77 @@
+<section class="view-employee">
+
+  <div class="col-sm-3">
+    <div class="left-panel">
+      <div class="page-img-profile">
+        <img ng-src="{{vm.employee.employeeImageURL}}" class="img-responsive" alt="">
+      </div>
+      <h3 ng-bind="vm.employee.name"></h3>
+      <hr>
+      <h4 class="text-bold">Cumpleaños</h4>
+      <h4 ng-bind="(vm.employee.birthday | date: 'longDate')" class="text-italic"></h4>
+      <hr>
+      <small>
+        <em class="text-muted">
+          Posted on
+          <span ng-bind="vm.employee.created | date:'mediumDate'"></span>
+          by
+          <span ng-if="vm.employee.user"
+                ng-bind="vm.employee.user.displayName"></span>
+          <span ng-if="!vm.employee.user">Deleted User</span>
+        </em>
+      </small>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="col-xs-12">
+      <div class="right-panel">
+        <div class="page-title">
+          <h1><span ng-bind="vm.employee.name"></span> <span ng-bind="vm.employee.lastname"></span></h1>
+        </div>
+        <div class="page-info">
+          <table class="table table-hover table-responsive">
+            <tr>
+              <td>First Name</td>
+              <td ng-bind="vm.employee.name"></td>
+            </tr>
+            <tr>
+              <td>Last Name</td>
+              <td ng-bind="vm.employee.lastname"></td>
+            </tr>
+            <tr>
+              <td>Created</td>
+              <td ng-bind="(vm.employee.created | date: 'medium')"></td>
+            </tr>
+            <tr>
+              <td>Salary</td>
+              <td ng-bind="vm.employee.salary"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-4">
+      <a class="btn btn-primary btn-block"
+         ui-sref="employees.list">
+        <i class="glyphicon glyphicon-edit"></i> Lista Empleados
+      </a>
+    </div>
+
+    <div class="pull-right col-xs-8"
+         ng-show="vm.employee.isCurrentUserOwner">
+      <div class="col-xs-6">
+        <a class="btn btn-info btn-block"
+           ui-sref="employees.edit({ employeeId: vm.employee._id })">
+          <i class="glyphicon glyphicon-edit"></i> Editar Empleado
+        </a>
+      </div>
+      <div class="col-xs-6">
+        <a class="btn btn-danger btn-block" ng-click="vm.remove()">
+          <i class="glyphicon glyphicon-trash"></i> Eliminar Empleado
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
