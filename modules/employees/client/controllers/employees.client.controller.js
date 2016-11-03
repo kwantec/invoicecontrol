@@ -17,7 +17,7 @@
 
 			console.log($scope.employee);
 
-			$scope.submit = function(form){
+			$scope.submit = function(){
 				EmployeesService.createEmployee($scope.employee).then(function(response){
 					$scope.successTextAlert = 'Se ha creado al empleado correctamente!';
 					$scope.showSuccessAlert = true;
