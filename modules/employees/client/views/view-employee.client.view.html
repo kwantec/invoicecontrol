@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8">
 			<div class="page-header">
-				<h1>Empleado: <span ng-bind="findedEmployee._id"></span></h1>
+				<h1>Empleado: <span ng-bind="findedEmployee.name"></span></h1>
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -27,13 +27,13 @@
 							<hr>
 							<div class="row">
 								<div class="col-md-6" style="padding: 5px;">
-									<button class="btn btn-info btn-block" ng-click="onEdit()">
+									<button class="btn btn-info btn-block" ng-click="onEdit(findedEmployee._id)">
 										<i class="glyphicon glyphicon-edit"></i>
 										Editar
 									</button>
 								</div>
 								<div class="col-md-6" style="padding: 5px;">
-									<button class="btn btn-danger btn-block" ng-click="onRemove()">
+									<button class="btn btn-danger btn-block" ng-click="onRemove(findedEmployee._id)">
 										<i class="glyphicon glyphicon-trash"></i>
 										Eliminar
 									</button>
