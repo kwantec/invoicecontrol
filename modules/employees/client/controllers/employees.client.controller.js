@@ -25,11 +25,22 @@
 				});
 			};
 
+			$scope.edit = function () {
+				var id = $stateParams.employeeId;
+				EmployeesService.editEmployee($scope.findedEmployee, id).then(function () {
+					$scope.successTextAlert = 'Se ha editado al empleado correctamente!';
+					$scope.showSuccessAlert = true;
+				}).catch(function (err) {
+					console.log("err", err);
+				});
+			};
+
 			$scope.findEmployee = function () {
 				var id = $stateParams.employeeId;
 				console.log("El id es: ", id);
 				EmployeesService.findEmployee(id).then(function (response) {
 					$scope.findedEmployee = response.data;
+					$scope.findedEmployee.dateOfBirthday = new Date(response.data.dateOfBirthday);
 				}).catch(function (err) {
 					console.log("err", err);
 				});
@@ -57,6 +68,6 @@
 				}).catch(function(err){
 					console.log('error');
 				});
-			}
+			};
 		}]);
 }());

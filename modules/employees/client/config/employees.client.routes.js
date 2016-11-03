@@ -31,6 +31,11 @@
 			templateUrl: 'modules/employees/client/views/view-employee.client.view.html',
 			controller: 'EmployeesController'
 
+		})
+		.state('employees.edit', {
+			url: '/:employeeId/edit',
+			templateUrl: 'modules/employees/client/views/edit-employee.client.view.html',
+			controller: 'EmployeesController'
 		});
 
 	}
