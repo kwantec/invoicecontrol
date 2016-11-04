@@ -27,18 +27,44 @@
 						<th class="text-center">Action</th>
 					</tr>
 					</thead>
-					<tr ng-repeat="employee in listEmployees track by $index" id="employee._id">
+					<tbody>
+					<tr dir-paginate="employee in listEmployees | itemsPerPage: 6  track by $index"
+						id="{{employee._id}}">
 						<td>{{employee.name}}</td>
 						<td>{{employee.lastname}}</td>
 						<td>{{employee.dateOfBirthday | date : format : timezone}}</td>
 						<td>{{employee.salary | currency}}</td>
 						<td class="text-center">
-							<a class='btn-sm btn btn-warning' ng-href="employees/{{employee._id}}"><span class="glyphicon glyphicon-eye-open"></span> Ver</a>
-							<a class='btn-sm btn btn-info' ng-href="employees/{{employee._id}}/edit"><span class="glyphicon glyphicon-edit"></span> Editar</a>
-							<a href="#" class="btn-sm btn btn-danger" ng-click="delete_employee($index)"><span class="glyphicon glyphicon-remove" ></span> Borrar</a>
+						<a class='btn-sm btn btn-warning' ng-href="employees/{{employee._id}}"><span class="glyphicon glyphicon-eye-open"></span> Ver</a>
+						<a class='btn-sm btn btn-info' ng-href="employees/{{employee._id}}/edit"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+						<a href="#" class="btn-sm btn btn-danger" ng-click="delete_employee($index)"><span class="glyphicon glyphicon-remove" ></span> Borrar</a>
 						</td>
+
 					</tr>
+					</tbody>
 				</table>
+
+
+				<dir-pagination-controls class="center-align">
+					<ul class="pagination" ng-if="1 < pages.length || !autoHide">
+						<li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+							<a href="" ng-click="setCurrent(1)"><i class="material-icons">chevron_left</i></a>
+						</li>
+						<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+							<a href="" ng-click="setCurrent(pagination.current - 1)"><i class="material-icons">chevron_left</i></a>
+						</li>
+						<li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+							<a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+						</li>
+
+						<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+							<a href="" ng-click="setCurrent(pagination.current + 1)"><i class="material-icons">chevron_right</i></a>
+						</li>
+						<li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+							<a href="" ng-click="setCurrent(pagination.last)"><i class="material-icons">chevron_right</i></a>
+						</li>
+					</ul>
+				</dir-pagination-controls>
 			</div>
 		</div>
 	</div>

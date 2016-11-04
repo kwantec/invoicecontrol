@@ -26,7 +26,8 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
           'public/lib/ngSweetAlert/SweetAlert.min.js',
-          'public/lib/sweetalert/dist/sweetalert.min.js'
+          'public/lib/sweetalert/dist/sweetalert.min.js',
+          'public/lib/angularUtils-pagination/dirPagination.js'
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

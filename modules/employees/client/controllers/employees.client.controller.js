@@ -91,12 +91,15 @@
 
 	angular.module('employees').controller('ListEmployeesController',['$scope', 'EmployeesService','SweetAlert',
 		function($scope,EmployeesService,SweetAlert){
+			
 			EmployeesService.listEmployees().then(function(response){
 				$scope.listEmployees = response.data;
-				console.log($scope.listEmployees);
+				
 			}).catch(function(err){
 				console.log('Error');
 			});
+
+
 
 			$scope.delete_employee = function(index){
 				var id = $scope.listEmployees[index]._id;
