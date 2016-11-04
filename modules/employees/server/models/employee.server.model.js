@@ -16,6 +16,18 @@ var EmployeeSchema = new Schema({
     required: 'Please fill Employee name',
     trim: true
   },
+  surname: {
+    type: String,
+    default: '',
+    required: 'Please fill Employee surname',
+    trim: true
+  },
+  salary: {
+    type: Number,
+    default: '',
+    required: 'Please fill Employee salary',
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now
