@@ -1,0 +1,79 @@
+<uib-tabset active="activeJustified" justified="true">
+		<uib-tab index="0" heading="Crear usuario">
+			<div class="modal-header">
+				<h3 class="text-center">Ingrese la información</h3>
+			</div>
+			<div class="modal-body">
+				<div class="form">
+					<div class="form-group">
+						<label for="username">Username</label>
+						<div class="row">
+							<div class="col-md-10">
+								<input type="text" class="form-control" id="username">
+							</div>
+							<div class="col-md-2">
+								<button class="btn btn-success pull-right" ng-click="$ctrl.verifyUsername()" >Verificar</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="password">Contraseña</label>
+						<input type="password" class="form-control" id="password">
+					</div>
+					<div class="form-group">
+						<label for="name">Nombre</label>
+						<input type="text" class="form-control" id="name">
+					</div>
+					<div class="form-group">
+						<label for="lastname">Apellido</label>
+						<input type="text" class="form-control" id="lastname">
+					</div>
+					<div class="form-group">
+						<label for="notify">Notificar a:</label>
+						<input type="email" class="form-control" id="notify">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="button" ng-click="$ctrl.success()">OK</button>
+				<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+			</div>
+		</uib-tab>
+		<uib-tab index="1" heading="Seleccionar usuario" ng-init="$ctrl.getAllUsers()">
+			<div class="modal-body">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Buscar..." ng-model="searchBox">
+      				<span class="input-group-btn">
+        				<button class="btn btn-default" type="button" >
+        					<i class="glyphicon glyphicon-search"></i>
+        					Buscar
+        				</button>
+      				</span>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="user in $ctrl.users | filter: searchBox">
+							<td>{{ user.displayName }}</td>
+							<td>{{ user.firstName }}</td>
+							<td>{{ user.lastName }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- <a href="#" class="pull-right">
+					<i class="glyphicon glyphicon-repeat" ng-click="search()"></i>
+					Cargar mas
+				</a><br> -->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="button" ng-click="$ctrl.success()">OK</button>
+				<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+			</div>
+		</uib-tab>
+</uib-tabset>

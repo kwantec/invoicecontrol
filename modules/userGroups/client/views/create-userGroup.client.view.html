@@ -1,0 +1,93 @@
+<section>
+	<div class="page-header">
+		<h1>Crear nuevo Grupo de usuario</h1>
+	</div>
+	<div class="alert alert-success" ng-show="showSuccessAlert">
+		<button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
+		<strong>¡Hecho!</strong> {{successTextAlert}}
+	</div>
+	<div class="row">
+
+		<!-- ================================================================ -->
+		<!-- user group general information section -->
+		<!-- ================================================================ -->
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="name">Nombre</label>
+				<input type="text" id="name" keyboard-poster post-function="search" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="description">Descripción</label>
+				<textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Usuarios</label>
+				</div>
+				<div class="col-md-6">
+						<button class='btn-sm btn btn-success pull-right' ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar</button>
+				</div>
+			</div>
+			<div class="row">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Acción</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Ejemplo</td>
+							<td>Ejemplo</td>
+							<td>Ejemplo</td>
+							<td>
+								<button class="btn btn-danger btn-xs" type="button">
+									<i class="glyphicon glyphicon-remove"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- ================================================================ -->
+		<!-- Permissions section -->
+		<!-- ================================================================ -->
+		<div class="col-md-5 col-md-offset-1">
+			<label>Empleados</label>
+			<div class="col-md-offset-1">
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 1</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 2</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 3</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 4</label>
+				</div>
+			</div>
+			<label>Empleados</label>
+			<div class="col-md-offset-1">
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 1</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 2</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 3</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" value="">Option 4</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
