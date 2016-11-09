@@ -12,20 +12,38 @@
 		<!-- user group general information section -->
 		<!-- ================================================================ -->
 		<div class="col-md-6">
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="name">Nombre</label>
 				<input type="text" id="name" keyboard-poster post-function="search" class="form-control">
-			</div>
-			<div class="form-group">
+			</div> -->
+			<md-input-container class="md-block">
+				<label>Nombre</label>
+				<input required md-no-asterisk name="name" keyboard-poster post-function="search">
+				<div ng-messages="projectForm.description.$error">
+					<div ng-message="required">Se requiere este campo.</div>
+				</div>
+			</md-input-container>
+			<!-- <div class="form-group">
 				<label for="description">Descripción</label>
 				<textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
-			</div>
+			</div> -->
+			<md-input-container class="md-block">
+				<label>Descripción</label>
+				<textarea id="" cols="30" rows="5" required md-no-asterisk name="description" keyboard-poster post-function="search"></textarea>
+				<div ng-messages="projectForm.description.$error">
+					<div ng-message="required">Se requiere este campo.</div>
+				</div>
+			</md-input-container>
 			<div class="row">
 				<div class="col-md-6">
 					<label>Usuarios</label>
 				</div>
 				<div class="col-md-6">
-						<button class='btn-sm btn btn-success pull-right' ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar</button>
+						<md-button ng-click="openModal()" class="md-raised md-primary pull-right" >
+							<span class="glyphicon glyphicon-plus"></span>
+							Agregar usuario
+						</md-button>
+						<!-- <button class='btn-sm btn btn-success pull-right' ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar</button> -->
 				</div>
 			</div>
 			<div class="row">
@@ -60,33 +78,39 @@
 		<div class="col-md-5 col-md-offset-1">
 			<label>Empleados</label>
 			<div class="col-md-offset-1">
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 1</label>
-				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 2</label>
-				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 3</label>
-				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 4</label>
-				</div>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 1
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 2
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 3
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 4
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 5
+				</md-checkbox>
 			</div>
 			<label>Empleados</label>
 			<div class="col-md-offset-1">
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 1</label>
-				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 2</label>
-				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 3</label>
-				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Option 4</label>
-				</div>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 1
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 2
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 3
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 4
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 5
+				</md-checkbox>
 			</div>
 		</div>
 	</div>

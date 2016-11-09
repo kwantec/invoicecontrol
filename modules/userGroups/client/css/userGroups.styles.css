@@ -1,3 +1,14 @@
 textarea {
 	resize: none;
 }
+
+
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px;
+}
+
+.inputdemoErrors md-input-container > p {
+  font-size: 0.8em;
+  text-align: left;
+  width: 100%;
+}
