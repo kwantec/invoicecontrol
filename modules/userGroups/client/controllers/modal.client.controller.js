@@ -47,3 +47,11 @@
 // 		};
 // 	}
 // }());
+// 
+( function () {
+	'use strict';
+
+	angular.module('userGroups').controller('DialogController', ['', function(){
+		
+	}]);
+}());

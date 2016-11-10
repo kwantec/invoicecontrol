@@ -12,3 +12,14 @@ textarea {
   text-align: left;
   width: 100%;
 }
+
+.md-green {
+	background: #3CA534 !important;
+}
+
+.vertical-divider {
+  border-top-width: 0;
+  border-right-width: 1px;
+  border-right-style: solid;
+  height: 100%;
+}

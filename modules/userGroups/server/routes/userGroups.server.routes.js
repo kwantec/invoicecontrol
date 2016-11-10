@@ -13,5 +13,4 @@ module.exports = function (app) {
 
     // Finish by binding the employee middleware
     app.param('username', userGroups.userByUsername);
-
 };

@@ -1,4 +1,4 @@
-<uib-tabset active="activeJustified" justified="true">
+<!-- <uib-tabset active="activeJustified" justified="true">
 		<uib-tab index="0" heading="Crear usuario">
 			<div class="modal-header">
 				<h3 class="text-center">Ingrese la información</h3>
@@ -43,12 +43,12 @@
 			<div class="modal-body">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Buscar..." ng-model="searchBox">
-      				<span class="input-group-btn">
-        				<button class="btn btn-default" type="button" >
-        					<i class="glyphicon glyphicon-search"></i>
-        					Buscar
-        				</button>
-      				</span>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" >
+							<i class="glyphicon glyphicon-search"></i>
+							Buscar
+						</button>
+					</span>
 				</div>
 				<table class="table table-striped">
 					<thead>
@@ -66,14 +66,102 @@
 						</tr>
 					</tbody>
 				</table>
-				<!-- <a href="#" class="pull-right">
-					<i class="glyphicon glyphicon-repeat" ng-click="search()"></i>
-					Cargar mas
-				</a><br> -->
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" type="button" ng-click="$ctrl.success()">OK</button>
 				<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
 			</div>
 		</uib-tab>
-</uib-tabset>
+</uib-tabset> -->
+
+<md-dialog aria-label="Mango (Fruit)" ng-init="getUsers()">
+  <form>
+	<md-toolbar style="background: #1F8252">
+		<div class="md-toolbar-tools">
+			<h2>Agregar usuario</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+			  <i class="glyphicon glyphicon-remove" aria-label="Close dialog"></i>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content style="max-width:1300px;max-height:810px; ">
+		 <md-tabs md-dynamic-height md-border-bottom>
+			<md-tab label="Crear nuevo usuario">
+				<md-content class="md-padding" >
+					<h1 class="md-display-2">Ingrese la información</h1>
+					<form name="createUserForm">
+						<div class="row">
+							<div class="col-md-9">
+								<md-input-container class="md-block">
+									<label>Username</label>
+									<input required name="username" md-no-asterisk ng-model="username">
+								</md-input-container>	
+							</div>
+							<div class="col-md-3">
+								<md-button ng-click="veriryUser($event)" class="md-raised md-mini md-primary pull-right" aria-label="add-user">
+									<!-- <span class="glyphicon glyphicon-plus"></span> -->
+									Verificar
+								</md-button>
+							</div>
+						</div>
+						<md-input-container class="md-block">
+							<label>Nombre</label>
+							<input required name="name" md-no-asterisk ng-model="name">
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>Apellido</label>
+							<input required name="lastname" md-no-asterisk ng-model="lastname">
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>Contraseña</label>
+							<input type="password" required name="password" md-no-asterisk ng-model="password">
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>Notificar a:</label>
+							<input type="email" name="notifyTo" ng-model="notifyTo">
+						</md-input-container>
+					</form>
+				</md-content>
+			</md-tab>
+			<md-tab label="Seleccionar usuario existente">
+				<md-content class="md-padding">
+					<h1>Seleccionar usuario</h1>
+					<md-input-container class="md-icon-float md-block">
+					  <!-- Use floating label instead of placeholder -->
+					  <label>Buscar usuario</label>
+					  <!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+					  <i class="glyphicon glyphicon-search pull-right"></i>
+					  <input ng-model="searchBox" type="text">
+					</md-input-container>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in users | filter: searchBox">
+								<td>{{ user.displayName }}</td>
+								<td>{{ user.firstName }}</td>
+								<td>{{ user.lastName }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</md-content>
+			</md-tab>
+		 </md-tabs>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button ng-click="answer('not useful')" >
+			Cancelar
+		 </md-button>
+		<span flex></span>
+		<md-button ng-click="answer('not useful')" >
+			Aceptar
+		 </md-button>
+	</md-dialog-actions>
+  </form>
+</md-dialog>

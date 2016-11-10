@@ -12,36 +12,29 @@
 		<!-- user group general information section -->
 		<!-- ================================================================ -->
 		<div class="col-md-6">
-			<!-- <div class="form-group">
-				<label for="name">Nombre</label>
-				<input type="text" id="name" keyboard-poster post-function="search" class="form-control">
-			</div> -->
-			<md-input-container class="md-block">
-				<label>Nombre</label>
-				<input required md-no-asterisk name="name" keyboard-poster post-function="search">
-				<div ng-messages="projectForm.description.$error">
-					<div ng-message="required">Se requiere este campo.</div>
-				</div>
-			</md-input-container>
-			<!-- <div class="form-group">
-				<label for="description">Descripción</label>
-				<textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
-			</div> -->
-			<md-input-container class="md-block">
-				<label>Descripción</label>
-				<textarea id="" cols="30" rows="5" required md-no-asterisk name="description" keyboard-poster post-function="search"></textarea>
-				<div ng-messages="projectForm.description.$error">
-					<div ng-message="required">Se requiere este campo.</div>
-				</div>
-			</md-input-container>
+			<form name="userGroupsForm">
+				<md-input-container class="md-block">
+					<label>Nombre</label>
+					<input required name="name" md-no-asterisk ng-model="test" keyboard-poster post-function="postName">
+					<div ng-messages="userGroupsForm.name.$error">
+						<div ng-message="required">Se requiere este campo.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Descripción</label>
+					<textarea id="" cols="30" rows="5" ng-model="test2" required md-no-asterisk name="description" keyboard-poster post-function="search"></textarea>
+					<div ng-messages="userGroupsForm.description.$error">
+						<div ng-message="required">Se requiere este campo.</div>
+					</div>
+				</md-input-container>
+			</form>
 			<div class="row">
 				<div class="col-md-6">
 					<label>Usuarios</label>
 				</div>
 				<div class="col-md-6">
-						<md-button ng-click="openModal()" class="md-raised md-primary pull-right" >
+						<md-button ng-click="showTabDialog($event)" class="md-fab md-mini md-green pull-right" aria-label="add-user">
 							<span class="glyphicon glyphicon-plus"></span>
-							Agregar usuario
 						</md-button>
 						<!-- <button class='btn-sm btn btn-success pull-right' ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar</button> -->
 				</div>
