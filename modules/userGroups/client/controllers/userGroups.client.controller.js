@@ -40,6 +40,7 @@
 			function DialogController($scope, $mdDialog, $mdToast, ModalService){
 
 				$scope.users = [];
+				$scope.user = {};
 
 				$scope.hide = function(){
 					$mdDialog.hide();
@@ -55,7 +56,15 @@
 				};
 
 				$scope.veriryUser = function(evt){
-					$mdToast.show($mdToast.simple().textContent('El usuario ya existe!'));
+					console.log("A checar:", $scope.user.username);
+					ModalService.getUserByUsername($scope.user.username).then(function(response){
+						if (response.data.usernameValid) {
+							$mdToast.show($mdToast.simple().textContent('Usuario disponible!'));
+						} else {
+							$mdToast.show($mdToast.simple().textContent('El usuario ya existe!'));
+						}
+					}).catch();
+					
 				};
 
 				$scope.getUsers = function(){

@@ -8,7 +8,7 @@ var userGroups = require('../controllers/userGroups.server.controller');
 module.exports = function (app) {
     // Employees collection routes
 
-    app.route('/api/user/validateUsername/:username')
+    app.route('/api/users/validateUsername/:username')
         .get(userGroups.validateUsername);
 
     // Finish by binding the employee middleware
