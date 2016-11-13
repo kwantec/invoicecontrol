@@ -1,0 +1,112 @@
+<section>
+	<div class="page-header">
+		<h1>Crear nuevo Grupo de usuario</h1>
+	</div>
+	<div class="alert alert-success" ng-show="showSuccessAlert">
+		<button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
+		<strong>¡Hecho!</strong> {{successTextAlert}}
+	</div>
+	<div class="row">
+
+		<!-- ================================================================ -->
+		<!-- user group general information section -->
+		<!-- ================================================================ -->
+		<div class="col-md-6">
+			<form name="userGroupsForm">
+				<md-input-container class="md-block">
+					<label>Nombre</label>
+					<input required name="name" md-no-asterisk ng-model="test" keyboard-poster post-function="postName">
+					<div ng-messages="userGroupsForm.name.$error">
+						<div ng-message="required">Se requiere este campo.</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Descripción</label>
+					<textarea id="" cols="30" rows="5" ng-model="test2" required md-no-asterisk name="description" keyboard-poster post-function="search"></textarea>
+					<div ng-messages="userGroupsForm.description.$error">
+						<div ng-message="required">Se requiere este campo.</div>
+					</div>
+				</md-input-container>
+			</form>
+			<div class="row">
+				<div class="col-md-6">
+					<label>Usuarios</label>
+				</div>
+				<div class="col-md-6">
+						<md-button ng-click="showTabDialog($event)" class="md-fab md-mini md-green pull-right" aria-label="add-user">
+							<span class="glyphicon glyphicon-plus"></span>
+						</md-button>
+						<!-- <button class='btn-sm btn btn-success pull-right' ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar</button> -->
+				</div>
+			</div>
+			<div class="row">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Acción</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- CONDITIONAL -->
+						<!-- ng-class="{success: user.username === authentication.user.username}" -->
+						<tr>
+							<td>Ejemplo</td>
+							<td>Ejemplo</td>
+							<td>Ejemplo</td>
+							<td>
+								<button class="btn btn-danger btn-xs" type="button">
+									<i class="glyphicon glyphicon-remove"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!-- ================================================================ -->
+		<!-- Permissions section -->
+		<!-- ================================================================ -->
+		<div class="col-md-5 col-md-offset-1">
+			<label>Empleados</label>
+			<div class="col-md-offset-1">
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 1
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 2
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 3
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 4
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 5
+				</md-checkbox>
+			</div>
+			<label>Empleados</label>
+			<div class="col-md-offset-1">
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 1
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 2
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 3
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 4
+				</md-checkbox>
+				<md-checkbox class="md-primary" aria-label="Checkbox 1">
+						Option 5
+				</md-checkbox>
+			</div>
+		</div>
+	</div>
+</section>
