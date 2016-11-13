@@ -11,6 +11,9 @@ module.exports = function (app) {
     app.route('/api/users/validateUsername/:username')
         .get(userGroups.validateUsername);
 
+    app.route('/api/usersGroup/registryUser')
+    	.post(userGroups.registryUser);
+
     // Finish by binding the employee middleware
     app.param('username', userGroups.userByUsername);
 };

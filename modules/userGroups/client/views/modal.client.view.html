@@ -1,102 +1,36 @@
-<!-- <uib-tabset active="activeJustified" justified="true">
-		<uib-tab index="0" heading="Crear usuario">
-			<div class="modal-header">
-				<h3 class="text-center">Ingrese la información</h3>
-			</div>
-			<div class="modal-body">
-				<div class="form">
-					<div class="form-group">
-						<label for="username">Username</label>
-						<div class="row">
-							<div class="col-md-10">
-								<input type="text" class="form-control" id="username">
-							</div>
-							<div class="col-md-2">
-								<button class="btn btn-success pull-right" ng-click="$ctrl.verifyUsername()" >Verificar</button>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="password">Contraseña</label>
-						<input type="password" class="form-control" id="password">
-					</div>
-					<div class="form-group">
-						<label for="name">Nombre</label>
-						<input type="text" class="form-control" id="name">
-					</div>
-					<div class="form-group">
-						<label for="lastname">Apellido</label>
-						<input type="text" class="form-control" id="lastname">
-					</div>
-					<div class="form-group">
-						<label for="notify">Notificar a:</label>
-						<input type="email" class="form-control" id="notify">
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" type="button" ng-click="$ctrl.success()">OK</button>
-				<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
-			</div>
-		</uib-tab>
-		<uib-tab index="1" heading="Seleccionar usuario" ng-init="$ctrl.getAllUsers()">
-			<div class="modal-body">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Buscar..." ng-model="searchBox">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" >
-							<i class="glyphicon glyphicon-search"></i>
-							Buscar
-						</button>
-					</span>
-				</div>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Username</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="user in $ctrl.users | filter: searchBox">
-							<td>{{ user.displayName }}</td>
-							<td>{{ user.firstName }}</td>
-							<td>{{ user.lastName }}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" type="button" ng-click="$ctrl.success()">OK</button>
-				<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
-			</div>
-		</uib-tab>
-</uib-tabset> -->
-
-<md-dialog aria-label="Mango (Fruit)" ng-init="getUsers()">
-  <form>
+<md-dialog aria-label="Mango (Fruit)" ng-init="getUsers()" style="width:900px;height:810px;">
 	<md-toolbar style="background: #1F8252">
 		<div class="md-toolbar-tools">
 			<h2>Agregar usuario</h2>
 			<span flex></span>
 			<md-button class="md-icon-button" ng-click="cancel()">
-			  <i class="glyphicon glyphicon-remove" aria-label="Close dialog"></i>
+				<i class="glyphicon glyphicon-remove" aria-label="Close dialog"></i>
 			</md-button>
 		</div>
 	</md-toolbar>
+
+	<!-- Dialog content -->
 	<md-dialog-content style="max-width:1300px;max-height:810px; ">
-		 <md-tabs md-dynamic-height md-border-bottom>
+
+		<!-- Tabs -->
+		<md-tabs md-dynamic-height md-border-bottom>
+
+			<!-- ========================================================================= -->
+			<!-- First tab -->
+			<!-- ========================================================================= -->
 			<md-tab label="Crear nuevo usuario">
 				<md-content class="md-padding" >
 					<h1 class="md-display-2">Ingrese la información</h1>
-					<form name="createUserForm">
+					<form name="userForm" ng-submit="createUserAndAdd(userForm.$valid)" novalidate autocomplete="off">
 						<div class="row">
 							<div class="col-md-9">
 								<md-input-container class="md-block">
 									<label>Username</label>
-									<input required name="username" md-no-asterisk ng-model="user.username">
-								</md-input-container>	
+									<input required id="username" name="username" md-no-asterisk ng-model="credentials.username">
+									<div ng-messages="userForm.username.$error">
+										<div ng-message="required">Se requiere este campo.</div>
+									</div>
+								</md-input-container>
 							</div>
 							<div class="col-md-3">
 								<md-button ng-click="veriryUser($event)" class="md-raised md-mini md-primary pull-right" aria-label="add-user">
@@ -107,46 +41,65 @@
 						</div>
 						<md-input-container class="md-block">
 							<label>Nombre</label>
-							<input required name="name" md-no-asterisk ng-model="name">
+							<input required id="firstname" name="firstname" md-no-asterisk ng-model="credentials.firstName">
+							<div ng-messages="userForm.firstname.$error">
+								<div ng-message="required">Se requiere este campo.</div>
+							</div>
 						</md-input-container>
 						<md-input-container class="md-block">
 							<label>Apellido</label>
-							<input required name="lastname" md-no-asterisk ng-model="lastname">
+							<input required id="lastname" name="lastname" md-no-asterisk ng-model="credentials.lastName">
+							<div ng-messages="userForm.lastname.$error">
+								<div ng-message="required">Se requiere este campo.</div>
+							</div>
 						</md-input-container>
 						<md-input-container class="md-block">
 							<label>Contraseña</label>
-							<input type="password" required name="password" md-no-asterisk ng-model="password">
+							<input type="password" required id="password" name="password" md-no-asterisk ng-model="credentials.password">
+							<div ng-messages="userForm.password.$error">
+								<div ng-message="required">Se requiere este campo.</div>
+							</div>
 						</md-input-container>
 						<md-input-container class="md-block">
 							<label>Notificar a:</label>
-							<input type="email" name="notifyTo" ng-model="notifyTo">
+							<input required type="email" id="notifyTo" name="notifyTo" md-no-asterisk ng-model="credentials.email">
+							<div ng-messages="userForm.notifyTo.$error">
+								<div ng-message="required">Se requiere este campo.</div>
+							</div>
 						</md-input-container>
+						<md-button class="md-raised md-mini md-primary" type="submit">Crear y agregar usuario</md-button>
 					</form>
 				</md-content>
 			</md-tab>
+
+			<!-- ========================================================================= -->
+			<!-- Second tab -->
+			<!-- ========================================================================= -->
 			<md-tab label="Seleccionar usuario existente">
 				<md-content class="md-padding">
 					<h1>Seleccionar usuario</h1>
 					<md-input-container class="md-icon-float md-block">
-					  <!-- Use floating label instead of placeholder -->
-					  <label>Buscar usuario</label>
-					  <!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
-					  <i class="glyphicon glyphicon-search pull-right"></i>
-					  <input ng-model="searchBox" type="text">
+						<!-- Use floating label instead of placeholder -->
+						<label>Buscar usuario</label>
+						<!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+						<i class="glyphicon glyphicon-search pull-right"></i>
+						<input ng-model="searchBox" type="text">
 					</md-input-container>
-					<table class="table table-striped">
+					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
 								<th>Username</th>
 								<th>Nombre</th>
 								<th>Apellido</th>
+								<th>Correo electrónico</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="user in users | filter: searchBox">
-								<td>{{ user.displayName }}</td>
+							<tr ng-repeat="user in users | filter: searchBox" ng-class="{success: user.username === authentication.user.username}">
+								<td>{{ user.username }}</td>
 								<td>{{ user.firstName }}</td>
 								<td>{{ user.lastName }}</td>
+								<td>{{ user.email }}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -154,14 +107,14 @@
 			</md-tab>
 		 </md-tabs>
 	</md-dialog-content>
+	<!-- End dialog content -->
+
+	<!-- Dialog footer -->
 	<md-dialog-actions layout="row">
-		<md-button ng-click="answer('not useful')" >
+		<span flex></span>
+		<md-button ng-click="cancel()" >
 			Cancelar
 		 </md-button>
-		<span flex></span>
-		<md-button ng-click="answer('not useful')" >
-			Aceptar
-		 </md-button>
 	</md-dialog-actions>
-  </form>
+	<!-- End dialog footer -->
 </md-dialog>

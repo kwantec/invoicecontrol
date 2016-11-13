@@ -6,7 +6,8 @@
 	function UserGroupsService($http){
 		return {
 			getUsers: getUsers,
-			getUserByUsername: getUserByUsername
+			getUserByUsername: getUserByUsername,
+			createUser: createUser
 		};
 
 		function getUsers () {
@@ -18,6 +19,11 @@
 		function getUserByUsername (username) {
 			var url = 'http://localhost:3000/api/users/validateUsername/' + username;
 			return $http({method: 'GET', url: url});
+		}
+
+		function createUser (user) {
+			var url = 'http://localhost:3000/api/usersGroup/registryUser';
+			return $http({method: 'POST', url: url, data: user});
 		}
 	}
 		
