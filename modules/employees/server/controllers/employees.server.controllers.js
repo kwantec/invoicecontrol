@@ -49,7 +49,7 @@ exports.update = function (req, res) {
 };
 
 exports.list = function (req, res) {
-    Employee.find({}, function (err, employees) {
+    Employee.find({deleted:false}, function (err, employees) {
         if (err) {
             console.log(err);
         } else {
@@ -77,14 +77,28 @@ exports.read = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    Employee.findById(req.params.employeeId).remove(function (err, employee) {
+    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            /* TODO: Check if object returned by remove actually contains the deleted document */
-            res.json(employee);
+            if (!employee) {
+                return res.status(404).send({
+                    message: 'No se encontró el empleado'
+                });
+            }
+
+            employee.delete(function (err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.json(employee);
+                }
+            });
         }
     });
 };
+
