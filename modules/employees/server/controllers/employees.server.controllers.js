@@ -77,7 +77,7 @@ exports.read = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    Employee.findById(req.params.employeeId).exec(function (err, employee) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

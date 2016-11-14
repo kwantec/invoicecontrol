@@ -104,7 +104,15 @@ exports.delete = function (req, res) {
                 });
             }
 
-            client.deleteAt = Date.now();
+            client.delete(function (err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.json(client);
+                }
+            });
         }
 
     });
