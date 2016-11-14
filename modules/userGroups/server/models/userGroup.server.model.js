@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Group Schema
  */
-var GroupSchema = new Schema({
+var UserGroupSchema = new Schema({
   name: {
     type: String,
     default: '',
@@ -28,4 +28,4 @@ var GroupSchema = new Schema({
   }
 });
 
-mongoose.model('Group', GroupSchema);
+mongoose.model('UserGroup', UserGroupSchema);
