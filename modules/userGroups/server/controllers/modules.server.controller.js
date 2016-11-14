@@ -2,93 +2,92 @@
 
 var path = require('path');
 var mongoose = require("mongoose");
-var Permission = mongoose.model("Permission");
+var Module = mongoose.model("Module");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
- * Function to create a permission
+ * Function to create a module
  * @param  {req} req [The request]
  * @param  {res} res [The response]
  */
 exports.create = function (req, res) {
-	var permission = new Permission(req.body);
+	var module = new Module(req.body);
 
-	permission.save(function (err, _permission) {
+	module.save(function (err, _module) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(_permission);
+			res.json(_module);
 		}
 	});
 };
 
 /**
- * Function to list all the permissions
+ * Function to list all the modules
  * @param  {req} req [The request]
  * @param  {res} res [The response]
  */
 exports.list = function (req, res) {
-	Permission.find().sort('name').exec(function (err, permissions) {
+	Module.find().sort('name').exec(function (err, modules) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(permissions);
+			res.json(modules);
 		}
 	});
 };
 
 /**
- * Function to read just one permission
+ * Function to read just one module
  * @param  {req} req [The request]
  * @param  {res} res [The response]
  */
 exports.read = function (req, res) {
-	var permission = req.permission ? req.permission.toJSON() : {}; 
-	res.json(permission);
+	var module = req.module ? req.module.toJSON() : {}; 
+	res.json(module);
 };
 
 /**
- * Function to update a permission
+ * Function to update a module
  * @param  {req} req [The request]
  * @param  {res} res [The response]
  */
 exports.update = function (req, res) {
-	var permission = req.permission;
+	var module = req.module;
 
-	permission.description = req.body.description;
-	permission.label = req.body.label;
-	permission.permissionId = req.body.permissionId;
+	module.description = req.body.description;
+	module.name = req.body.name;
 
-	permission.save(function (err, _permission) {
+	module.save(function (err, _module) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(_permission);
+			res.json(_module);
 		}
 	});
 };
 
 /**
- * Function to delete a permission
+ * Function to delete a module
  * @param  {req} req [The request]
  * @param  {res} res [The response]
  */
 exports.delete = function (req, res) {
-	var permission = req.permission;
+	var module = req.module;
 
-	permission.remove(function (err, _permission) {
+	module.remove(function (err, _module) {
 		if (err) {
 			res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(_permission);
+			res.json(_module);
 		}
 	});
 };
@@ -100,16 +99,16 @@ exports.delete = function (req, res) {
  * @param  {function} next [The next middleware to execute]
  * @param  {Number}   id   [The id]
  */
-exports.permissionById = function (req, res, next, id) {
-	Permission.findById(id, function (err, permission) {
+exports.moduleById = function (req, res, next, id) {
+	Module.findById(id, function (err, module) {
 		if (err) {
 			next(err);
-		} else if (!permission) {
+		} else if (!module) {
 			return res.status(404).send({
-				message: 'No permission with that identifier has been found'
+				message: 'No module with that identifier has been found'
 			});
 		}
-		req.permission = permission;
+		req.module = module;
 		next();
 	});
 };
