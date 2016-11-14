@@ -10,10 +10,28 @@ var mongoose = require('mongoose'),
  * Invoice Schema
  */
 var InvoiceSchema = new Schema({
-  name: {
-    type: String,
+  number: {
+    type: Number,
     default: '',
-    required: 'Please fill Invoice name',
+    required: 'Please fill Invoice number',
+    trim: true
+  },
+  date: {
+    type: Date,
+    default: '',
+    required: 'Please fill Invoice date',
+    trim: true
+  },
+  daysPeriod: {
+    type: Number,
+    default: '',
+    required: 'Please fill Invoice work days period',
+    trim: true
+  },
+  daysMonth: {
+    type: Number,
+    default: '',
+    required: 'Please fill Invoice work days month',
     trim: true
   },
   created: {
