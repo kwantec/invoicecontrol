@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Invoices</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="invoice in vm.invoices"
+       ui-sref="invoices.view({ invoiceId: invoice._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="invoice.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="invoice.user" ng-bind="invoice.user.displayName"></span>
+        <span ng-if="!invoice.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="invoice.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.invoices.$resolved && !vm.invoices.length">
+    No Invoices yet, why don't you <a ui-sref="invoices.create">create one</a>?
+  </div>
+</section>
