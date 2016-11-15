@@ -6,6 +6,7 @@
 var path = require('path'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
+	UserGroup = mongoose.model('UserGroup'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 
@@ -65,5 +66,36 @@ exports.userByUsername = function (req, res, next, username) {
 		
 		// Next middleware
 		next();
+	});
+};
+
+exports.create = function (req, res) {
+	var userGroup = new UserGroup(req.body);
+
+	console.log("Lo del body:", req.body);
+	console.log("UserGroup model:", userGroup);
+
+	// res.json(userGroup);
+
+	userGroup.save(function (err, _userGroup) {
+		if (err) {
+			return res.status(404).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(_userGroup);
+		}
+	});
+};
+
+exports.list = function (req, res) {
+	Permission.find().sort('name').exec(function (err, permissions) {
+		if (err) {
+			return res.status(404).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(permissions);
+		}
 	});
 };

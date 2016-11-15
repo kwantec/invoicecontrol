@@ -12,17 +12,29 @@ var mongoose = require('mongoose'),
 var UserGroupSchema = new Schema({
   name: {
     type: String,
-    default: '',
+    default: 'name...',
     required: 'Please fill Group name',
     trim: true
   },
   description:{
-    type: String
+    type: String,
+    default: 'description...',
+    required: 'Please fill Group description',
   },
-  permissions: {
-    type: Array
-  },
-  created: {
+  permissions: [{
+    module: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Module'
+    },
+    permission: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Permission'
+    }
+  }],
+  // permissions: {
+  //   type: Array
+  // },
+  created: {  
     type: Date,
     default: Date.now
   }

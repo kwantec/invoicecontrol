@@ -14,6 +14,9 @@ module.exports = function (app) {
     app.route('/api/usersGroup/registryUser')
     	.post(userGroups.registryUser);
 
+    app.route('/api/userGroups')
+    	.post(userGroups.create);
+
     // Finish by binding the employee middleware
     app.param('username', userGroups.userByUsername);
 };
