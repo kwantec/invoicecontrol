@@ -20,6 +20,7 @@ module.exports = function (app) {
     
     app.route('/api/userGroups/:userGroupId') //obtener grupo por ID
         .get(userGroups.read)
+        .delete(userGroups.delete)
 
     // Finish by binding the employee middleware
     app.param('username', userGroups.userByUsername);

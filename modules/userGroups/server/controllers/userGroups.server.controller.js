@@ -88,6 +88,20 @@ exports.create = function (req, res) {
 	});
 };
 
+exports.delete = function (req, res) {
+	var usergroup = req.usergroup;
+
+	usergroup.remove(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(usergroup);
+		}
+	});
+};
+
 exports.list = function (req, res) {
 	UserGroup.find().sort('name').select('-permissions -created -__v').exec(function (err, permissions) {
 		if (err) {
