@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Loggies</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="loggy in vm.loggies"
+       ui-sref="loggies.view({ loggyId: loggy._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="loggy.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="loggy.user" ng-bind="loggy.user.displayName"></span>
+        <span ng-if="!loggy.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="loggy.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.loggies.$resolved && !vm.loggies.length">
+    No Loggies yet, why don't you <a ui-sref="loggies.create">create one</a>?
+  </div>
+</section>
