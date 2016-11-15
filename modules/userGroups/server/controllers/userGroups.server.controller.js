@@ -89,7 +89,7 @@ exports.create = function (req, res) {
 };
 
 exports.list = function (req, res) {
-	Permission.find().sort('name').exec(function (err, permissions) {
+	UserGroup.find().sort('name').exec(function (err, permissions) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)

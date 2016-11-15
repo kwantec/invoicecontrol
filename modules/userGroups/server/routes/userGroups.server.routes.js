@@ -15,6 +15,7 @@ module.exports = function (app) {
     	.post(userGroups.registryUser);
 
     app.route('/api/userGroups')
+    	.get(userGroups.list)
     	.post(userGroups.create);
 
     // Finish by binding the employee middleware
