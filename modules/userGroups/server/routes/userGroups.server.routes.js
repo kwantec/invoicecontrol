@@ -17,7 +17,11 @@ module.exports = function (app) {
     app.route('/api/userGroups')
     	.get(userGroups.list)
     	.post(userGroups.create);
+    
+    app.route('/api/userGroups/:userGroupId') //obtener grupo por ID
+        .get(userGroups.read)
 
     // Finish by binding the employee middleware
     app.param('username', userGroups.userByUsername);
+    app.param('userGroupId', userGroups.userGroupById);
 };

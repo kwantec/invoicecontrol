@@ -4,37 +4,41 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+    Schema = mongoose.Schema;
 
 /**
  * Group Schema
  */
 var UserGroupSchema = new Schema({
-  name: {
-    type: String,
-    default: 'name...',
-    required: 'Please fill Group name',
-    trim: true
-  },
-  description:{
-    type: String,
-    default: 'description...',
-    required: 'Please fill Group description',
-  },
-  permissions: [{
-    module: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Module'
+    name: {
+        type: String,
+        default: 'name...',
+        required: 'Please fill Group name',
+        trim: true
     },
-    permission: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Permission'
+    description: {
+        type: String,
+        default: 'description...',
+        required: 'Please fill Group description',
+    },
+    permissions: [{
+        module: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Module'
+        },
+        permission: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Permission'
+        }
+    }],
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    created: {
+        type: Date,
+        default: Date.now
     }
-  }],
-  created: {  
-    type: Date,
-    default: Date.now
-  }
 });
 
 mongoose.model('UserGroup', UserGroupSchema);

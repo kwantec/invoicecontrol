@@ -99,3 +99,29 @@ exports.list = function (req, res) {
 		}
 	});
 };
+
+
+exports.read = function (req, res) {
+	res.json(req.usergroup);
+};
+
+exports.userGroupById = function (req, res, next, id) {
+
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).send({
+			message: 'UserGroup is invalid'
+		});
+	}
+
+	UserGroup.findById(id).populate('permissions.module').populate('permissions.permission').populate('users', 'username firstName lastName -_id').exec(function (err, usergroup) {
+		if (err) {
+			return next(err);
+		} else if (!usergroup) {
+			return res.status(404).send({
+				message: 'No user group with that identifier has been found'
+			});
+		}
+		req.usergroup = usergroup;
+		next();
+	});
+};
