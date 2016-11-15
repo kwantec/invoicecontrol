@@ -21,12 +21,12 @@ var StaffBillingSchema = new Schema({
   periodEnd:{
   	type: date,
   	default: Date.now
-  }
+  },
   totalDaysPeriod:{
   	type: number,
   	default: '',
     trim: true
-  }
+  },
   totalDaysMonth:{
   	type: number,
   	default: '',
