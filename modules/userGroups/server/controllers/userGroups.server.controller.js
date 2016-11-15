@@ -15,7 +15,7 @@ exports.registryUser = function (req, res) {
 	delete req.body.roles;
 
 	// Init variables
-	var user = new User(req.body);
+	var user = new User(	req.body);
 	var message = null;
 
 	// // Add missing user fields
@@ -89,7 +89,7 @@ exports.create = function (req, res) {
 };
 
 exports.list = function (req, res) {
-	UserGroup.find().sort('name').exec(function (err, permissions) {
+	UserGroup.find().sort('name').select('-permissions -created -__v').exec(function (err, permissions) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
