@@ -10,10 +10,10 @@ var mongoose = require('mongoose'),
  * Sign Schema
  */
 var SignSchema = new Schema({
-  name: {
+  sign: {
     type: String,
     default: '',
-    required: 'Please fill Sign name',
+    required: 'Please fill Sign text',
     trim: true
   },
   created: {
