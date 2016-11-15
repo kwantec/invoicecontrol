@@ -15,51 +15,51 @@ var StaffBillingSchema = new Schema({
     ref: 'Team'
   },
   periodStart:{
-  	type: date,
+  	type: Date,
   	default: Date.now
   },
   periodEnd:{
-  	type: date,
+  	type: Date,
   	default: Date.now
   },
   totalDaysPeriod:{
-  	type: number,
+  	type: Number,
   	default: '',
     trim: true
   },
   totalDaysMonth:{
-  	type: number,
+  	type: Number,
   	default: '',
     trim: true
   },
-  staffBilling:{[
-  	firstName:string,
-  	lastName:string,
-  	rate:number,
-  	daysWorked:number,
-  	vacationDays:number,
-  	cargesWithoutDicount:number,
-  	dicount:number,
-  	cargeswithDiscount:number
-  ]},
+  staffBilling:[{
+  	firstName: String,
+  	lastName: String,
+  	rate: Number,
+  	daysWorked: Number,
+  	vacationDays: Number,
+  	cargesWithoutDicount: Number,
+  	dicount: Number,
+  	cargeswithDiscount: Number
+  }],
   totalChargesNoDiscount:{
-  	type: number,
+  	type: Number,
   	default: ''
   },
   totalDicount:{
-  	type: number,
+  	type: Number,
   	default: ''
-  }
+  },
   totalCargesDiscount:{
-  	type: number,
+  	type: Number,
   	default: ''
   },
   paymentDue:{
-  	type: date,
+  	type: Date,
   	default: Date.now
   },
   dueOn:{
-  	type: date,
+  	type: Date,
   	default: Date.now
   }
 });
