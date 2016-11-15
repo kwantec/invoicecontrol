@@ -31,9 +31,6 @@ var UserGroupSchema = new Schema({
       ref: 'Permission'
     }
   }],
-  // permissions: {
-  //   type: Array
-  // },
   created: {  
     type: Date,
     default: Date.now
