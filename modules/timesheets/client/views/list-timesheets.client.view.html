@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Timesheets</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="timesheet in vm.timesheets"
+       ui-sref="timesheets.view({ timesheetId: timesheet._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="timesheet.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="timesheet.user" ng-bind="timesheet.user.displayName"></span>
+        <span ng-if="!timesheet.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="timesheet.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.timesheets.$resolved && !vm.timesheets.length">
+    No Timesheets yet, why don't you <a ui-sref="timesheets.create">create one</a>?
+  </div>
+</section>
