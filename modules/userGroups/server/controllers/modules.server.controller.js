@@ -30,7 +30,7 @@ exports.create = function (req, res) {
  * @param  {res} res [The response]
  */
 exports.list = function (req, res) {
-	Module.find().sort('name').exec(function (err, modules) {
+	Module.find().sort('name').select('_id name permissions').populate('permissions','-_id').populate('permissions.permissionId','_id label').exec(function (err, modules) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
