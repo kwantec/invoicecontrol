@@ -6,6 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Loggy = mongoose.model('Loggy'),
+  Employee = mongoose.model('Employee'),
+  WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -87,8 +89,8 @@ exports.list = function(req, res) {
         model: 'Employee'
       })
       .populate({
-        path: 'team',
-        model: 'Team'
+        path: 'workTeam',
+        model: 'WorkTeam'
       })
       .exec(function(err, loggies) {
     if (err) {

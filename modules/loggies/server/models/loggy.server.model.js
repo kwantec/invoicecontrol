@@ -29,9 +29,9 @@ var LoggySchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Employee'
   },
-  team: {
+  workTeam: {
     type: Schema.ObjectId,
-    ref: 'Team'
+    ref: 'WorkTeam'
   },
   created_at: {
     type: Date,
