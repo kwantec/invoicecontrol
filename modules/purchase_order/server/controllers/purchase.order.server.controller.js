@@ -1,104 +1,118 @@
+/**
+ * Created by Andre on 13/11/2016.
+ */
 'use strict';
 
 var path = require('path');
 var mongoose = require("mongoose");
-var Employee = mongoose.model("Employee");
+var PurchaseOrder = mongoose.model("PurchaseOrder");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 exports.create = function (req, res) {
-    var employee = new Employee(req.body);
+    var purchaseOrder = new PurchaseOrder(req.body);
 
-    employee.save(function (err) {
+    purchaseOrder.save(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.json(employee);
+            res.json(purchaseOrder);
         }
+
     });
 };
 
+
 exports.update = function (req, res) {
-    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    PurchaseOrder.findById(req.params.purchaseOrderId).exec(function (err, purchaseOrder) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!purchaseOrder) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro la orden de compra"
                 });
             }
-            employee.name = req.body.name;
-            employee.lastName = req.body.lastName;
-            employee.salary = req.body.salary;
-            employee.dob = req.body.dob;
-            employee.save(function (err) {
+
+            purchaseOrder.purchaseNumber = req.body.purchaseNumber;
+            purchaseOrder.name = req.body.name;
+            purchaseOrder.description = req.body.description;
+            purchaseOrder.assignedAmount = req.body.assignedAmount;
+            purchaseOrder.remainingAmount = req.body.remainingAmount;
+
+            purchaseOrder.save(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(purchaseOrder);
                 }
+
             });
+
+
         }
-    });
+    })
 };
 
+
 exports.list = function (req, res) {
-    Employee.find({deleted:false}, function (err, employees) {
+    PurchaseOrder.find({deleteAt: null}, function (err, purchaseOrder) {
         if (err) {
             console.log(err);
         } else {
-            res.json(employees);
+            res.json(purchaseOrder);
         }
     });
 };
+
 
 exports.read = function (req, res) {
-    Employee.findById(req.params.employeeId, function (err, employee) {
+    PurchaseOrder.find(req.params.purchaseOrderId, function (err, purchaseOrder) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!purchaseOrder) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro la orden de compra"
                 });
             }
 
-            res.json(employee);
+            res.json(purchaseOrder);
         }
     });
 };
 
+
 exports.delete = function (req, res) {
-    Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    PurchaseOrder.findById(req.params.purchaseOrderId).exec(function (err, purchaseOrder) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!purchaseOrder) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro la orden de compra"
                 });
             }
 
-            employee.delete(function (err) {
+            purchaseOrder.delete(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(purchaseOrder);
                 }
             });
         }
+
     });
 };
-

@@ -1,104 +1,119 @@
+/**
+ * Created by Andre on 13/11/2016.
+ */
 'use strict';
 
 var path = require('path');
 var mongoose = require("mongoose");
-var Employee = mongoose.model("Employee");
+var Client = mongoose.model("Client");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 exports.create = function (req, res) {
-    var employee = new Employee(req.body);
+    var client = new Client(req.body);
 
-    employee.save(function (err) {
+    client.save(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.json(employee);
+            res.json(client);
         }
+
     });
 };
 
+
 exports.update = function (req, res) {
-    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    var client = Client.findById(req.params.clientId).exec(function (err, client) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!client) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el cliente"
                 });
             }
-            employee.name = req.body.name;
-            employee.lastName = req.body.lastName;
-            employee.salary = req.body.salary;
-            employee.dob = req.body.dob;
-            employee.save(function (err) {
+
+            client.name = req.body.name;
+            client.contact = req.body.contact;
+            client.address = req.body.address;
+            client.taxId = req.body.taxId;
+            client.phone = req.body.phone;
+            client.email = req.body.email;
+            client.url = req.body.url;
+
+            client.save(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(client);
                 }
+
             });
+
+
         }
-    });
+    })
 };
 
 exports.list = function (req, res) {
-    Employee.find({deleted:false}, function (err, employees) {
+    Client.find({deleteAt: null}, function (err, clients) {
         if (err) {
             console.log(err);
         } else {
-            res.json(employees);
+            res.json(clients);
         }
     });
 };
+
 
 exports.read = function (req, res) {
-    Employee.findById(req.params.employeeId, function (err, employee) {
+    Client.find(req.params.clientId, function (err, client) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!client) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el cliente"
                 });
             }
 
-            res.json(employee);
+            res.json(client);
         }
     });
 };
 
+
 exports.delete = function (req, res) {
-    Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    Client.findById(req.params.clientId).exec(function (err, client) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!client) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el cliente"
                 });
             }
 
-            employee.delete(function (err) {
+            client.delete(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(client);
                 }
             });
         }
+
     });
 };
-

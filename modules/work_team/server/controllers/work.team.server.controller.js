@@ -1,104 +1,117 @@
+/**
+ * Created by Andre on 13/11/2016.
+ */
 'use strict';
 
 var path = require('path');
 var mongoose = require("mongoose");
-var Employee = mongoose.model("Employee");
+var WorkTeam = mongoose.model("WorkTeam");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 exports.create = function (req, res) {
-    var employee = new Employee(req.body);
+    var team = new WorkTeam(req.body);
 
-    employee.save(function (err) {
+    team.save(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.json(employee);
+            res.json(team);
         }
+
     });
 };
 
+
+
 exports.update = function (req, res) {
-    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    var team = WorkTeam.findById(req.params.teamWorkId).exec(function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!team) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el equipo de trabajo"
                 });
             }
-            employee.name = req.body.name;
-            employee.lastName = req.body.lastName;
-            employee.salary = req.body.salary;
-            employee.dob = req.body.dob;
-            employee.save(function (err) {
+
+            team.name = req.body.name;
+            team.description = req.body.description;
+            team.leader = req.body.leader;
+            team.architect = req.body.architect;
+            team.technologies = req.body.technologies;
+
+            team.save(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(team);
                 }
+
             });
+
+
         }
-    });
+    })
 };
 
+
 exports.list = function (req, res) {
-    Employee.find({deleted:false}, function (err, employees) {
+    WorkTeam.find({deleteAt: null}, function (err, teams) {
         if (err) {
             console.log(err);
         } else {
-            res.json(employees);
+            res.json(teams);
         }
     });
 };
 
 exports.read = function (req, res) {
-    Employee.findById(req.params.employeeId, function (err, employee) {
+    WorkTeam.find(req.params.teamWorkId, function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!team) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el equipo de trabajo"
                 });
             }
 
-            res.json(employee);
+            res.json(team);
         }
     });
 };
 
 exports.delete = function (req, res) {
-    Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    WorkTeam.findById(req.params.teamWorkId).exec(function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!team) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el equipo de trabajo"
                 });
             }
 
-            employee.delete(function (err) {
+            team.delete(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(team);
                 }
             });
         }
+
     });
 };
-
