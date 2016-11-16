@@ -13,8 +13,6 @@ var path = require('path'),
  * Create a Loggy
  */
 exports.create = function(req, res) {
-  console.log(req.body);
-  console.log(req.user);
   var loggy = new Loggy(req.body);
   loggy.user = req.user;
 
@@ -83,7 +81,16 @@ exports.delete = function(req, res) {
  * List of Loggies
  */
 exports.list = function(req, res) {
-  Loggy.find().sort('-created').populate('user', 'displayName').exec(function(err, loggies) {
+  Loggy.find().sort('-created')
+      .populate({
+        path : 'employee',
+        model: 'Employee'
+      })
+      .populate({
+        path: 'team',
+        model: 'Team'
+      })
+      .exec(function(err, loggies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
