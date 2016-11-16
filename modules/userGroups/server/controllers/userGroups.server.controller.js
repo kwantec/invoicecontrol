@@ -102,8 +102,27 @@ exports.delete = function (req, res) {
 	});
 };
 
+exports.update = function (req, res) {
+	var usergroup = req.usergroup;
+
+	usergroup.name = req.body.name;
+	usergroup.description = req.body.description;
+	usergroup.users = req.body.users;
+	usergroup.permissions = req.body.permissions
+
+	usergroup.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(usergroup);
+		}
+	});
+};
+
 exports.list = function (req, res) {
-	UserGroup.find().sort('name').select('-permissions -created -__v').exec(function (err, permissions) {
+	UserGroup.find().sort('name').select('-permissions -created -__v -users').exec(function (err, permissions) {
 		if (err) {
 			return res.status(404).send({
 				message: errorHandler.getErrorMessage(err)
