@@ -32,43 +32,43 @@ var TimesheetSchema = new Schema({
     ref: 'Loggy'
   }],
   employees: [{
-      type: Schema.ObjectId,
-      ref: 'Employee'
-    },{
+      employee: {
+          type: Schema.ObjectId,
+          ref: 'Employee'
+      },
       billing: {
-        level: {
-          type: String,
-          default: '',
-          trim: true
-        },
-        monthly: {
-          type: String,
-          default: '',
-          trim: true
-        },
-        daysWorked: {
-          type: Number,
-          default: 0
-        },
-        vacationSickDays: {
-          type: Number,
-          default: 0
-        },
-        currentPeriodCharges: {
-          type: Number,
-          default: 0.00
-        },
-        discount: {
-          type: Number,
-          default: 0.00
-        },
-        totalPeriodCharges: {
-          type: Number,
-          default: 0.00
-        }
+          level: {
+              type: String,
+              default: '',
+              trim: true
+          },
+          monthly: {
+              type: String,
+              default: '',
+              trim: true
+          },
+          daysWorked: {
+              type: Number,
+              default: 0
+          },
+          vacationSickDays: {
+              type: Number,
+              default: 0
+          },
+          currentPeriodCharges: {
+              type: Number,
+              default: 0.00
+          },
+          discount: {
+              type: Number,
+              default: 0.00
+          },
+          totalPeriodCharges: {
+              type: Number,
+              default: 0.00
+          }
       }
-    }
-  ],
+  }],
   created_at: {
     type: Date,
     default: getNow
