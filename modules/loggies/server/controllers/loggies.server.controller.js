@@ -13,6 +13,8 @@ var path = require('path'),
  * Create a Loggy
  */
 exports.create = function(req, res) {
+  console.log(req.body);
+  console.log(req.user);
   var loggy = new Loggy(req.body);
   loggy.user = req.user;
 

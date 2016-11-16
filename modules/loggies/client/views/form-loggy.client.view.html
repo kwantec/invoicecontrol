@@ -10,7 +10,7 @@
       <form name="vm.form.loggyForm" class="form-horizontal" ng-submit="vm.save(vm.form.loggyForm.$valid)">
         <md-input-container layout-gt-xs="row">
           <label>Actividad</label>
-          <input type="text" ng-model="vm.loggy.activity" title="activity" required>
+          <input type="text" ng-model="vm.loggy.activity" title="Activity" required>
           <div ng-messages="vm.form.loggyForm.activity.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Loggy activity is required.</p>
           </div>
