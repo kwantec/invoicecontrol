@@ -72,7 +72,7 @@ exports.list = function (req, res) {
 
 
 exports.read = function (req, res) {
-    PurchaseOrder.find(req.params.purchaseOrderId, function (err, purchaseOrder) {
+    PurchaseOrder.findById(req.params.purchaseOrderId, function (err, purchaseOrder) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

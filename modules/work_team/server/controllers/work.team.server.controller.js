@@ -72,7 +72,7 @@ exports.list = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    WorkTeam.find(req.params.teamWorkId, function (err, team) {
+    WorkTeam.findById(req.params.teamWorkId, function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
