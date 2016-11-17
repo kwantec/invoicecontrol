@@ -42,7 +42,13 @@
                     closeOnConfirm: false
                 }, function () {
                     UserGroupsService.deleteUserGroup(id).then(function (response) {
-                        swal("Borrado", "El grupo " + response.name + " ha sido elimnado", "success");
+                        swal({
+                            title: "<h1>Borrado</h1>",
+                            text: "El grupo <strong>" + response.data.name + "</strong>  ha sido eliminado",
+                            type: "success",
+                            html: true
+                        });
+                        // swal("Borrado", "El grupo " + response.data.name + "  ha sido elimnado", "success");
                         $scope.listUserGroup.splice(index, 1);
                     }).catch(function (err) {
 
