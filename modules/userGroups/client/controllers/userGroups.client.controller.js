@@ -2,12 +2,26 @@
 	'use strict';
 	
 	// Employees controller
-	angular.module('userGroups').controller('UserGroupsController', ['$scope', '$stateParams','$state', '$mdDialog', '$mdToast', 'Authentication',
-		function ($scope, $stateParams, $state, $mdDialog, $mdToast, Authentication) {
-			var $ctrl = this;
-		
-			$scope.successTextAlert = 'Some content';
+	angular.module('userGroups').controller('UserGroupsController', ['$scope', '$stateParams','$state', '$mdDialog',
+		'$mdToast', 'Authentication', 'UserGroupsService',
+		function ($scope, $stateParams, $state, $mdDialog, $mdToast, Authentication, UserGroupsService) {
+			$scope.authentication = Authentication;
+	        $scope.successTextAlert = 'Some content';
 			$scope.showSuccessAlert = false;
+
+            $scope.findUserGroup = function () {
+                UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
+                    $scope.userGroup = response.data;
+                }).catch(function (err) {
+                    // If error, show a dilaog
+                    $mdDialog.show($mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Un error ha ocurrido')
+                        .textContent(err.data.message)
+                        .ok('¡Entendido!')
+                    );
+                });
+            };
 
 
 			$scope.postName = function() {
@@ -39,5 +53,9 @@
       	});
 			};
 		}
-	]);
+	])
+	.config(function ($mdThemingProvider) {
+		// $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+        // $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+	});
 }());

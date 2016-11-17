@@ -1,0 +1,68 @@
+<section ng-init="findUserGroup()">
+  <md-content>
+    <div class="page-header md-padding">
+      <h1>Detalles del Grupo de Usuarios</h1>
+    </div>
+    <div  flex-xs flex-gt-xs="100" layout="column">
+      <md-card md-theme="default" md-theme-watch>
+        <md-card-title>
+          <md-card-title-text>
+            <h3>Nombre del grupo</h3>
+            <span class="md-headline">{{ userGroup.name }}</span>
+            <span class="md-subhead"><i>Creado el: {{ userGroup.created | date }}</i></span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-divider></md-divider>
+        <md-card-content>
+          <div layout="row" layout-wrap>
+            <div flex="100">
+              <h3>Descripción del grupo</h3>
+              <p>{{ userGroup.description }}</p>
+            </div>
+          </div>
+          <div layout="row" layout-wrap>
+            <div flex="30">
+              <md-content>
+                <md-list flex>
+                  <md-subheader class="md-no-sticky"><h3>Lista de usuarios</h3></md-subheader>
+                  <md-list-item class="md-3-line" ng-repeat="user in userGroup.users" ng-click="null">
+                    <img ng-src="{{user.profileImageURL}}?{{$index}}" class="md-avatar" alt="{{user.username}}">
+                    <div class="md-list-item-text" layout="column">
+                      <h3>{{ user.username | uppercase }}</h3>
+                      <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+                    </div>
+                  </md-list-item>
+                </md-list>
+              </md-content>
+            </div>
+            <div flex="70">
+              <md-content>
+                <md-list flex>
+                  <md-subheader class="md-no-sticky"><h3>Lista de permisos</h3></md-subheader>
+                  <md-list-item class="md-3-line md-long-text" ng-repeat="permission in userGroup.permissions" ng-click="null">
+                    <div class="md-list-item-text md-padding">
+                      <h3>Módulo: {{ permission.module.name }}</h3>
+                      <p>{{ permission.module.description }}</p>
+                      <h3>Permiso: {{ permission.permission.label }}</h3>
+                      <p>{{ permission.permission.description }}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+              </md-content>
+            </div>
+          </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="md-teal">
+            <i class="glyphicon glyphicon-edit"></i>
+            Editar
+          </md-button>
+          <md-button class="md-red">
+            <i class="glyphicon glyphicon-trash"></i>
+            Eliminar
+          </md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+  </md-content>
+</section>
