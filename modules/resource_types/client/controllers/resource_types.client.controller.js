@@ -69,7 +69,7 @@ angular.module('resourceTypes')
                     }
                 } else {
                     $scope.resourceType.$remove(function () {
-                        $location.path('resource-types/');
+                        $location.path('resourceTypes/');
                     });
                 }
             };
@@ -103,7 +103,6 @@ angular.module('resourceTypes')
                 $scope.resourceType = ResourceTypes.get({
                     resourceTypeId: $stateParams.resourceTypeId
                 });
-                console.log("poffy");
             };
         }
     ]);

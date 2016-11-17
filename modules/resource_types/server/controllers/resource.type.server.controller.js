@@ -70,7 +70,7 @@ exports.list = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    ResourceType.find(req.params.resourceTypeId, function (err, resourceType) {
+    ResourceType.findById(req.params.resourceTypeId, function (err, resourceType) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
