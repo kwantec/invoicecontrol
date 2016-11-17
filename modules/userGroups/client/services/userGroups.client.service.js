@@ -13,7 +13,7 @@
         };
 
         function getUserGroup (userGroupId) {
-            return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/' + userGroupId})
+            return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/' + userGroupId});
         }
     }
 }());

@@ -108,7 +108,7 @@ exports.update = function (req, res) {
 	usergroup.name = req.body.name;
 	usergroup.description = req.body.description;
 	usergroup.users = req.body.users;
-	usergroup.permissions = req.body.permissions
+	usergroup.permissions = req.body.permissions;
 
 	usergroup.save(function (err) {
 		if (err) {
