@@ -8,6 +8,7 @@
             $scope.authentication = Authentication;
             $scope.successTextAlert = 'Some content';
             $scope.showSuccessAlert = false;
+            var listPermissionsSelected = [];
 
             $scope.findUserGroup = function () {
                 UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
@@ -24,9 +25,14 @@
             };
 
             $scope.create = function (isValid) {
-                console.log(isValid);
+                console.log(listPermissionsSelected);
                 if (isValid) {
-                    UserGroupsService.createUserGroup($scope.userGroup).then(function (response) {
+                    var data = {
+                        name: $scope.userGroup.name,
+                        description: $scope.userGroup.description,
+                        permissions: listPermissionsSelected
+                    }
+                    UserGroupsService.createUserGroup(data).then(function (response) {
                         // If error, show a dilaog
                         $mdDialog.show($mdDialog.alert()
                             .clickOutsideToClose(true)
@@ -49,11 +55,37 @@
                 }
             };
 
-            $scope.getListUserGropu = function () {
+            $scope.addPermision = function () {
+                var data = {
+                    module: this.$parent.module._id,
+                    permission: this.permission.permissionId._id
+                }
+                listPermissionsSelected.push(data);
+
+            }
+            $scope.getListUserGroup = function () {
                 UserGroupsService.getListUserGroup().then(function (response) {
                     $scope.listUserGroup = response.data;
                 }).catch(function (err) {
+                    $mdDialog.show($mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Un error ha ocurrido')
+                        .textContent(err.data.message)
+                        .ok('¡Entendido!')
+                    );
+                });
+            };
 
+            $scope.getListModules = function () {
+                UserGroupsService.getListModules().then(function (response) {
+                    $scope.listModules = response.data;
+                }).catch(function (err) {
+                    $mdDialog.show($mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Un error ha ocurrido')
+                        .textContent(err.data.message)
+                        .ok('¡Entendido!')
+                    );
                 });
             };
 
@@ -111,4 +143,6 @@
             // $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
             // $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
         });
+
+
 }());

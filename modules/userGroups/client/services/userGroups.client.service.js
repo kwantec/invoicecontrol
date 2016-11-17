@@ -12,7 +12,8 @@
             getUserGroup: getUserGroup,
             getListUserGroup: getListUserGroup,
             deleteUserGroup: deleteUserGroup,
-            createUserGroup: createUserGroup
+            createUserGroup: createUserGroup,
+            getListModules: getListModules
         };
 
         function getUserGroup(userGroupId) {
@@ -29,6 +30,10 @@
 
         function createUserGroup(data) {
             return $http({method: 'POST', data: data, url: 'http://localhost:3000/api/userGroups'});
+        }
+        
+        function getListModules(){
+            return $http({method: 'GET', url: 'http://localhost:3000/api/modules'});
         }
     }
 }());

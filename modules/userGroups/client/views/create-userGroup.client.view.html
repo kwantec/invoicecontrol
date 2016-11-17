@@ -68,42 +68,14 @@
 		<!-- ================================================================ -->
 		<!-- Permissions section -->
 		<!-- ================================================================ -->
-		<div class="col-md-5 col-md-offset-1">
-			<label>Empleados</label>
-			<div class="col-md-offset-1">
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 1
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 2
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 3
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 4
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 5
-				</md-checkbox>
-			</div>
-			<label>Empleados</label>
-			<div class="col-md-offset-1">
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 1
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 2
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 3
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 4
-				</md-checkbox>
-				<md-checkbox class="md-primary" aria-label="Checkbox 1">
-						Option 5
-				</md-checkbox>
+		<div class="col-md-5 col-md-offset-1" ng-init="getListModules()">
+			<div ng-repeat="module in listModules">
+                <label>{{module.name}}</label>
+                <div class="col-md-offset-1">
+                    <md-checkbox ng-click="addPermision()" ng-repeat="permission in module.permissions" id="id_{{module._id}}_{{permission.permissionId._id}}" class="md-primary" aria-label="Checkbox 1" >
+                        {{permission.permissionId.label}}
+                    </md-checkbox>
+                </div>
 			</div>
 		</div>
 	</div>
