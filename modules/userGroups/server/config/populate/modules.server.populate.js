@@ -63,30 +63,33 @@ module.exports = function (db) {
   });
   var user = new Module({
     name:'user',
-    description: 'module for the employees',
-    permissions: []
+    description: 'module for the employees'
   });
-  addPermission(user,'create');
-  user.save(function (err) {
-    console.log(err);
-  });
+  addPermissions(user,['list','create','read','update','delete']);
+  user.save();
   var group = new Module({
     name:'group',
     description: 'module for the employees'
   });
+  addPermissions(group,['list','create','read','update','delete']);
+  group.save();
   var permission = new Module({
     name:'permission',
     description: 'module for the employees'
   });
+  addPermissions(permission,['assign']);
+  permission.save();
 };
 
 
-function addPermission(module,permissionId) {
+function addPermissions(module,permissionIds) {
   Permission
-    .findOne({ permissionId: permissionId })
-    .exec(function (err,permission) {
+    .find({ permissionId: { $in : permissionIds } },{ _id: 1 })
+    .exec(function (err,permissions) {
       if(!err) {
-        module.permissions.push(permission._id);
+        permissions.forEach(function (permission) {
+          module.permissions.push(permission._id);
+        });
         module.save();
       }
       console.log(module);

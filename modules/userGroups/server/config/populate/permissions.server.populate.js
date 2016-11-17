@@ -44,10 +44,16 @@ module.exports = function () {
     description: 'Permission for list a resource'
   });
   list.save();
-  var view = new Permission({
-    permissionId: 'view',
-    label: 'view',
-    description: 'Permission for view a resource'
+  var read = new Permission({
+    permissionId: 'read',
+    label: 'read',
+    description: 'Permission for read a resource'
   });
-  view.save();
+  read.save();
+  var assign = new Permission({
+    permissionId: 'assign',
+    label: 'assign',
+    description: 'Permission for assign a permission'
+  })
+  assign.save();
 };
