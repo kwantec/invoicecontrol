@@ -20,6 +20,11 @@
 			url: '/create',
 			templateUrl: 'modules/userGroups/client/views/create-userGroup.client.view.html',
 			controller: 'UserGroupsController'
+		})
+		.state('userGroups.view', {
+			url: '/:userGroupId',
+			templateUrl: 'modules/userGroups/client/views/view-userGroup.client.view.html',
+			controller: 'UserGroupsController'
 		});
 	}
 

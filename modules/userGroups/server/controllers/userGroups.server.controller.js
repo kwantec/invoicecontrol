@@ -146,7 +146,7 @@ exports.userGroupById = function (req, res, next, id) {
 		});
 	}
 
-	UserGroup.findById(id).populate('permissions.module').populate('permissions.permission').populate('users', 'username firstName lastName -_id').exec(function (err, usergroup) {
+	UserGroup.findById(id).populate('permissions.module').populate('permissions.permission').populate('users', 'username firstName lastName profileImageURL -_id').exec(function (err, usergroup) {
 		if (err) {
 			return next(err);
 		} else if (!usergroup) {

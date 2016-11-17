@@ -23,3 +23,20 @@ textarea {
   border-right-style: solid;
   height: 100%;
 }
+
+.md-red {
+    color: white !important;
+    background: #DF013A !important;
+}
+
+.md-teal {
+    color: white !important;
+    background: #01A9DB !important;
+}
+.md-red:hover {
+    background: #8A0829 !important;
+}
+
+.md-teal:hover {
+    background: #086A87 !important;
+}
