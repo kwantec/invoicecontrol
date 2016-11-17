@@ -86,10 +86,6 @@ exports.list = function(req, res) {
         path : 'employee',
         model: 'Employee'
       })
-      .populate({
-        path: 'team',
-        model: 'Team'
-      })
       .exec(function(err, loggies) {
     if (err) {
       return res.status(400).send({
