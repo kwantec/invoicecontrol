@@ -40,3 +40,12 @@ textarea {
 .md-teal:hover {
     background: #086A87 !important;
 }
+
+.md-green-light {
+    color: white !important;
+    background: #01DF3A !important;
+}
+
+.md-green-light:hover {
+    background: #088A29 !important;
+}

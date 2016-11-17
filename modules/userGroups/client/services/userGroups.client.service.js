@@ -9,11 +9,16 @@
 
     function UserGroupsService ($http) {
         return {
-          getUserGroup:   getUserGroup
+            getUserGroup: getUserGroup,
+            createUserGroup: createUserGroup
         };
 
         function getUserGroup (userGroupId) {
             return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/' + userGroupId});
+        }
+
+        function createUserGroup (data) {
+            return $http({method: 'POST', data: data, url: 'http://localhost:3000/api/userGroups'});
         }
     }
 }());

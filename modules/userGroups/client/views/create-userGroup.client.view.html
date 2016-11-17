@@ -6,67 +6,65 @@
 		<button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
 		<strong>¡Hecho!</strong> {{successTextAlert}}
 	</div>
+  <form name="userGroupsForm" ng-submit="create(userGroupsForm.$valid)" novalidate autocomplete="off">
 	<div class="row">
 
 		<!-- ================================================================ -->
 		<!-- user group general information section -->
 		<!-- ================================================================ -->
 		<div class="col-md-6">
-			<form name="userGroupsForm">
+
 				<md-input-container class="md-block">
 					<label>Nombre</label>
-					<input required name="name" md-no-asterisk ng-model="test" keyboard-poster post-function="postName">
+					<input required name="name" md-no-asterisk ng-model="userGroup.name" >
 					<div ng-messages="userGroupsForm.name.$error">
 						<div ng-message="required">Se requiere este campo.</div>
 					</div>
 				</md-input-container>
 				<md-input-container class="md-block">
 					<label>Descripción</label>
-					<textarea id="" cols="30" rows="5" ng-model="test2" required md-no-asterisk name="description" keyboard-poster post-function="search"></textarea>
+					<textarea id="" cols="30" rows="5" ng-model="userGroup.description" required md-no-asterisk name="description" ></textarea>
 					<div ng-messages="userGroupsForm.description.$error">
 						<div ng-message="required">Se requiere este campo.</div>
 					</div>
 				</md-input-container>
-			</form>
-			<div class="row">
-				<div class="col-md-6">
-					<label>Usuarios</label>
-				</div>
-				<div class="col-md-6">
-						<md-button ng-click="showTabDialog($event)" class="md-fab md-mini md-green pull-right" aria-label="add-user">
-							<span class="glyphicon glyphicon-plus"></span>
-						</md-button>
-						<!-- <button class='btn-sm btn btn-success pull-right' ng-click="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar</button> -->
-				</div>
-			</div>
-			<div class="row">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Username</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>Acción</th>
-						</tr>
-					</thead>
-					<tbody>
-						<!-- CONDITIONAL -->
-						<!-- ng-class="{success: user.username === authentication.user.username}" -->
-						<tr>
-							<td>Ejemplo</td>
-							<td>Ejemplo</td>
-							<td>Ejemplo</td>
-							<td>
-								<button class="btn btn-danger btn-xs" type="button">
-									<i class="glyphicon glyphicon-remove"></i>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+
+			<!--<div class="row">-->
+				<!--<div class="col-md-6">-->
+					<!--<label>Usuarios</label>-->
+				<!--</div>-->
+				<!--<div class="col-md-6">-->
+						<!--<md-button ng-click="showTabDialog($event)" class="md-fab md-mini md-green pull-right" aria-label="add-user">-->
+							<!--<span class="glyphicon glyphicon-plus"></span>-->
+						<!--</md-button>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="row">-->
+				<!--<table class="table table-striped">-->
+					<!--<thead>-->
+						<!--<tr>-->
+							<!--<th>Username</th>-->
+							<!--<th>Nombre</th>-->
+							<!--<th>Apellido</th>-->
+							<!--<th>Acción</th>-->
+						<!--</tr>-->
+					<!--</thead>-->
+					<!--<tbody>-->
+						<!--<tr>-->
+							<!--<td>Ejemplo</td>-->
+							<!--<td>Ejemplo</td>-->
+							<!--<td>Ejemplo</td>-->
+							<!--<td>-->
+								<!--<button class="btn btn-danger btn-xs" type="button">-->
+									<!--<i class="glyphicon glyphicon-remove"></i>-->
+								<!--</button>-->
+							<!--</td>-->
+						<!--</tr>-->
+					<!--</tbody>-->
+				<!--</table>-->
+			<!--</div>-->
 		</div>
-		
+
 		<!-- ================================================================ -->
 		<!-- Permissions section -->
 		<!-- ================================================================ -->
@@ -109,4 +107,15 @@
 			</div>
 		</div>
 	</div>
+  <form name="userGroupsForm" ng-submit="create(userGroupsForm.$valid)" novalidate autocomplete="off">
+  <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+    <md-button class="md-raised md-red">
+      <i class="glyphicon glyphicon-remove"></i>
+      Cancelar
+    </md-button>
+    <md-button class="md-raised md-green-light" type="submit">
+      <i class="glyphicon glyphicon-ok"></i>
+      Crear
+    </md-button>
+  </section>
 </section>
