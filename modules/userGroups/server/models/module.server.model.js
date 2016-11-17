@@ -17,10 +17,8 @@ var ModuleSchema = new Schema({
     required: 'Please fill in a description'
   },
   permissions: [{
-    permissionId: {
-      type: Schema.ObjectId,
-      ref: 'Permission'
-    }
+    type: Schema.ObjectId,
+    ref: 'Permission'
   }]
 });
 

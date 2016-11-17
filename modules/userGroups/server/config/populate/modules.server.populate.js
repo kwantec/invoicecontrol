@@ -7,24 +7,31 @@
 /**
  * Module dependencies
  */
-var path = require('path'),
-  config = require(path.resolve('./config/config'));
+var path = require('path');
 var mongoose = require('mongoose');
 var Module = mongoose.model("Module");
+var Permission = mongoose.model('Permission');
+var ObjectId = mongoose.Schema.ObjectId;
 
 /**
  * Module init function.
  */
-module.exports = function (app, db) {
+module.exports = function (db) {
 
-  Module.remove({});
+  //Module.remove();
+
+  db.connection.db.dropCollection('modules',function (err) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log('Successfully dropped collection: ', 'modules');
+    }
+  });
 
   var employees = new Module({
     name:'employees',
     description: 'module for the employees'
   });
-
-  employees.save();
 
   var client = new Module({
     name:'client',
@@ -56,7 +63,12 @@ module.exports = function (app, db) {
   });
   var user = new Module({
     name:'user',
-    description: 'module for the employees'
+    description: 'module for the employees',
+    permissions: []
+  });
+  addPermission(user,'create');
+  user.save(function (err) {
+    console.log(err);
   });
   var group = new Module({
     name:'group',
@@ -69,3 +81,14 @@ module.exports = function (app, db) {
 };
 
 
+function addPermission(module,permissionId) {
+  Permission
+    .findOne({ permissionId: permissionId })
+    .exec(function (err,permission) {
+      if(!err) {
+        module.permissions.push(permission._id);
+        module.save();
+      }
+      console.log(module);
+    });
+}
