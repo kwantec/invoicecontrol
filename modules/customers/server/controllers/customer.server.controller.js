@@ -67,7 +67,7 @@ exports.list = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    Customer.find(req.params.customerId, function (err, customer) {
+    Customer.findById(req.params.customerId, function (err, customer) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -78,7 +78,8 @@ exports.read = function (req, res) {
                     message: "No se encontro el cliente"
                 });
             }
-            
+
+            console.log(customer);
             res.json(customer);
         }
     });
