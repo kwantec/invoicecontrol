@@ -23,6 +23,32 @@
                 });
             };
 
+            $scope.create = function (isValid) {
+                console.log(isValid);
+                if (isValid) {
+                    UserGroupsService.createUserGroup($scope.userGroup).then(function (response) {
+                        // If error, show a dilaog
+                        $mdDialog.show($mdDialog.alert()
+                            .clickOutsideToClose(true)
+                            .title('Operación exitosa')
+                            .textContent('¡El Grupo de Usuario:' + response.data.name + ' ha sido creado!')
+                            .ok('¡Entendido!')
+                        );
+                        $state.go('userGroups.view', {userGroupId: response.data._id});
+                    }).catch(function (err) {
+                        // If error, show a dilaog
+                        $mdDialog.show($mdDialog.alert()
+                            .clickOutsideToClose(true)
+                            .title('Un error ha ocurrido')
+                            .textContent(err.data.message)
+                            .ok('¡Entendido!')
+                        );
+                    });
+                } else {
+                    return false;
+                }
+            };
+
             $scope.getListUserGropu = function () {
                 UserGroupsService.getListUserGroup().then(function (response) {
                     $scope.listUserGroup = response.data;
@@ -54,11 +80,6 @@
 
                     });
                 });
-            };
-
-            $scope.postName = function () {
-                console.log("Executing query...");
-                $mdToast.show($mdToast.simple().textContent('Nombre del grupo de usuario actualizado!'));
             };
 
             $scope.switchBool = function (value) {
