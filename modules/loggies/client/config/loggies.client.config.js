@@ -22,11 +22,11 @@
       state: 'loggies.list'
     });
 
-    // Add the dropdown create item
+    // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'loggies', {
-      title: 'Create Loggy',
-      state: 'loggies.create',
-      roles: ['user']
+      title: 'Calendar',
+      state: 'loggies.calendar'
     });
+
   }
 }());
