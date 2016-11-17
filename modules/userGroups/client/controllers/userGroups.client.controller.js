@@ -50,11 +50,6 @@
                 });
             };
 
-            $scope.postName = function () {
-                console.log("Executing query...");
-                $mdToast.show($mdToast.simple().textContent('Nombre del grupo de usuario actualizado!'));
-            };
-
             $scope.switchBool = function (value) {
                 $scope[value] = !$scope[value];
             };

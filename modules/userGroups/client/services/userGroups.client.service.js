@@ -10,21 +10,25 @@
     function UserGroupsService($http) {
         return {
             getUserGroup: getUserGroup,
-            getListUserGroup : getListUserGroup,
-            deleteUserGroup : deleteUserGroup
-
+            getListUserGroup: getListUserGroup,
+            deleteUserGroup: deleteUserGroup,
+            createUserGroup: createUserGroup
         };
 
         function getUserGroup(userGroupId) {
             return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/' + userGroupId});
         }
-        
-        function getListUserGroup(){
+
+        function getListUserGroup() {
             return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/'});
         }
 
-        function deleteUserGroup(userGroupId){
+        function deleteUserGroup(userGroupId) {
             return $http({method: 'DELETE', url: 'http://localhost:3000/api/userGroups/' + userGroupId});
+        }
+
+        function createUserGroup(data) {
+            return $http({method: 'POST', data: data, url: 'http://localhost:3000/api/userGroups'});
         }
     }
 }());
