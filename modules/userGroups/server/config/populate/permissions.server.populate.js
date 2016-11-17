@@ -6,14 +6,12 @@
 /**
  * Module dependencies
  */
-var path = require('path'),
-  config = require(path.resolve('./config/config'));
 var mongoose = require('mongoose');
 var Permission = mongoose.model('Permission');
 /**
  * Module init function.
  */
-module.exports = function (app, db) {
+module.exports = function () {
   Permission.remove({});
 
   var create = new Permission({

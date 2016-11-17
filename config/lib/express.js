@@ -233,7 +233,7 @@ module.exports.init = function (db) {
   this.initSession(app, db);
 
   // Initialize Modules configuration
-  this.initModulesConfiguration(app);
+  this.initModulesConfiguration(app,db);
 
   // Initialize Helmet security headers
   this.initHelmetHeaders(app);
