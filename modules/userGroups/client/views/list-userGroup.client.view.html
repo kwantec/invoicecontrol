@@ -1,0 +1,23 @@
+<div class="container" id="tourpackages-carousel" ng-init="getListUserGropu()">
+    <div class="row">
+        <div class="col-lg-12"><h1><a id="btcListUserGroup" class="btn icon-btn btn-primary pull-right" href="#"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle"></span> Agregar grupo</a></h1></div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" ng-repeat="userGroup in listUserGroup track by $index">
+            <div class="thumbnail">
+                <div class="caption">
+                    <div class='col-lg-12'>
+                        <a ui-sref="userGroups.view({userGroupId:userGroup._id})"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        <a href="" ng-click="delete(userGroup._id, $index)"><span class="glyphicon glyphicon-trash pull-right text-primary"></span></a>
+                    </div>
+                    <div class='col-lg-12 well well-add-card'>
+                        <h4>{{userGroup.name}}</h4>
+                    </div>
+                    <div class='col-lg-12'>
+
+                        <p class="text-muted">{{userGroup.description}}</p>
+                    </div>
+                    <button id="btn-update-userGroup" type="button" class="btn btn-primary btn-xs btn-update btn-add-card">Update</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- End row -->
+</div><!-- End container -->

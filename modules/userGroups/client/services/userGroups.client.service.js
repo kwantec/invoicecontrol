@@ -7,13 +7,24 @@
 
     angular.module('userGroups').factory('UserGroupsService', ['$http', UserGroupsService]);
 
-    function UserGroupsService ($http) {
+    function UserGroupsService($http) {
         return {
-          getUserGroup:   getUserGroup
+            getUserGroup: getUserGroup,
+            getListUserGroup : getListUserGroup,
+            deleteUserGroup : deleteUserGroup
+
         };
 
-        function getUserGroup (userGroupId) {
+        function getUserGroup(userGroupId) {
             return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/' + userGroupId});
+        }
+        
+        function getListUserGroup(){
+            return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/'});
+        }
+
+        function deleteUserGroup(userGroupId){
+            return $http({method: 'DELETE', url: 'http://localhost:3000/api/userGroups/' + userGroupId});
         }
     }
 }());
