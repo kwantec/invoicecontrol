@@ -10,7 +10,7 @@ module.exports = function (app) {
         .get(resourceType.list)
         .post(resourceType.create);
 
-    app.route('/api/workTeams/:resourceTypeId')
+    app.route('/api/resourceTypes/:resourceTypeId')
         .get(resourceType.read)
         .put(resourceType.update)
         .delete(resourceType.delete);
