@@ -6,6 +6,10 @@
       </h1>
     </div>
   </md-toolbar>
+  <div class="text-center" ng-if="!resourceTypes.length">
+    <h2>A&uacute;n no has agregado un tipo de recurso</h2>
+    <md-button class="text-center md-raised md-primary" ui-sref="resource-types.create()">Crear Uno</md-button>
+  </div>
   <md-list>
     <md-list-item class="md-3-line" ng-repeat="current in resourceTypes">
       <div class="md-list-item-text">

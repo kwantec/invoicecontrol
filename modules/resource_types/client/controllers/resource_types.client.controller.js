@@ -29,9 +29,9 @@ angular.module('resourceTypes')
             };
 
             $scope.deleteRate = function(toDeleteRate){
-              $scope.newResourceType.rates = $scope.newResourceType.rates.filter(function(current){
-                  return current !== toDeleteRate;
-              });
+                $scope.newResourceType.rates = $scope.newResourceType.rates.filter(function(current){
+                    return current !== toDeleteRate;
+                });
             };
             // Create new ResourceType
             $scope.create = function (isValid) {
@@ -60,17 +60,15 @@ angular.module('resourceTypes')
             // Remove existing ResourceType
             $scope.remove = function (resourceType) {
                 if (resourceType) {
-                    resourceType.$remove();
+                    resourceType.$remove(function () {
+                        $location.path('resource-types');
+                    });
 
                     for (var i in $scope.resourceTypes) {
                         if ($scope.resourceTypes[i] === resourceType) {
                             $scope.resourceTypes.splice(i, 1);
                         }
                     }
-                } else {
-                    $scope.resourceType.$remove(function () {
-                        $location.path('resourceTypes/');
-                    });
                 }
             };
 
@@ -84,7 +82,7 @@ angular.module('resourceTypes')
                     return false;
                 }
 
-                var resourceType = $scope.resourceType;
+                var resourceType = $scope.newResourceType;
 
                 resourceType.$update(function () {
                     $location.path('resource-types/' + resourceType._id);
@@ -96,6 +94,9 @@ angular.module('resourceTypes')
             // Find a list of ResourceTypes
             $scope.find = function () {
                 $scope.resourceTypes = ResourceTypes.query();
+                $scope.resourceTypes = $scope.resourceTypes.filter(function(item){
+                    return !item.deleted;
+                });
             };
 
             // Find existing ResourceType
@@ -103,6 +104,7 @@ angular.module('resourceTypes')
                 $scope.resourceType = ResourceTypes.get({
                     resourceTypeId: $stateParams.resourceTypeId
                 });
+                $scope.newResourceType = $scope.resourceType;
             };
         }
     ]);

@@ -38,7 +38,7 @@ exports.update = function (req, res) {
             }
 
             resourceType.name = req.body.name;
-            resourceType.rates = req.body.name;
+            resourceType.rates = req.body.rates;
 
 
 
