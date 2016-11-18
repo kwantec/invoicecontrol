@@ -68,6 +68,14 @@ function seedModules() {
   return Module.remove().then(function () {
     var promisesModules = [];
 
+    addPermissions(employees,['list','create','read','update','delete']);
+    addPermissions(client,['list','create','read','update','delete']);
+    addPermissions(team,['list','create','read','update','delete']);
+    addPermissions(resourceType,['list','create','read','update','delete']);
+    addPermissions(purchaseOrder,['list','create','read','update','delete']);
+    addPermissions(invoices,['list','create','read','update','delete']);
+    addPermissions(logs,['list','create','read','update','delete']);
+    addPermissions(teamsheets,['list','create','read','update','delete']);
     addPermissions(user,['list','create','read','update','delete']);
     addPermissions(group,['list','create','read','update','delete']);
     addPermissions(permission,['assign']);

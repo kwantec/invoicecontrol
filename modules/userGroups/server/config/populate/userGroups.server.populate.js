@@ -37,7 +37,7 @@ function seedUserGroups() {
     });
 
   UserGroup.remove({ name: user.name })
-    .then(assignPermissions(user,['group.read']))
+    .then(assignPermissions(user,['logs.create','logs.view','logs.update','logs.list','group.read']))
     .then(function () {
       user.save();
     });
