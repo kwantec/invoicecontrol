@@ -12,6 +12,11 @@
             $scope.findUserGroup = function () {
                 UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
                     $scope.userGroup = response.data;
+                    for (var i = 0 ; i < $scope.userGroup.users.length ; i++) {
+
+                        UserGroupsService.setUserToList($scope.userGroup.users[i]._id);
+                    }
+                    console.log("Users now:", UserGroupsService.getUsersList());
                 }).catch(function (err) {
                     // If error, show a dilaog
                     $mdDialog.show($mdDialog.alert()
@@ -21,6 +26,34 @@
                         .ok('¡Entendido!')
                     );
                 });
+            };
+
+            $scope.update = function(isValid) {
+                console.log(UserGroupsService.getUsersList());
+                $scope.userGroup.users =  UserGroupsService.getUsersList();
+                console.log(isValid);
+                if (isValid) {
+                    UserGroupsService.updateUserGroup($scope.userGroup).then(function (response) {
+                        // If error, show a dilaog
+                        $mdDialog.show($mdDialog.alert()
+                            .clickOutsideToClose(true)
+                            .title('Operación exitosa')
+                            .textContent('¡El Grupo de Usuario:' + response.data.name + ' ha sido actualizado!')
+                            .ok('¡Entendido!')
+                        );
+                        $state.go('userGroups.view', {userGroupId: response.data._id});
+                    }).catch(function (err) {
+                        // If error, show a dilaog
+                        $mdDialog.show($mdDialog.alert()
+                            .clickOutsideToClose(true)
+                            .title('Un error ha ocurrido')
+                            .textContent(err.data.message)
+                            .ok('¡Entendido!')
+                        );
+                    });
+                } else {
+                    return false;
+                }
             };
 
             $scope.create = function (isValid) {
