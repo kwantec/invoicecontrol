@@ -1,0 +1,24 @@
+<section ng-init="find()">
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <h1>
+                <span>Clientes</span>
+            </h1>
+        </div>
+    </md-toolbar>
+    <md-list>
+        <md-list-item class="md-3-line" ng-repeat="customer in customers">
+            <div class="md-list-item-text">
+                <h2>{{customer.name}}</h2>
+            </div>
+
+            <div class="md-list-item-text">
+                <h2>{{customer.taxId}}</h2>
+            </div>
+
+            <md-button class="md-secondary" ui-sref="resource-types.view({resourceTypeId: customer._id})">Ver</md-button>
+            <md-button class="md-secondary" ng-click="remove(customer._id)">Eliminar</md-button>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+    </md-list>
+</section>

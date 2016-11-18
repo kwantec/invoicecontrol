@@ -67,7 +67,7 @@ exports.list = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    Customer.find(req.params.customerId, function (err, customer) {
+    Customer.findById(req.params.customerId, function (err, customer) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -78,7 +78,8 @@ exports.read = function (req, res) {
                     message: "No se encontro el cliente"
                 });
             }
-            
+
+            console.log(customer);
             res.json(customer);
         }
     });
@@ -87,6 +88,7 @@ exports.read = function (req, res) {
 exports.delete = function (req, res) {
     Customer.findById(req.params.customerId).exec(function (err, customer) {
         if (err) {
+            console.log('err');
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
@@ -99,10 +101,12 @@ exports.delete = function (req, res) {
 
             customer.delete(function (err) {
                 if (err) {
+                    console.log('error');
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
+                    console.log('success');
                     res.json(customer);
                 }
             });
