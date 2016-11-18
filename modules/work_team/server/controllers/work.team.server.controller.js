@@ -62,7 +62,7 @@ exports.update = function (req, res) {
 
 
 exports.list = function (req, res) {
-    WorkTeam.find({deleteAt: null}, function (err, teams) {
+    WorkTeam.find({deleted:false}, function (err, teams) {
         if (err) {
             console.log(err);
         } else {

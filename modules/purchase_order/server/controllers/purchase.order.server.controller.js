@@ -61,7 +61,7 @@ exports.update = function (req, res) {
 
 
 exports.list = function (req, res) {
-    PurchaseOrder.find({deleteAt: null}, function (err, purchaseOrder) {
+    PurchaseOrder.find({deleted:false}, function (err, purchaseOrder) {
         if (err) {
             console.log(err);
         } else {

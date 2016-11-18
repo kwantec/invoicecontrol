@@ -94,9 +94,7 @@ angular.module('resourceTypes')
             // Find a list of ResourceTypes
             $scope.find = function () {
                 $scope.resourceTypes = ResourceTypes.query();
-                $scope.resourceTypes = $scope.resourceTypes.filter(function(item){
-                    return !item.deleted;
-                });
+
             };
 
             // Find existing ResourceType

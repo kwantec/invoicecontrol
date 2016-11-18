@@ -60,7 +60,7 @@ exports.update = function (req, res) {
 
 
 exports.list = function (req, res) {
-    ResourceType.find({deleteAt: null}, function (err, resourceType) {
+    ResourceType.find({deleted:false}, function (err, resourceType) {
         if (err) {
             console.log(err);
         } else {
