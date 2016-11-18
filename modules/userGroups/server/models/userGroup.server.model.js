@@ -31,6 +31,10 @@ var UserGroupSchema = new Schema({
       ref: 'Permission'
     }
   }],
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   created: {
     type: Date,
     default: Date.now

@@ -26,6 +26,11 @@
                 templateUrl: 'modules/userGroups/client/views/list-userGroup.client.view.html',
                 controller: 'UserGroupsController'
             })
+            .state('userGroups.edit', {
+                url: '/:userGroupId/edit',
+                templateUrl: 'modules/userGroups/client/views/edit-userGroup.client.view.html',
+                controller: 'UserGroupsController'
+            })
             .state('userGroups.view', {
                 url: '/:userGroupId',
                 templateUrl: 'modules/userGroups/client/views/view-userGroup.client.view.html',

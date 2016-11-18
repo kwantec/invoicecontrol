@@ -1,7 +1,9 @@
 ( function () {
 	'use strict';
 
-	angular.module('userGroups').controller('DialogController', ['$scope', '$mdDialog', '$mdToast', 'ModalService', 'PasswordValidator', 'Authentication', function($scope, $mdDialog, $mdToast, ModalService, PasswordValidator, Authentication){
+	angular.module('userGroups').controller('DialogController', ['$scope', '$mdDialog', '$mdToast', 'ModalService',
+		'PasswordValidator', 'Authentication', 'UserGroupsService',
+		function($scope, $mdDialog, $mdToast, ModalService, PasswordValidator, Authentication, UserGroupsService){
 		$scope.users = [];
 		$scope.authentication = Authentication;
 
@@ -11,6 +13,8 @@
 		};
 
 		$scope.addUserToUserGroup = function (user, event) {
+			UserGroupsService.setUserToList(user._id);
+			console.log("Users now:", UserGroupsService.getUsersList());
 			$mdDialog.show(
 				$mdDialog.alert()
 					.title('Usuario agregado')
