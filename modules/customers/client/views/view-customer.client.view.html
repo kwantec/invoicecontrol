@@ -1,15 +1,31 @@
 <section ng-init="findOne()">
-    <md-toolbar md-scroll-shrink>
-        <div class="md-toolbar-tools">
-            <h1>
-                <span>Cliente</span>
-            </h1>
-        </div>
-    </md-toolbar>
     <md-content flex layout-padding>
-        <div>
-            <p class="md-body-2">Email</p>
-            <p class="md-body-1" ng-bind="customer.email"></p>
-        </div>
+        <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+                <h1>
+                    <span>Cliente</span>
+                </h1>
+            </div>
+        </md-toolbar>
+        <md-card>
+            <md-card-title>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media" layout>
+                        <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+                    </div>
+                </md-card-title-media>
+                <md-card-title-text>
+                    <span class="md-headline">{{customer.name}}</span>
+                    <span class="md-headline">{{customer.email}}</span>
+                    <span class="md-headline">{{customer.taxId}}</span>
+                    <span class="md-subhead description">{{customer.created_at}}</span>
+                </md-card-title-text>
+            </md-card-title>
+        </md-card>
+
+        <md-button class="md-raised md-primary"
+                   ui-sref="customers.edit({customerId: customer._id})">Editar
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="remove(customer._id)">Eliminar</md-button>
     </md-content>
 </section>

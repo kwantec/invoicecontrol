@@ -57,7 +57,7 @@ exports.update = function (req, res) {
 };
 
 exports.list = function (req, res) {
-    Customer.find({deleteAt: null}, function (err, customers) {
+    Customer.find({deleted:false}, function (err, customers) {
         if (err) {
             console.log(err);
         } else {

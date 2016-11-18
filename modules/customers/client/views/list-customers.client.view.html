@@ -16,7 +16,7 @@
                 <h2>{{customer.taxId}}</h2>
             </div>
 
-            <md-button class="md-secondary" ui-sref="resource-types.view({resourceTypeId: customer._id})">Ver</md-button>
+            <md-button class="md-secondary" ui-sref="customers.view({customerId: customer._id})">Ver</md-button>
             <md-button class="md-secondary" ng-click="remove(customer._id)">Eliminar</md-button>
             <md-divider ng-if="!$last"></md-divider>
         </md-list-item>
