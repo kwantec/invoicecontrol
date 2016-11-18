@@ -16,5 +16,9 @@ angular.module('userGroups').run(['Menus',
       title: 'Crear grupo de usuarios',
       state: 'userGroups.create'
     });
+    Menus.addSubMenuItem('topbar', 'userGroups', {
+      title: 'Ver lista de grupos',
+      state: 'userGroups.list'
+    });
   }
 ]);

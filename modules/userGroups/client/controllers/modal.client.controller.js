@@ -10,6 +10,17 @@
 			$mdDialog.cancel();
 		};
 
+		$scope.addUserToUserGroup = function (user, event) {
+			$mdDialog.show(
+				$mdDialog.alert()
+					.title('Usuario agregado')
+					.textContent('El usuario ' + user.username + ' ha sido agregado correctamente')
+					.ariaLabel(user.username)
+					.ok('Cerrar')
+					.targetEvent(event)
+			);
+		};
+
 		$scope.veriryUser = function(evt){
 			// Make a HTTP get to find a username
 			ModalService.getUserByUsername($scope.credentials.username).then(function(response){

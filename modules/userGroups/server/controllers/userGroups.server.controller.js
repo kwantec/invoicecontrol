@@ -108,7 +108,7 @@ exports.update = function (req, res) {
 	usergroup.name = req.body.name;
 	usergroup.description = req.body.description;
 	usergroup.users = req.body.users;
-	usergroup.permissions = req.body.permissions
+	usergroup.permissions = req.body.permissions;
 
 	usergroup.save(function (err) {
 		if (err) {
@@ -146,7 +146,7 @@ exports.userGroupById = function (req, res, next, id) {
 		});
 	}
 
-	UserGroup.findById(id).populate('permissions.module').populate('permissions.permission').populate('users', 'username firstName lastName -_id').exec(function (err, usergroup) {
+	UserGroup.findById(id).populate('permissions.module').populate('permissions.permission').populate('users', 'username firstName lastName profileImageURL -_id').exec(function (err, usergroup) {
 		if (err) {
 			return next(err);
 		} else if (!usergroup) {
