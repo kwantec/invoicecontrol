@@ -23,6 +23,11 @@
                 controller: 'CustomersListController',
                 templateUrl: 'modules/customers/client/views/list-customers.client.view.html'
             })
+            .state('customers.edit', {
+                url: '/:customerId/edit',
+                controller: 'CustomersController',
+                templateUrl: 'modules/customers/client/views/edit-customer.client.view.html'
+            })
             .state('customers.view', {
                 url: '/:customerId',
                 controller: 'CustomersController',

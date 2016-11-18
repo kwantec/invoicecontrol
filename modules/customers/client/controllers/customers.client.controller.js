@@ -85,7 +85,12 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
         };
 
         $scope.update = function () {
-            /* TODO */
+            var customer = $scope.customer;
+            customer.$update(function () {
+                $location.path('customers/' + customer._id);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
         };
 
         $scope.remove = function () {
