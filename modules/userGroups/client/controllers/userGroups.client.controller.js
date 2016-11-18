@@ -11,6 +11,7 @@
             var listPermissionsSelected = [];
 
             $scope.findUserGroup = function () {
+                UserGroupsService.setUsersList([]);
                 UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
                     $scope.userGroup = response.data;
                     for (var i = 0 ; i < $scope.userGroup.users.length ; i++) {
