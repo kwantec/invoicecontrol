@@ -3,7 +3,7 @@
 
   // Loggies controller
   angular
-    .module('loggies')
+    .module('loggies',['materialCalendar','ngMaterial'])
     .controller('LoggiesController', LoggiesController);
 
   LoggiesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'loggyResolve'];
@@ -17,7 +17,6 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-
     // Remove existing Loggy
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
