@@ -15,9 +15,9 @@ var populate = {
  * Module init function.
  */
 module.exports = function (app, db) {
-  populate.permissions();
+  populate.permissions().then(populate.modules);
 
-  populate.modules(db);
+  //populate.modules(db);
 
   populate.userGroups();
 };

@@ -22,4 +22,20 @@ var ModuleSchema = new Schema({
   }]
 });
 
+/**
+ * Method for add permissions
+ * @param permissions one Array with the permissionId's (strings)
+ */
+ModuleSchema.methods.addPermissions = function (permissionsIds) {
+  var Permission = mongoose.model('Permission');
+  var permissions = this.permissions;
+  return Permission
+    .find({ permissionId: { $in : permissionsIds } })
+    .exec().then(function (permissionsItems) {
+      permissionsItems.forEach(function (permission) {
+        permissions.push(permission._id);
+      });
+    });
+};
+
 mongoose.model('Module', ModuleSchema);
