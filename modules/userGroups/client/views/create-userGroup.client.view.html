@@ -72,8 +72,9 @@
 			<div ng-repeat="module in listModules">
                 <label>{{module.name}}</label>
                 <div class="col-md-offset-1">
-                    <md-checkbox ng-click="addPermision()" ng-repeat="permission in module.permissions" id="id_{{module._id}}_{{permission.permissionId._id}}" class="md-primary" aria-label="Checkbox 1" >
-                        {{permission.permissionId.label}}
+
+                    <md-checkbox ng-click="addPermision()" ng-repeat="permission in module.permissions" id="id_{{module._id}}_{{permission.permissionId}}" class="md-primary" aria-label="Checkbox 1" >
+                        {{permission.label}}
                     </md-checkbox>
                 </div>
 			</div>
