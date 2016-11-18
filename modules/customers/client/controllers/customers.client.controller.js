@@ -94,7 +94,15 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
         };
 
         $scope.remove = function () {
-            /* TODO */
+            $scope.customer.$delete(
+                {customerId: $stateParams.customerId},
+                function () {
+                    $location.path('customers/list');
+                },
+                function (errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                }
+            );
         };
     }
 ]);
