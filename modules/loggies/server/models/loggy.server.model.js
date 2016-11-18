@@ -23,7 +23,7 @@ var LoggySchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now
+    default: getNow
   },
   employee: {
     type: Schema.ObjectId,

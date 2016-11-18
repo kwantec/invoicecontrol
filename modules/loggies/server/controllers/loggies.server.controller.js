@@ -18,6 +18,21 @@ exports.create = function(req, res) {
   var loggy = new Loggy(req.body);
   loggy.user = req.user;
 
+  console.log(req.body);
+  console.log(req.user);
+
+  var employeeData = {
+    name: req.user.firstName,
+    lastName : req.user.lastName,
+    addres: {
+      city: "Merida",
+      state: "Yucatan",
+      country: "Mexico",
+      zipCode: 97203
+    }
+
+  };
+
   loggy.save(function(err) {
     if (err) {
       return res.status(400).send({
