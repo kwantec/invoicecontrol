@@ -81,19 +81,19 @@
 					<md-input-container class="md-icon-float md-block">
 						<!-- Use floating label instead of placeholder -->
 						<label>Buscar usuario</label>
-						<!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
 						<i class="glyphicon glyphicon-search pull-right"></i>
 						<input ng-model="searchBox" type="text">
 					</md-input-container>
           <md-list-item ng-repeat="user in users | filter: searchBox" class="md-3-line"
-                        ng-click="addUserToUserGroup(user, $event)">
+                        ng-click="addUserToUserGroup(user)">
             <img alt="{{ user.username }}" ng-src="{{ user.profileImageURL }}" class="md-avatar">
             <div class="md-list-item-text" layout="column">
-              <h3>{{ user.username }}</h3>
-              <h4>{{ user.firstName }} {{ user.lastName }}</h4>
-              <p><i>{{ user.email }}</i></p>
+              <div class="row">
+                <div class="col-md-2"><h3>{{ user.username }}</h3></div>
+                <div class="col-md-2"><h4>{{ user.firstName }} {{ user.lastName }}</h4></div>
+                <div class="col-md-2"><p><i>{{ user.email }}</i></p></div>
+              </div>
             </div>
-            <md-button class="md-green-light" ng-click="addUserToUserGroup(user, $event)">Agregar</md-button>
           </md-list-item>
 				</md-content>
 			</md-tab>

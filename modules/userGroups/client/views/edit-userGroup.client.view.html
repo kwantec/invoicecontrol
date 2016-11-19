@@ -40,7 +40,8 @@
           </div>
         </div>
         <div class="row">
-          <md-list-item ng-repeat="user in userGroup.users | filter: searchBox" class="md-3-line"
+          <h3 ng-if="users.length <= 0" >No existen usuarios en este grupo</h3>
+          <md-list-item ng-repeat="user in users" class="md-3-line"
                         ng-click="null">
             <img alt="{{ user.username }}" ng-src="{{ user.profileImageURL }}" class="md-avatar">
             <div class="md-list-item-text" layout="column">

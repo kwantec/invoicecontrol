@@ -11,8 +11,8 @@ module.exports = function (app) {
     app.route('/api/users/validateUsername/:username')
         .get(userGroups.validateUsername);
 
-    app.route('/api/usersGroup/registryUser')
-    	.post(userGroups.registryUser);
+    app.route('/api/usersGroup/addNewUser')
+    	.post(userGroups.addNewUser);
 
     app.route('/api/userGroups')
     	.get(userGroups.list)

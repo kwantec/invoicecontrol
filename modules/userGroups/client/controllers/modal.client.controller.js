@@ -12,9 +12,10 @@
 			$mdDialog.cancel();
 		};
 
-		$scope.addUserToUserGroup = function (user, event) {
-			UserGroupsService.setUserToList(user._id);
-			console.log("Users now:", UserGroupsService.getUsersList());
+		$scope.addUserToUserGroup = function (user) {
+			$mdDialog.hide(user);
+			// UserGroupsService.setUserToList(user._id);
+			// console.log("Users now:", UserGroupsService.getUsersList());
 			$mdDialog.show(
 				$mdDialog.alert()
 					.title('Usuario agregado')
@@ -68,6 +69,8 @@
 				// If is valid, make a HTTP post to save a new user
 				ModalService.createUser($scope.credentials).then(function (response) {
 					// If all god, show a dialog
+					var newUser = response.data;
+					$mdDialog.hide(newUser);
 					$mdDialog.show($mdDialog.alert()
 						.clickOutsideToClose(true)
 						.title('¡Operacion exitosa!')

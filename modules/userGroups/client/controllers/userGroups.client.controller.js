@@ -7,18 +7,16 @@
         function ($scope, $stateParams, $state, $mdDialog, $mdToast, Authentication, UserGroupsService) {
             $scope.authentication = Authentication;
             $scope.successTextAlert = 'Some content';
+            $scope.users = [];
             $scope.showSuccessAlert = false;
             var listPermissionsSelected = [];
 
             $scope.findUserGroup = function () {
-                UserGroupsService.setUsersList([]);
                 UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
                     $scope.userGroup = response.data;
                     for (var i = 0 ; i < $scope.userGroup.users.length ; i++) {
-
-                        UserGroupsService.setUserToList($scope.userGroup.users[i]._id);
+                        $scope.users.push($scope.userGroup.users[i]);
                     }
-                    console.log("Users now:", UserGroupsService.getUsersList());
                 }).catch(function (err) {
                     // If error, show a dilaog
                     $mdDialog.show($mdDialog.alert()
@@ -31,12 +29,9 @@
             };
 
             $scope.update = function(isValid) {
-                console.log(UserGroupsService.getUsersList());
-                $scope.userGroup.users =  UserGroupsService.getUsersList();
-                console.log(isValid);
                 if (isValid) {
                     UserGroupsService.updateUserGroup($scope.userGroup).then(function (response) {
-                        // If error, show a dilaog
+                        // If success, show a dilaog
                         $mdDialog.show($mdDialog.alert()
                             .clickOutsideToClose(true)
                             .title('Operación exitosa')
@@ -65,7 +60,7 @@
                         name: $scope.userGroup.name,
                         description: $scope.userGroup.description,
                         permissions: listPermissionsSelected
-                    }
+                    };
                     UserGroupsService.createUserGroup(data).then(function (response) {
                         // If error, show a dilaog
                         $mdDialog.show($mdDialog.alert()
@@ -96,7 +91,8 @@
                 }
                 listPermissionsSelected.push(data);
 
-            }
+            };
+
             $scope.getListUserGroup = function () {
                 UserGroupsService.getListUserGroup().then(function (response) {
                     $scope.listUserGroup = response.data;
@@ -165,12 +161,32 @@
                     targetEvent: ev,
                     clickOutsideToClose: false
                 })
-                    .then(function (answer) {
-                        $scope.status = 'You said the information was "' + answer + '".';
-                    }, function () {
+                .then(function (user) {
+                    $scope.users.push(user);
+                    $scope.userGroup.users.push(user._id);
+                }, function () {
                         $scope.status = 'You cancelled the dialog.';
-                    });
+                }, function (newUser) {
+                    console.log("ESTE?", newUser);
+                });
             };
+            
+            $scope.deleteUserFromUserGroup = function (user, evt) {
+                var indexUser = $scope.users.indexOf(user);
+                var indexUserFromUG = $scope.userGroup.users.indexOf(user);
+                if (indexUser >= 0 && indexUserFromUG >= 0) {
+                    $scope.users.splice(indexUser, 1);
+                    $scope.userGroup.users.splice(indexUserFromUG, 1);
+                } else {
+                    $mdDialog.show($mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Un error ha ocurrido')
+                        .textContent(err.data.message)
+                        .ok('¡Entendido!')
+                    );
+                }
+            }
+            
         }
     ])
         .config(function ($mdThemingProvider) {

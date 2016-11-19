@@ -9,29 +9,15 @@
 
     function UserGroupsService($http) {
         var users = [];
+
         return {
             getUserGroup: getUserGroup,
             getListUserGroup: getListUserGroup,
             deleteUserGroup: deleteUserGroup,
             createUserGroup: createUserGroup,
             getListModules: getListModules,
-            updateUserGroup: updateUserGroup,
-            setUsersList: setUsersList,
-            getUsersList: getUsersList,
-            setUserToList: setUserToList
+            updateUserGroup: updateUserGroup
         };
-
-        function setUsersList(_users) {
-            users = _users;
-        }
-
-        function setUserToList(userId) {
-            users.push(userId);
-        }
-
-        function getUsersList() {
-            return users;
-        }
 
         function getUserGroup(userGroupId) {
             return $http({method: 'GET', url: 'http://localhost:3000/api/userGroups/' + userGroupId});

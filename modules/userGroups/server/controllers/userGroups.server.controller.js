@@ -10,7 +10,7 @@ var path = require('path'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 
-exports.registryUser = function (req, res) {
+exports.addNewUser = function (req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
 
