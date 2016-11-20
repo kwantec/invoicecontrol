@@ -1,12 +1,20 @@
 <section>
     <md-toolbar class="md-theme-light" style="background-color:#3c3c3c">
         <h2 class="md-toolbar-tools">
-            <span>Create Employee</span>
+            <span>Crear Empleado</span>
         </h2>
     </md-toolbar>
     <md-content flex layout-padding>
         <div>
             <form class="form-horizontal" ng-submit="addEmployee()">
+                <h3 class="md-headline">Foto de perfil</h3>
+                <md-input-container>
+                    <label class="control-label">Seleccciona una imagen</label>
+                    <input id="input-1" type="file" class="file">
+                </md-input-container>
+
+                <h3 class="md-headline">Datos del empleado</h3>
+
                 <md-input-container layout-gt-xs="row">
                     <label>Name</label>
                     <input type="text" ng-model="newEmployee.name" title="name" required>
@@ -18,16 +26,57 @@
                 </md-input-container>
 
                 <md-input-container layout-gt-xs="row">
-                    <label>Salary</label>
-                    <input type="number" ng-model="newEmployee.salary" title="salary" required>
+                    <label>Correo electronico personal</label>
+                    <input type="text" title="email" required>
                 </md-input-container>
 
+                <md-input-container layout-gt-xs="row">
+                    <label>Correo electronico de trabajo</label>
+                    <input type="text" title="workEmail" required>
+                </md-input-container>
+
+                <md-input-container layout-gt-xs="row">
+                    <label>RFC</label>
+                    <input type="text" title="rfc" required>
+                </md-input-container>
+
+                <md-input-container layout-gt-xs="row">
+                    <label>IMSS</label>
+                    <input type="text" title="imss">
+                </md-input-container>
+
+                <md-input-container layout-gt-xs="row">
+                    <label>CURP</label>
+                    <input type="text" title="curp">
+                </md-input-container>
+
+
+                <h4 class="md-headline">Direcci&oacute;n</h4>
                 <div layout-gt-xs="row">
-                    <div flex-gt-xs>
-                        <h4>Date Of Birth</h4>
-                        <md-datepicker ng-model="newEmployee.dob" md-placeholder="Enter date" required></md-datepicker>
-                    </div>
+                    <md-input-container>
+                        <label>Pa&iacute;s</label>
+                        <input type="text" title="country" required>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Estado</label>
+                        <input type="text" title="state" required>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Ciudad</label>
+                        <input type="text" title="city" required>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Calle</label>
+                        <input type="text" title="street" required>
+                    </md-input-container>
+
                 </div>
+
+
+
                 <md-button type="submit" class="md-raised md-primary">Save</md-button>
 
             </form>
