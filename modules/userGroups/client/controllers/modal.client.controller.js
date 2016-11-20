@@ -2,8 +2,9 @@
 	'use strict';
 
 	angular.module('userGroups').controller('DialogController', ['$scope', '$mdDialog', '$mdToast', 'ModalService',
-		'PasswordValidator', 'Authentication', 'UserGroupsService',
-		function($scope, $mdDialog, $mdToast, ModalService, PasswordValidator, Authentication, UserGroupsService){
+		'PasswordValidator', 'Authentication', 'usersFromUserGroup',
+		function($scope, $mdDialog, $mdToast, ModalService, PasswordValidator, Authentication, usersFromUserGroup){
+		$scope.usersFromUserGroup = usersFromUserGroup;
 		$scope.users = [];
 		$scope.authentication = Authentication;
 
@@ -52,6 +53,14 @@
 			// Make a HTTP get to retrieve all the users
 			ModalService.getUsers().then(function(response){
 				$scope.users = response.data;
+				var getUserWithId = function (_user) {
+					return $scope.usersFromUserGroup[i]._id === _user._id;
+				};
+				for (var i = 0 ; i < $scope.usersFromUserGroup.length ; i++) {
+					var userToDelete = $scope.users.find(getUserWithId);
+					var index = $scope.users.indexOf(userToDelete);
+					$scope.users.splice(index, 1);
+				}
 			}).catch(function(err){
 				// If error, show a dialog
 				$mdDialog.show($mdDialog.alert()

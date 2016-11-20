@@ -85,7 +85,7 @@
 						<input ng-model="searchBox" type="text">
 					</md-input-container>
           <md-list-item ng-repeat="user in users | filter: searchBox" class="md-3-line"
-                        ng-click="addUserToUserGroup(user)">
+                        ng-click="addUserToUserGroup(user)" >
             <img alt="{{ user.username }}" ng-src="{{ user.profileImageURL }}" class="md-avatar">
             <div class="md-list-item-text" layout="column">
               <div class="row">

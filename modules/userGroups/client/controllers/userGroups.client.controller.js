@@ -88,7 +88,7 @@
                 var data = {
                     module: this.$parent.module._id,
                     permission: this.permission.permissionId._id
-                }
+                };
                 listPermissionsSelected.push(data);
 
             };
@@ -159,7 +159,10 @@
                     templateUrl: 'modules/userGroups/client/views/modal.client.view.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
-                    clickOutsideToClose: false
+                    clickOutsideToClose: false,
+                    locals: {
+                        usersFromUserGroup: $scope.userGroup.users
+                    }
                 })
                 .then(function (user) {
                     $scope.users.push(user);
@@ -173,26 +176,31 @@
             
             $scope.deleteUserFromUserGroup = function (user, evt) {
                 var indexUser = $scope.users.indexOf(user);
-                var indexUserFromUG = $scope.userGroup.users.indexOf(user);
+
+                // Find a user with the id equals to the users list from the userGroup
+                var _tempUser = $scope.userGroup.users.find(function (_userId) {
+                    return _userId === user._id;
+                });
+
+                // And now, with the tempUser you can make the 'indexOf'.
+                var indexUserFromUG = $scope.userGroup.users.indexOf(_tempUser);
+
+                // If the result of the 'indexOf' is different not '-1'
                 if (indexUser >= 0 && indexUserFromUG >= 0) {
                     $scope.users.splice(indexUser, 1);
                     $scope.userGroup.users.splice(indexUserFromUG, 1);
+                } else if (indexUser >= 0) {
+                    $scope.users.splice(indexUser, 1);
                 } else {
                     $mdDialog.show($mdDialog.alert()
                         .clickOutsideToClose(true)
                         .title('Un error ha ocurrido')
-                        .textContent(err.data.message)
+                        .textContent("Intente recargar la página y volver a ejecutar esta acción")
                         .ok('¡Entendido!')
                     );
                 }
-            }
+            };
             
         }
     ])
-        .config(function ($mdThemingProvider) {
-            // $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
-            // $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-        });
-
-
 }());

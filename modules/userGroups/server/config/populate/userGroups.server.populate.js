@@ -62,7 +62,7 @@ function assignPermissions(userGroup, permissions) {
       promisesUserGroup.push(promise);
     });
     return Promise.all(promisesUserGroup);
-  }
+  };
 }
 
 function assignAllPermissions(userGroup) {

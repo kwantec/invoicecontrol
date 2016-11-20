@@ -3,6 +3,8 @@
  * Modified by BuiRai on 13/11/2016.
  */
 
+'use strict';
+
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
