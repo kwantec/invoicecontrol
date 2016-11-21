@@ -13,7 +13,6 @@
       <!-- user group general information section -->
       <!-- ================================================================ -->
       <div class="col-md-6">
-
         <md-input-container class="md-block">
           <label>Nombre</label>
           <input required name="name" md-no-asterisk ng-model="userGroup.name" >
@@ -28,33 +27,34 @@
             <div ng-message="required">Se requiere este campo.</div>
           </div>
         </md-input-container>
-
+        <h5><span class="md-headline">Lista de usuarios</span></h5>
+        <span class="md-subhead"><i>Agregue o elimine usuarios</i></span>
         <div class="row">
-          <div class="col-md-6">
-            <label>Usuarios</label>
+          <div class="col-md-10">
+            <md-input-container class="md-icon-float md-block">
+              <!-- Use floating label instead of placeholder -->
+              <label>Buscar usuario</label>
+              <i class="glyphicon glyphicon-search pull-right"></i>
+              <input ng-model="searchUser" type="text">
+            </md-input-container>
           </div>
-          <div class="col-md-6">
-            <md-button ng-click="showTabDialog($event)" class="md-fab md-mini md-green pull-right" aria-label="add-user">
+          <div class="col-md-2">
+            <md-button ng-click="showTabDialog($event)" class="md-fab md-mini md-green-light pull-right" aria-label="add-user">
               <span class="glyphicon glyphicon-plus"></span>
             </md-button>
           </div>
         </div>
         <div class="row">
           <h3 ng-if="users.length <= 0" >No existen usuarios en este grupo</h3>
-          <md-list-item ng-repeat="user in users" class="md-3-line"
-                        ng-click="null">
+          <md-list-item ng-repeat="user in users | filter: searchUser" class="noright"
+                        ng-click="null" style="padding: 0; margin: 0;">
             <img alt="{{ user.username }}" ng-src="{{ user.profileImageURL }}" class="md-avatar">
-            <div class="md-list-item-text" layout="column">
-              <h3>{{ user.username }}</h3>
-              <h4>{{ user.firstName }} {{ user.lastName }}</h4>
-              <p><i>{{ user.email }}</i></p>
-            </div>
-            <md-button class="md-red" ng-click="deleteUserFromUserGroup(user, $event)">
+            <p><b>{{ user.username }}</b> | {{ user.firstName }} {{ user.lastName }}</p>
+            <button class="btn md-red btn-xs" ng-click="deleteUserFromUserGroup(user, $event)">
               <i class="glyphicon glyphicon-remove" aria-label="{{ user.username }}"></i>
-            </md-button>
+            </button>
           </md-list-item>
         </div>
-
       </div>
 
       <!-- ================================================================ -->
@@ -99,15 +99,15 @@
         </div>
       </div>
     </div>
-    <form name="userGroupsForm" ng-submit="create(userGroupsForm.$valid)" novalidate autocomplete="off">
-      <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
-        <md-button class="md-raised md-red">
-          <i class="glyphicon glyphicon-remove"></i>
-          Cancelar
-        </md-button>
-        <md-button class="md-raised md-teal" type="submit">
-          <i class="glyphicon glyphicon-ok"></i>
-          Actualizar
-        </md-button>
-      </section>
+  </form>
+  <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+    <md-button class="md-raised md-red">
+      <i class="glyphicon glyphicon-remove"></i>
+      Cancelar
+    </md-button>
+    <md-button class="md-raised md-teal" type="submit">
+      <i class="glyphicon glyphicon-ok"></i>
+      Actualizar
+    </md-button>
+  </section>
 </section>

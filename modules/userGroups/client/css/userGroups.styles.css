@@ -109,3 +109,7 @@ p
 .md-green-light:hover {
     background: #088A29 !important;
 }
+
+.margin-right {
+ margin-right: 10px !important;
+}

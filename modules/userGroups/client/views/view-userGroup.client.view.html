@@ -53,14 +53,16 @@
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ui-sref="userGroups.edit({userGroupId:userGroup._id})" class="md-teal">
-            <i class="glyphicon glyphicon-edit"></i>
-            Editar
-          </md-button>
-          <md-button class="md-red">
-            <i class="glyphicon glyphicon-trash"></i>
-            Eliminar
-          </md-button>
+          <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+            <md-button ui-sref="userGroups.edit({userGroupId:userGroup._id})" class="md-raised md-teal margin-right">
+              <i class="glyphicon glyphicon-edit"></i>
+              Editar
+            </md-button>
+            <md-button class="md-raised md-red">
+              <i class="glyphicon glyphicon-trash"></i>
+              Eliminar
+            </md-button>
+          </section>
         </md-card-actions>
       </md-card>
     </div>
