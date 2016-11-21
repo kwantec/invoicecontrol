@@ -10,7 +10,7 @@
                 <h3 class="md-headline">Foto de perfil</h3>
                 <md-input-container>
                     <label class="control-label">Seleccciona una imagen</label>
-                    <input id="input-1" type="file" class="file">
+                    <input type="file" ng-model="newEmployee.picture" class="file">
                 </md-input-container>
 
                 <h3 class="md-headline">Datos del empleado</h3>
@@ -27,50 +27,50 @@
 
                 <md-input-container layout-gt-xs="row">
                     <label>Correo electronico personal</label>
-                    <input type="text" title="email" required>
+                    <input type="text" ng-model="newEmployee.personEmail" title="email" required>
                 </md-input-container>
 
                 <md-input-container layout-gt-xs="row">
                     <label>Correo electronico de trabajo</label>
-                    <input type="text" title="workEmail" required>
+                    <input type="text" title="newEmployee.workEmail" ng-model="newEmployee.workEmail" required>
                 </md-input-container>
 
                 <md-input-container layout-gt-xs="row">
                     <label>RFC</label>
-                    <input type="text" title="rfc" required>
+                    <input type="text" title="rfc" ng-model="newEmployee.rfc" required>
                 </md-input-container>
 
                 <md-input-container layout-gt-xs="row">
                     <label>IMSS</label>
-                    <input type="text" title="imss">
+                    <input type="text" ng-model="newEmployee.imss" title="imss">
                 </md-input-container>
 
                 <md-input-container layout-gt-xs="row">
                     <label>CURP</label>
-                    <input type="text" title="curp">
+                    <input type="text" ng-model="newEmployee.curp" title="curp">
                 </md-input-container>
 
 
-                <h4 class="md-headline">Direcci&oacute;n</h4>
+                <h4 class="md-headline">Dirección</h4>
                 <div layout-gt-xs="row">
                     <md-input-container>
-                        <label>Pa&iacute;s</label>
-                        <input type="text" title="country" required>
+                        <label>País</label>
+                        <input type="text" ng-model="newEmployee.address.country" title="country" required>
                     </md-input-container>
 
                     <md-input-container>
                         <label>Estado</label>
-                        <input type="text" title="state" required>
+                        <input type="text" ng-model="newEmployee.address.state" title="state" required>
                     </md-input-container>
 
                     <md-input-container>
                         <label>Ciudad</label>
-                        <input type="text" title="city" required>
+                        <input type="text" ng-model="newEmployee.address.city" title="city" required>
                     </md-input-container>
 
                     <md-input-container>
-                        <label>Calle</label>
-                        <input type="text" title="street" required>
+                        <label>Código Postal</label>
+                        <input type="text" ng-model="newEmployee.address.zipCode" title="street" required>
                     </md-input-container>
 
                 </div>

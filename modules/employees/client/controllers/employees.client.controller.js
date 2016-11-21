@@ -13,8 +13,18 @@
         $scope.newEmployee = {};
         $scope.newEmployee.name = "";
         $scope.newEmployee.lastName = "";
-        $scope.newEmployee.salary = "";
-        $scope.newEmployee.dob = "";
+        $scope.newEmployee.address.city = "";
+        $scope.newEmployee.address.state = "";
+        $scope.newEmployee.address.country = "";
+        $scope.newEmployee.address.zipCode = "";
+        $scope.newEmployee.personEmail = "";
+        $scope.newEmployee.workEmail = "";
+        $scope.newEmployee.rfc = "";
+        $scope.newEmployee.imss = "";
+        $scope.curp = "";
+        $scope.picture = "";
+
+
 
         var Employee = $resource('/api/employees');
 
@@ -23,8 +33,16 @@
                 $scope.newEmployee = {};
                 $scope.newEmployee.name = "";
                 $scope.newEmployee.lastName = "";
-                $scope.newEmployee.salary = "";
-                $scope.newEmployee.dob = "";
+                $scope.newEmployee.address.city = "";
+                $scope.newEmployee.address.state = "";
+                $scope.newEmployee.address.country = "";
+                $scope.newEmployee.address.zipCode = "";
+                $scope.newEmployee.personEmail = "";
+                $scope.newEmployee.workEmail = "";
+                $scope.newEmployee.rfc = "";
+                $scope.newEmployee.imss = "";
+                $scope.curp = "";
+                $scope.picture = "";
                 $scope.showToastSave();
             });
         };
@@ -75,5 +93,7 @@
                     .hideDelay(3000)
             );
         };
+
+
     }
 }());
