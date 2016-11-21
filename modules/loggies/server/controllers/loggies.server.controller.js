@@ -6,6 +6,8 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Loggy = mongoose.model('Loggy'),
+  Employee = mongoose.model('Employee'),
+  WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -15,6 +17,21 @@ var path = require('path'),
 exports.create = function(req, res) {
   var loggy = new Loggy(req.body);
   loggy.user = req.user;
+
+  console.log(req.body);
+  console.log(req.user);
+
+  var employeeData = {
+    name: req.user.firstName,
+    lastName : req.user.lastName,
+    addres: {
+      city: "Merida",
+      state: "Yucatan",
+      country: "Mexico",
+      zipCode: 97203
+    }
+
+  };
 
   loggy.save(function(err) {
     if (err) {
@@ -85,6 +102,10 @@ exports.list = function(req, res) {
       .populate({
         path : 'employee',
         model: 'Employee'
+      })
+      .populate({
+        path: 'workTeam',
+        model: 'WorkTeam'
       })
       .exec(function(err, loggies) {
     if (err) {
