@@ -10,8 +10,8 @@
         Posted on
         <span ng-bind="loggy.created | date:'mediumDate'"></span>
         by
-        <span ng-if="loggy.user" ng-bind="loggy.user.displayName"></span>
-        <span ng-if="!loggy.user">Deleted User</span>
+        <span ng-if="loggy.employee.user" ng-bind="loggy.employee.user.displayName"></span>
+        <span ng-if="!loggy.employee.user">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="loggy.activity"></h4>
     </a>

@@ -9,6 +9,7 @@ var path = require('path'),
   Employee = mongoose.model('Employee'),
   WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  seeder = require("../seeders/loggies.server.seeder"),
   _ = require('lodash');
 
 /**
@@ -17,21 +18,6 @@ var path = require('path'),
 exports.create = function(req, res) {
   var loggy = new Loggy(req.body);
   loggy.user = req.user;
-
-  console.log(req.body);
-  console.log(req.user);
-
-  var employeeData = {
-    name: req.user.firstName,
-    lastName : req.user.lastName,
-    addres: {
-      city: "Merida",
-      state: "Yucatan",
-      country: "Mexico",
-      zipCode: 97203
-    }
-
-  };
 
   loggy.save(function(err) {
     if (err) {
@@ -101,7 +87,11 @@ exports.list = function(req, res) {
   Loggy.find().sort('-created')
       .populate({
         path : 'employee',
-        model: 'Employee'
+        model: 'Employee',
+        populate: {
+          path: 'user',
+          model: 'User'
+        }
       })
       .populate({
         path: 'workTeam',
@@ -112,7 +102,10 @@ exports.list = function(req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
+
     } else {
+      //TODO WARNING: When execute the following line the app will crash, but the seeder documents are created correct, comment the next line and restart the app to repair
+      /*seeder.seedMongo(req.user._id);*/
       res.jsonp(loggies);
     }
   });
@@ -129,15 +122,24 @@ exports.loggyByID = function(req, res, next, id) {
     });
   }
 
-  Loggy.findById(id).populate('user', 'displayName').exec(function (err, loggy) {
-    if (err) {
-      return next(err);
-    } else if (!loggy) {
-      return res.status(404).send({
-        message: 'No Loggy with that identifier has been found'
+  Loggy.findById(id)
+      .populate({
+        path : 'employee',
+        model: 'Employee',
+        populate: {
+          path: 'user',
+          model: 'User'
+        }
+      })
+      .exec(function (err, loggy) {
+        if (err) {
+          return next(err);
+        } else if (!loggy) {
+          return res.status(404).send({
+            message: 'No Loggy with that identifier has been found'
+          });
+        }
+        req.loggy = loggy;
+        next();
       });
-    }
-    req.loggy = loggy;
-    next();
-  });
 };

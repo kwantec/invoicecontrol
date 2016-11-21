@@ -34,6 +34,7 @@
     "crypto": "0.0.3",
     "express": "^4.13.1",
     "express-session": "^1.11.3",
+    "faker": "^3.1.0",
     "file-stream-rotator": "~0.0.6",
     "forever": "~0.14.2",
     "generate-password": "^1.1.1",
