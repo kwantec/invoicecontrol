@@ -8,17 +8,24 @@
         <tr>
             <th>Name</th>
             <th>Last Name</th>
-            <th>Salary</th>
-            <th>Birthday</th>
-            <th>Options</th>
+            <th>RFC</th>
+            <th>IMSS</th>
+            <th>CURP</th>
+            <th>Dirección</th>
+
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="employee in employees">
             <td>{{employee.name}}</td>
             <td>{{employee.lastName }}</td>
-            <td>{{employee.salary }}</td>
-            <td>{{employee.dob | date: 'fullDate' }}</td>
+            <td>{{employee.rfc }}</td>
+            <td>{{employee.imss }}</td>
+            <td>{{employee.curp }}</td>
+            <td>{{employee.address.country + " "+ employee.address.state +
+                " "+employee.address.city+ " "+employee.address.zipCode}}</td>
+
+
             <td>
                 <a ng-href="/employees/{{employee._id}}"><i class="glyphicon glyphicon-eye-open"></i></a>
                 <a ng-href="/employees/{{employee._id}}/edit"><i class="glyphicon glyphicon-pencil"></i></a>

@@ -13,6 +13,7 @@
         $scope.newEmployee = {};
         $scope.newEmployee.name = "";
         $scope.newEmployee.lastName = "";
+        $scope.newEmployee.address = {};
         $scope.newEmployee.address.city = "";
         $scope.newEmployee.address.state = "";
         $scope.newEmployee.address.country = "";
@@ -21,8 +22,8 @@
         $scope.newEmployee.workEmail = "";
         $scope.newEmployee.rfc = "";
         $scope.newEmployee.imss = "";
-        $scope.curp = "";
-        $scope.picture = "";
+        $scope.newEmployee.curp = "";
+        $scope.newEmployee.picture = "";
 
 
 
@@ -41,8 +42,8 @@
                 $scope.newEmployee.workEmail = "";
                 $scope.newEmployee.rfc = "";
                 $scope.newEmployee.imss = "";
-                $scope.curp = "";
-                $scope.picture = "";
+                $scope.newEmployee.curp = "";
+                $scope.newEmployee.picture = "";
                 $scope.showToastSave();
             });
         };
