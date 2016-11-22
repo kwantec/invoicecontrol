@@ -3,6 +3,10 @@
 angular.module('customers').controller('CustomersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Customers',
     function ($scope, $stateParams, $location, Authentication, Customers) {
         $scope.authentication = Authentication;
+        $scope.sortType = 'name';
+        $scope.sortReverse = false;
+        $scope.searchCustomer = '';
+
         $scope.newCustomer = {
             name: "",
             taxId: "",
@@ -103,6 +107,10 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
                     $scope.error = errorResponse.data.message;
                 }
             );
+        };
+
+        $scope.clearValue = function () {
+
         };
     }
 ]);

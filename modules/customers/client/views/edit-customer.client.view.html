@@ -1,110 +1,94 @@
 <section ng-init="findOne()">
-    <md-toolbar md-scroll-shrink>
-        <h2 class="md-toolbar-tools">
-            <span>Editar Cliente</span>
-        </h2>
-    </md-toolbar>
-    <md-content flex layout-padding>
-        <div>
-            <form name="editCustomer" class="form-horizontal" ng-submit="update()" novalidate>
-                <md-input-container layout-gt-xs="row">
-                    <label>Nombre</label>
-                    <input type="text" ng-model="customer.name" title="name" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Tax ID</label>
-                    <input type="text" ng-model="customer.taxId" title="taxId" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Tel&eacute;fono</label>
-                    <input type="text" ng-model="customer.phone" title="phone" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Email</label>
-                    <input type="text" ng-model="customer.email" title="email" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>URL</label>
-                    <input type="text" ng-model="customer.url" title="url" required>
-                </md-input-container>
-
-                <h3 class="md-headline">Informaci&oacute;n de contacto</h3>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Nombre</label>
-                    <input type="text" ng-model="customer.contact.name" title="contactName" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Tel&eacute;fono de oficina</label>
-                    <input type="text" ng-model="customer.contact.officePhone" title="officePhone" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Tel&eacute;fono celular</label>
-                    <input type="text" ng-model="customer.contact.cellPhone" title="cellPhone" required>
-                </md-input-container>
-
-                <md-input-container layout-gt-xs="row">
-                    <label>Email</label>
-                    <input type="text" ng-model="customer.contact.email" title="contactEmail" required>
-                </md-input-container>
-
-                <h3 class="md-headline">Direcci&oacute;n</h3>
-
-                <div layout-gt-xs="row">
-                    <md-input-container>
-                        <label>Pa&iacute;s</label>
-                        <input type="text" ng-model="customer.address.country" title="country" required>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>Estado</label>
-                        <input type="text" ng-model="customer.address.state" title="state" required>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>Ciudad</label>
-                        <input type="text" ng-model="customer.address.city" title="city" required>
-                    </md-input-container>
+    <div class="page-header">
+        <h1>Editando {{customer.name}}</h1>
+    </div>
+    <form name="editCustomer" class="form-horizontal" ng-submit="update()" novalidate>
+        <md-input-container layout-gt-xs="row">
+            <label>Nombre</label>
+            <input type="text" ng-model="customer.name" title="name" required>
+        </md-input-container>
+        <md-input-container layout-gt-xs="row">
+            <label>Tax ID</label>
+            <input type="text" ng-model="customer.taxId" title="taxId" required>
+        </md-input-container>
+        <md-input-container layout-gt-xs="row">
+            <label>Tel&eacute;fono</label>
+            <input type="text" ng-model="customer.phone" title="phone" required>
+        </md-input-container>
+        <md-input-container layout-gt-xs="row">
+            <label>URL</label>
+            <input type="text" ng-model="customer.url" title="url" required>
+        </md-input-container>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>Email</label>
+            <input type="email" ng-model="customer.email" title="email" required>
+            <div ng-messages="customer.email.$error" role="alert">
+                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                    Ingrese un email v&aacute;lido. Ej: john.smith&#64;example.org
                 </div>
-
-                <div layout-gt-xs="row">
-                    <md-input-container>
-                        <label>Calle</label>
-                        <input type="text" ng-model="customer.address.street" title="street" required>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>Cruzamientos</label>
-                        <input type="text" ng-model="customer.address.crosses" title="crosses" required>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>Lote</label>
-                        <input type="text" ng-model="customer.address.lot" title="lot" required>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>Colonia</label>
-                        <input type="text" ng-model="customer.address.colony" title="colony" required>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <label>C&oacute;digo Postal</label>
-                        <input type="text" ng-model="customer.address.zipCode" title="zipCode" required>
-                    </md-input-container>
+            </div>
+        </md-input-container>
+        <h3 class="md-title">Informaci&oacute;n de contacto</h3>
+        <md-input-container layout-gt-xs="row">
+            <label>Nombre</label>
+            <input type="text" ng-model="customer.contact.name" title="contactName" required>
+        </md-input-container>
+        <md-input-container layout-gt-xs="row">
+            <label>Tel&eacute;fono de oficina</label>
+            <input type="text" ng-model="customer.contact.officePhone" title="officePhone" required>
+        </md-input-container>
+        <md-input-container layout-gt-xs="row">
+            <label>Tel&eacute;fono celular</label>
+            <input type="text" ng-model="customer.contact.cellPhone" title="cellPhone" required>
+        </md-input-container>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>Email</label>
+            <input type="email" ng-model="customer.contact.email" title="contactEmail" required>
+            <div ng-messages="customer.contact.email.$error" role="alert">
+                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                    Ingrese un email v&aacute;lido. Ej: john.smith&#64;example.org
                 </div>
-
-                <md-button type="submit"
-                           class="md-raised md-primary text-center"
-                           ng-disabled="editCustomer.$invalid">Guardar
-                </md-button>
-            </form>
+            </div>
+        </md-input-container>
+        <h3 class="md-title">Direcci&oacute;n</h3>
+        <div layout-gt-xs="row">
+            <md-input-container>
+                <label>Pa&iacute;s</label>
+                <input type="text" ng-model="customer.address.country" title="country" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Estado</label>
+                <input type="text" ng-model="customer.address.state" title="state" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Ciudad</label>
+                <input type="text" ng-model="customer.address.city" title="city" required>
+            </md-input-container>
         </div>
-    </md-content>
+        <div layout-gt-xs="row">
+            <md-input-container>
+                <label>Calle</label>
+                <input type="text" ng-model="customer.address.street" title="street" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Cruzamientos</label>
+                <input type="text" ng-model="customer.address.crosses" title="crosses" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Lote</label>
+                <input type="text" ng-model="customer.address.lot" title="lot" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Colonia</label>
+                <input type="text" ng-model="customer.address.colony" title="colony" required>
+            </md-input-container>
+            <md-input-container>
+                <label>C&oacute;digo Postal</label>
+                <input type="text" ng-model="customer.address.zipCode" title="zipCode" required>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="end" flex>
+            <md-button type="submit" class="md-primary" ng-disabled="editCustomer.$invalid">Guardar</md-button>
+        </div>
+    </form>
 </section>
