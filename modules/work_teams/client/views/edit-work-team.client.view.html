@@ -1,0 +1,77 @@
+<section ng-controller="WorkTeamsController" ng-init="findOne()">
+  <md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+      <h3>
+        <span>Crear un Tipo de Recurso</span>
+      </h3>
+    </div>
+  </md-toolbar>
+  <md-content layout-padding>
+    <form name="workTeamForm" class="form-horizontal" role="form" ng-submit="update(workTeamForm.$valid)" novalidate>
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Nombre</label>
+          <input ng-model="newResourceType.name" md-maxlength="50" required ng-required="true">
+        </md-input-container>
+      </div>
+
+      <h3>Tarifas</h3>
+      <md-list>
+        <md-list-item class="md-3-line" ng-repeat="current in newResourceType.rates">
+          <div class="md-list-item-text">
+            <h3>{{current.level}} - {{current.name}} ({{current.rate | currency}})</h3>
+            <h4>{{current.description}}</h4>
+            <p>{{current.qualities}}</p>
+          </div>
+          <md-button class="md-secondary" ng-click="deleteRate(current)">Eliminar</md-button>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </md-list>
+      <div class="text-center" ng-if="!newResourceType.rates.length">
+        <h6>A&uacute;n no has agregado una tarifa a este tipo de recurso</h6>
+      </div>
+      <md-button
+        type="submit"
+        ng-disabled="resourceTypeForm.$invalid"
+        class="md-raised md-primary text-center"
+        ng-click="update(resourceTypeForm.$valid)">Guardar</md-button>
+    </form>
+    <form name="rateForm" class="form-horizontal" role="form" novalidate>
+      <md-toolbar class="md-theme-light">
+        <h4 class="md-toolbar-tools">
+          <span>Agregar Tarifa</span>
+        </h4>
+      </md-toolbar>
+      <br>
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Nivel</label>
+          <input ng-model="newRate.level" type="number" required ng-required="true">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Name</label>
+          <input ng-model="newRate.name" md-maxlength="50" required ng-required="true">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Tarifa</label>
+          <input ng-model="newRate.rate" type="number" required ng-required="true">
+        </md-input-container>
+      </div>
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Descripci&oacute;n</label>
+          <input ng-model="newRate.description" md-maxlength="250" required ng-required="true">
+        </md-input-container>
+      </div>
+      <h5 class="md-title">Cualidades</h5>
+      <md-chips ng-model="newRate.qualities" readonly="ctrl.readonly" md-removable="ctrl.removable"
+                md-enable-chip-edit="true" placeholder="Agrega una cualidad" secondary-placeholder=" + Asombroso"></md-chips>
+      <md-button
+        type="submit"
+        ng-disabled="rateForm.$invalid"
+        class="md-raised md-primary text-center"
+        ng-click="addRate()">Agregar Tarifa</md-button>
+    </form>
+  </md-content>
+  <br><br><br>
+</section>

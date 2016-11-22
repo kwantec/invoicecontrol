@@ -1,0 +1,25 @@
+<section ng-controller="WorkTeamsController" ng-init="find()">
+  <md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+      <h1>
+        <span>Tipos de Recurso</span>
+      </h1>
+    </div>
+  </md-toolbar>
+  <div class="text-center" ng-if="!resourceTypes.length">
+    <h2>A&uacute;n no has agregado un tipo de recurso</h2>
+    <md-button class="text-center md-raised md-primary" ui-sref="resource-types.create()">Crear Uno</md-button>
+  </div>
+  <md-list>
+    <md-list-item class="md-3-line" ng-repeat="current in resourceTypes">
+      <div class="md-list-item-text">
+        <h2>{{current.name}}</h2>
+        <h3>Tarifas registradas : {{current.rates.length}}</h3>
+        <p class="text-info">Creado en : {{current.created_at}}</p>
+      </div>
+      <md-button class="md-secondary" ui-sref="resource-types.view({resourceTypeId: current._id})">Ver</md-button>
+      <md-button class="md-secondary" ng-click="remove(current)">Eliminar</md-button>
+      <md-divider ng-if="!$last"></md-divider>
+    </md-list-item>
+  </md-list>
+</section>
