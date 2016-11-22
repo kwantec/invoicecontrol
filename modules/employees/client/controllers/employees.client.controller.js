@@ -10,14 +10,20 @@
     EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location', '$mdToast'];
 
     function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast) {
-        //$scope.initNewEmployee();
-
-
         var Employee = $resource('/api/employees');
+        var Users = $resource('/api/users');
+
+        $scope.userData = {
+            userList: getUsers()
+        };
+
+        function getUsers() {
+            return Users.query();
+        }
 
         $scope.addEmployee = function () {
             Employee.save($scope.newEmployee, function () {
-                $scope.initNewEmployee();
+                initNewEmployee();
                 $scope.showToastSave();
             });
         };
@@ -69,13 +75,8 @@
             );
         };
 
-        var Users = $resource('/api/users');
-        $scope.userData = {
-            userList: Users.query()
-        };
 
-        $scope.initNewEmployee = function () {
-
+        function initNewEmployee() {
             $scope.newEmployee = {};
             $scope.newEmployee.name = "";
             $scope.newEmployee.lastName = "";
@@ -92,6 +93,6 @@
             $scope.newEmployee.picture = "";
             $scope.newEmployee.user = "";
             return 0;
-        };
+        }
     }
 }());
