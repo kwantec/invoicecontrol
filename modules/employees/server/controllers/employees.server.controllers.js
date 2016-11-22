@@ -55,7 +55,7 @@ exports.list = function (req, res) {
         } else {
             res.json(employees);
         }
-    });
+    }).populate("user");
 };
 
 exports.read = function (req, res) {

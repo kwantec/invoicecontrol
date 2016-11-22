@@ -12,6 +12,7 @@
             <th>IMSS</th>
             <th>CURP</th>
             <th>Dirección</th>
+            <th>Usuario asociado</th>
 
         </tr>
         </thead>
@@ -24,6 +25,7 @@
             <td>{{employee.curp }}</td>
             <td>{{employee.address.country + " "+ employee.address.state +
                 " "+employee.address.city+ " "+employee.address.zipCode}}</td>
+            <td>{{employee.user.username}}</td>
 
 
             <td>

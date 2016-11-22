@@ -73,7 +73,7 @@
         $scope.userData = {
             userList: Users.query()
         };
-        
+
         $scope.initNewEmployee = function () {
 
             $scope.newEmployee = {};
