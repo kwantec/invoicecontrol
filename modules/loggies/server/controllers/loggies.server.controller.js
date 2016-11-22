@@ -84,10 +84,18 @@ exports.delete = function(req, res) {
  * List of Loggies
  */
 exports.list = function(req, res) {
-  Loggy.find().sort('-created')
+  Loggy
+      .find({
+      })
+      .sort('-created')
       .populate({
         path : 'employee',
         model: 'Employee',
+        match: {
+          user: {
+            $in: req.user._id
+          }
+        },
         populate: {
           path: 'user',
           model: 'User'
@@ -104,6 +112,9 @@ exports.list = function(req, res) {
       });
 
     } else {
+      loggies = loggies.filter(function(loggie) {
+        return loggie.employee;
+      });
       //TODO WARNING: When execute the following line the app will crash, but the seeder documents are created correct, comment the next line and restart the app to repair
       /*seeder.seedMongo(req.user._id);*/
       res.jsonp(loggies);

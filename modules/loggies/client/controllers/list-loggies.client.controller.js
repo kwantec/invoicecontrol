@@ -10,8 +10,6 @@
   function LoggiesListController(LoggiesService, $scope, $filter, $http, $q) {
     var vm = this;
 
-    console.log("HOLIS");
-
     $scope.dayFormat = "d";
 
     // To select a single date, make sure the ngModel is not an array.
