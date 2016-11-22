@@ -33,8 +33,20 @@ exports.update = function (req, res) {
             }
             employee.name = req.body.name;
             employee.lastName = req.body.lastName;
-            employee.salary = req.body.salary;
-            employee.dob = req.body.dob;
+            employee.address.country= req.body.address.country;
+            employee.address.state= req.body.address.state;
+            employee.address.city= req.body.address.city;
+            employee.address.zipCode= req.body.address.zipCode;
+            employee.personEmail = req.body.personEmail;
+            employee.workEmail = req.body.workEmail;
+            employee.rfc = req.body.rfc;
+            employee.imss = req.body.imss;
+            employee.curp = req.body.curp;
+            employee.picture = req.body.picture;
+            employee.user = req.body.user;
+
+
+
             employee.save(function (err) {
                 if (err) {
                     return res.status(400).send({

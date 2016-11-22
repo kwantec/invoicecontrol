@@ -5,31 +5,117 @@
 </md-toolbar>
 <md-content flex layout-padding ng-init="findEmployee()">
     <div>
-        <form name="editEmployee" ng-submit="update()">
+        <form name="editEmployee" ng-submit="update()" enctype="multipart/form-data">
+            <h3 class="md-headline">Foto de perfil</h3>
+            <md-input-container>
+                <label class="control-label">Seleccciona una imagen</label>
+                <input type="file" ng-model="employee.picture" class="file">
+            </md-input-container>
+
+            <h3 class="md-headline">Datos del empleado</h3>
+
             <md-input-container layout-gt-xs="row">
-                <label>Name</label>
-                <input ng-model="employee.name" required>
+                <label>Nombre</label>
+                <input type="text" ng-model="employee
+                .name" title="name" required>
             </md-input-container>
 
             <md-input-container layout-gt-xs="row">
-                <label>Last Name</label>
-                <input ng-model="employee.lastName" type="text" required>
+                <label>Apellidos</label>
+                <input type="text" ng-model="employee
+                .lastName" title="lastName" required>
             </md-input-container>
 
             <md-input-container layout-gt-xs="row">
-                <label>Salary</label>
-                <input ng-model="employee.salary" type="number" required>
+                <label>Correo electronico personal</label>
+                <input type="text" ng-model="employee
+                .personEmail" title="email" required>
             </md-input-container>
 
+            <md-input-container layout-gt-xs="row">
+                <label>Correo electronico de trabajo</label>
+                <input type="text" title="workEmail" ng-model="employee
+                .workEmail" required>
+            </md-input-container>
+
+            <md-input-container layout-gt-xs="row">
+                <label>RFC</label>
+                <input type="text" title="rfc" ng-model="employee
+                .rfc" required>
+            </md-input-container>
+
+            <md-input-container layout-gt-xs="row">
+                <label>IMSS</label>
+                <input type="text" ng-model="employee
+                .imss" title="imss">
+            </md-input-container>
+
+            <md-input-container layout-gt-xs="row">
+                <label>CURP</label>
+                <input type="text" ng-model="employee
+                .curp" title="curp">
+            </md-input-container>
+
+
+            <h4 class="md-headline">Dirección</h4>
             <div layout-gt-xs="row">
-                <div flex-gt-xs>
-                    <h4>Date Of Birth</h4>
-                    <md-datepicker ng-model="employee.dob" md-placeholder="Enter date" required></md-datepicker>
-                </div>
+                <md-input-container>
+                    <label>País</label>
+                    <input type="text" ng-model="employee
+                    .address.country" title="country" required>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Estado</label>
+                    <input type="text" ng-model="employee
+                    .address.state" title="state" required>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Ciudad</label>
+                    <input type="text" ng-model="employee
+                    .address.city" title="city" required>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Código Postal</label>
+                    <input type="text" ng-model="employee
+                    .address.zipCode" title="zipCode" required>
+                </md-input-container>
+            </div>
+
+            <div>
+                <h4 class="md-headline">Usuarios</h4>
+
+                <label>
+                    <input type="radio" ng-model="content" name="create" value="form">
+                    Crear usuario
+                </label><br/>
+
+
+                <label>
+                    <input type="radio" ng-model="content" name="list" value="select">
+                    Seleccionar existene
+                </label><br/>
+
+                <md-input-container>
+
+                    <md-select ng-show="content == 'select'" ng-model="employee
+                    .user"
+                               title="usersList" placeholder="Selecciona un usuario" required>
+                        <md-select-header>
+                            <span> Selecciona un usuario - </span>
+                        </md-select-header>
+                        <md-option ng-repeat="user in userData.userList" value="{{user._id}}">{{user.username}}
+                        </md-option>
+                    </md-select>
+
+                </md-input-container>
             </div>
 
             <md-button ng-disabled="!editEmployee.$valid" type="submit" class="md-raised md-primary">Guardar</md-button>
-        </form>
 
+        </form>
     </div>
+
 </md-content>
