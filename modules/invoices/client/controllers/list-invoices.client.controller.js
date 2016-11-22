@@ -24,10 +24,8 @@
                 if (result !== undefined) {
 
                 } else {
-                    vm.showPrompt();
                 }
             }, function () {
-                vm.showPrompt();
             });
         };
 
