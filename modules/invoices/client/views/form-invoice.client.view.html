@@ -6,10 +6,28 @@
     <form name="vm.form.invoiceForm" class="form-horizontal" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.invoice.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.invoiceForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Invoice name is required.</p>
+          <label class="control-label" for="number">Number</label>
+          <input name="number" type="number" ng-model="vm.invoice.number" id="number" class="form-control" placeholder="Number" required>
+          <div ng-messages="vm.form.invoiceForm.number.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Invoice number is required.</p>
+          </div>
+
+          <label class="control-label" for="date">Date</label>
+          <input name="date" type="date" ng-model="vm.invoice.date" id="date" class="form-control" placeholder="Date" required>
+          <div ng-messages="vm.form.invoiceForm.date.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Invoice date is required.</p>
+          </div>
+
+          <label class="control-label" for="daysPeriod">DaysPeriod</label>
+          <input name="daysPeriod" type="number" ng-model="vm.invoice.daysPeriod" id="daysPeriod" class="form-control" placeholder="DaysPeriod" required>
+          <div ng-messages="vm.form.invoiceForm.daysPeriod.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Invoice days period is required.</p>
+          </div>
+
+          <label class="control-label" for="daysMonth">DaysMonth</label>
+          <input name="daysMonth" type="number" ng-model="vm.invoice.daysMonth" id="daysMonth" class="form-control" placeholder="DaysMonth" required>
+          <div ng-messages="vm.form.invoiceForm.daysMonth.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Invoice days month is required.</p>
           </div>
         </div>
         <div class="form-group">
