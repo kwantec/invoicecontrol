@@ -9,6 +9,7 @@
             $scope.successTextAlert = 'Some content';
             $scope.users = [];
             $scope.showSuccessAlert = false;
+            this.check = false;
             var listPermissionsSelected = [];
 
             /**
@@ -16,8 +17,9 @@
              */
             $scope.findUserGroup = function () {
                 UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
+                    console.log(response.data);
                     $scope.userGroup = response.data;
-                    for (var i = 0 ; i < $scope.userGroup.users.length ; i++) {
+                    for (var i = 0; i < $scope.userGroup.users.length; i++) {
                         $scope.users.push($scope.userGroup.users[i]);
                     }
                 }).catch(function (err) {
@@ -36,7 +38,7 @@
              * @param isValid - If the form is valid or not, the name and the description must be required
              * @returns false if error
              */
-            $scope.update = function(isValid) {
+            $scope.update = function (isValid) {
                 if (isValid) {
                     UserGroupsService.updateUserGroup($scope.userGroup).then(function (response) {
                         // If success, show a dilaog
@@ -101,12 +103,21 @@
              * Function to add a permission
              */
             $scope.addPermision = function () {
-                var data = {
-                    module: this.$parent.module._id,
-                    permission: this.permission.permissionId._id
-                };
-                listPermissionsSelected.push(data);
-
+                if (this.check) {
+                    this.check = false;
+                    for (var i = 0; i < listPermissionsSelected.length; i++) {
+                        if (listPermissionsSelected[i].module == this.$parent.module._id && listPermissionsSelected[i].permission == this.permission._id) {
+                            listPermissionsSelected.splice(i, 1);
+                        }
+                    }
+                } else {
+                    this.check = true;
+                    var data = {
+                        module: this.$parent.module._id,
+                        permission: this.permission._id
+                    };
+                    listPermissionsSelected.push(data);
+                }
             };
 
             /**
@@ -131,6 +142,7 @@
             $scope.getListModules = function () {
                 UserGroupsService.getListModules().then(function (response) {
                     $scope.listModules = response.data;
+                    console.log(response.data);
                 }).catch(function (err) {
                     $mdDialog.show($mdDialog.alert()
                         .clickOutsideToClose(true)
@@ -187,12 +199,12 @@
                         localUsers: $scope.users
                     }
                 })
-                .then(function (user) { // Function executed after close modal
-                    $scope.users.push(user);
-                    $scope.userGroup.users.push(user._id);
-                }, function () {
+                    .then(function (user) { // Function executed after close modal
+                        $scope.users.push(user);
+                        $scope.userGroup.users.push(user._id);
+                    }, function () {
                         $scope.status = 'You cancelled the dialog.';
-                });
+                    });
             };
 
             /**
@@ -228,7 +240,7 @@
                     );
                 }
             };
-            
+
         }
     ]);
 }());
