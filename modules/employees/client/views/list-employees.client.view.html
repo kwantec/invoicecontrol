@@ -9,11 +9,6 @@
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Correo personal</th>
-            <th>Correo del trabajo</th>
-            <th>RFC</th>
-            <th>IMSS</th>
-            <th>CURP</th>
-            <th>Dirección</th>
             <th>Usuario asociado</th>
 
         </tr>
@@ -23,18 +18,16 @@
             <td>{{employee.name}}</td>
             <td>{{employee.lastName }}</td>
             <td>{{employee.personEmail}}</td>
-            <td>{{employee.workEmail}}</td>
-            <td>{{employee.rfc }}</td>
-            <td>{{employee.imss }}</td>
-            <td>{{employee.curp }}</td>
-            <td>{{employee.address.country + " "+ employee.address.state +
-                " "+employee.address.city+ " "+employee.address.zipCode}}</td>
             <td>{{employee.user.username}}</td>
 
 
             <td>
                 <a ng-href="/employees/{{employee._id}}"><i class="glyphicon glyphicon-eye-open"></i></a>
+            </td>
+            <td>
                 <a ng-href="/employees/{{employee._id}}/edit"><i class="glyphicon glyphicon-pencil"></i></a>
+            </td>
+            <td>
                 <a ng-click="removeEmployee(employee._id);"><i class="glyphicon glyphicon-trash"></i></a>
             </td>
         </tr>

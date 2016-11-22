@@ -73,7 +73,7 @@ exports.read = function (req, res) {
 
             res.json(employee);
         }
-    });
+    }).populate("user");;
 };
 
 exports.delete = function (req, res) {

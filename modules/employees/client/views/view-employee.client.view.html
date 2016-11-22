@@ -1,21 +1,31 @@
 <section ng-init="findEmployee();">
-    <md-toolbar class="md-theme-light" style="background-color:#3c3c3c">
-        <h2 class="md-toolbar-tools">
-            <span ng-bind="(employee.name) + ' ' + (employee.lastName)"></span>
-        </h2>
-    </md-toolbar>
-    <md-content flex layout-padding>
-        <div>
-            <p class="md-body-2">Salary</p>
-            <p class="md-body-1" ng-bind="'$' + employee.salary"></p>
+    <md-card>
 
-            <p class="md-body-2">Birthday</p>
-            <p class="md-body-1" ng-bind="employee.dob | date: 'fullDate'"></p>
-        </div>
-
+        <md-select-header>
+            <h2 class="md-toolbar-tools">
+                <span ng-bind="(employee.name) + ' ' + (employee.lastName)"></span>
+            </h2>
+        </md-select-header>
+        <md-content>
+            <p class="md-body-2">Correo Personal</p>
+            <p class="md-body-1" >{{employee.personEmail}}</p>
+            <p class="md-body-2">Correo del trabajo</p>
+            <p class="md-body-1">{{employee.workEmail}}</p>
+            <p class="md-body-2">RFC</p>
+            <p class="md-body-1">{{employee.rfc }}</p>
+            <p class="md-body-2">IMSS</p>
+            <p class="md-body-1">{{employee.imss}}</p>
+            <p class="md-body-2">CURP</p>
+            <p class="md-body-1">{{employee.curp}}</p>
+            <p class="md-body-2">Dirección</p>
+            <p class="md-body-1">{{employee.address.country +" "
+                +employee.address.state+" " +" "+employee.address.city+" "+employee.address.zipCode}}</p>
+            <p class="md-body-2">Usuario</p>
+            <p class="md-body-1">{{employee.user.username}}</p>
+        </md-content>
         <div class="pull-right">
             <md-button ng-href="/employees/{{employee._id}}/edit" class="md-raised md-primary">Editar</md-button>
             <md-button ng-click="removeEmployee();" class="md-raised md-primary">Borrar</md-button>
         </div>
-    </md-content>
+    </md-card>
 </section>
