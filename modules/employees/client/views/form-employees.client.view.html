@@ -6,7 +6,7 @@
     </md-toolbar>
     <md-content flex layout-padding>
         <div>
-            <form class="form-horizontal" ng-submit="addEmployee()">
+            <form class="form-horizontal" ng-submit="addEmployee()" enctype="multipart/form-data">
                 <h3 class="md-headline">Foto de perfil</h3>
                 <md-input-container>
                     <label class="control-label">Seleccciona una imagen</label>
@@ -73,8 +73,19 @@
                         <input type="text" ng-model="newEmployee.address.zipCode" title="zipCode" required>
                     </md-input-container>
 
-                </div>
 
+                </div>
+                <div>
+                    <h4 class="md-headline">Seleccionar usuario existente</h4>
+                    <md-input-container>
+
+                        <md-select ng-model="users" title="usersList">
+                            <option value="">---Please select---</option>
+                            <option ng-repeat="user in users" value="{{user._id}}">{{user.username}}</option>
+                        </md-select>
+
+                    </md-input-container>
+                </div>
 
 
                 <md-button type="submit" class="md-raised md-primary">Save</md-button>

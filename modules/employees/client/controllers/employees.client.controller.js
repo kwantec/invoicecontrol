@@ -26,7 +26,6 @@
         $scope.newEmployee.picture = "";
 
 
-
         var Employee = $resource('/api/employees');
 
         $scope.addEmployee = function () {
@@ -94,6 +93,10 @@
                     .hideDelay(3000)
             );
         };
+
+        var Users = $resource('/api/users');
+        $scope.users = Users.query();
+
 
 
     }
