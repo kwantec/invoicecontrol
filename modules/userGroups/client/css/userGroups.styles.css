@@ -113,3 +113,12 @@ p
 .margin-right {
  margin-right: 10px !important;
 }
+
+/*---------*/
+.card .thumbnail{
+    height: 230px;
+}
+.card .thumbnail p{
+    height: 70px;
+    overflow: auto;
+}

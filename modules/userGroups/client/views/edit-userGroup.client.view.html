@@ -64,8 +64,7 @@
         <div ng-repeat="module in listModules">
           <label>{{module.name}}</label>
           <div class="col-md-offset-1">
-
-            <md-checkbox ng-click="addPermision()" ng-repeat="permission in module.permissions" id="id_{{module._id}}_{{permission._id}}" class="md-primary" aria-label="Checkbox 1" >
+            <md-checkbox ng-init="permissionsSelected()" ng-checked="check" ng-click="addPermision()" ng-repeat="permission in module.permissions" id="{{permission._id}}" class="md-primary" aria-label="Checkbox 1" >
               {{permission.label}}
             </md-checkbox>
           </div>
@@ -73,15 +72,17 @@
       </div>
 
     </div>
+
+    <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
+      <md-button class="md-raised md-red">
+        <i class="glyphicon glyphicon-remove"></i>
+        Cancelar
+      </md-button>
+      <md-button class="md-raised md-teal" type="submit">
+        <i class="glyphicon glyphicon-ok"></i>
+        Actualizar
+      </md-button>
+    </section>
   </form>
-  <section layout="row" layout-sm="column" layout-align="end center" layout-wrap>
-    <md-button class="md-raised md-red">
-      <i class="glyphicon glyphicon-remove"></i>
-      Cancelar
-    </md-button>
-    <md-button class="md-raised md-teal" type="submit">
-      <i class="glyphicon glyphicon-ok"></i>
-      Actualizar
-    </md-button>
-  </section>
+
 </section>

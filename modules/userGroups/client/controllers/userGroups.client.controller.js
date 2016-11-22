@@ -17,7 +17,6 @@
              */
             $scope.findUserGroup = function () {
                 UserGroupsService.getUserGroup($stateParams.userGroupId).then(function (response) {
-                    console.log(response.data);
                     $scope.userGroup = response.data;
                     for (var i = 0; i < $scope.userGroup.users.length; i++) {
                         $scope.users.push($scope.userGroup.users[i]);
@@ -31,6 +30,8 @@
                         .ok('¡Entendido!')
                     );
                 });
+
+
             };
 
             /**
@@ -40,7 +41,13 @@
              */
             $scope.update = function (isValid) {
                 if (isValid) {
-                    UserGroupsService.updateUserGroup($scope.userGroup).then(function (response) {
+                    var data = {
+                        _id: $scope.userGroup._id,
+                        name: $scope.userGroup.name,
+                        description: $scope.userGroup.description,
+                        permissions: listPermissionsSelected
+                    };
+                    UserGroupsService.updateUserGroup(data).then(function (response) {
                         // If success, show a dilaog
                         $mdDialog.show($mdDialog.alert()
                             .clickOutsideToClose(true)
@@ -59,6 +66,7 @@
                         );
                     });
                 } else {
+
                     return false;
                 }
             };
@@ -69,7 +77,6 @@
              * @returns false if the form is not valid
              */
             $scope.create = function (isValid) {
-                console.log(listPermissionsSelected);
                 if (isValid) {
                     var data = {
                         name: $scope.userGroup.name,
@@ -142,7 +149,6 @@
             $scope.getListModules = function () {
                 UserGroupsService.getListModules().then(function (response) {
                     $scope.listModules = response.data;
-                    console.log(response.data);
                 }).catch(function (err) {
                     $mdDialog.show($mdDialog.alert()
                         .clickOutsideToClose(true)
@@ -239,6 +245,30 @@
                         .ok('¡Entendido!')
                     );
                 }
+            };
+
+            $scope.permissionsSelected = function(){
+                // console.log(this);
+                //  console.log(this.module._id);
+                //  console.log(this.permission._id);
+                var data={};
+                // console.log($scope.userGroup);
+                for(var i=0;i<$scope.userGroup.permissions.length;i++){
+                    if(this.module._id == $scope.userGroup.permissions[i].module._id &&
+                        this.permission._id == $scope.userGroup.permissions[i].permission._id){
+                        this.check = true;
+                        data = {
+                            module: $scope.userGroup.permissions[i].module._id,
+                            permission: $scope.userGroup.permissions[i].permission._id
+                        };
+                        listPermissionsSelected.push(data);
+                    }
+                }
+
+
+
+
+
             };
 
         }
