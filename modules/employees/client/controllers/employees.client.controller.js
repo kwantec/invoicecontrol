@@ -10,39 +10,14 @@
     EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location', '$mdToast'];
 
     function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast) {
-        $scope.newEmployee = {};
-        $scope.newEmployee.name = "";
-        $scope.newEmployee.lastName = "";
-        $scope.newEmployee.address = {};
-        $scope.newEmployee.address.city = "";
-        $scope.newEmployee.address.state = "";
-        $scope.newEmployee.address.country = "";
-        $scope.newEmployee.address.zipCode = "";
-        $scope.newEmployee.personEmail = "";
-        $scope.newEmployee.workEmail = "";
-        $scope.newEmployee.rfc = "";
-        $scope.newEmployee.imss = "";
-        $scope.newEmployee.curp = "";
-        $scope.newEmployee.picture = "";
+        //$scope.initNewEmployee();
 
 
         var Employee = $resource('/api/employees');
 
         $scope.addEmployee = function () {
             Employee.save($scope.newEmployee, function () {
-                $scope.newEmployee = {};
-                $scope.newEmployee.name = "";
-                $scope.newEmployee.lastName = "";
-                $scope.newEmployee.address.city = "";
-                $scope.newEmployee.address.state = "";
-                $scope.newEmployee.address.country = "";
-                $scope.newEmployee.address.zipCode = "";
-                $scope.newEmployee.personEmail = "";
-                $scope.newEmployee.workEmail = "";
-                $scope.newEmployee.rfc = "";
-                $scope.newEmployee.imss = "";
-                $scope.newEmployee.curp = "";
-                $scope.newEmployee.picture = "";
+                $scope.initNewEmployee();
                 $scope.showToastSave();
             });
         };
@@ -95,9 +70,28 @@
         };
 
         var Users = $resource('/api/users');
-        $scope.users = Users.query();
+        $scope.userData = {
+            userList: Users.query()
+        };
+        
+        $scope.initNewEmployee = function () {
 
-
-
+            $scope.newEmployee = {};
+            $scope.newEmployee.name = "";
+            $scope.newEmployee.lastName = "";
+            $scope.newEmployee.address = {};
+            $scope.newEmployee.address.city = "";
+            $scope.newEmployee.address.state = "";
+            $scope.newEmployee.address.country = "";
+            $scope.newEmployee.address.zipCode = "";
+            $scope.newEmployee.personEmail = "";
+            $scope.newEmployee.workEmail = "";
+            $scope.newEmployee.rfc = "";
+            $scope.newEmployee.imss = "";
+            $scope.newEmployee.curp = "";
+            $scope.newEmployee.picture = "";
+            $scope.newEmployee.user = "";
+            return 0;
+        };
     }
 }());

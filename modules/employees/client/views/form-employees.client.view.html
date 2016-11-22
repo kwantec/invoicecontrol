@@ -16,12 +16,12 @@
                 <h3 class="md-headline">Datos del empleado</h3>
 
                 <md-input-container layout-gt-xs="row">
-                    <label>Name</label>
+                    <label>Nombre</label>
                     <input type="text" ng-model="newEmployee.name" title="name" required>
                 </md-input-container>
 
                 <md-input-container layout-gt-xs="row">
-                    <label>Last Name</label>
+                    <label>Apellidos</label>
                     <input type="text" ng-model="newEmployee.lastName" title="lastName" required>
                 </md-input-container>
 
@@ -78,98 +78,34 @@
                     <h4 class="md-headline">Usuarios</h4>
 
                     <label>
-                        <input type="radio" ng-model="content" name="user" value="form">
-                       Crear usuario
+                        <input type="radio" ng-model="content" name="create" value="form">
+                        Crear usuario
                     </label><br/>
-
-                    <div ng-show="content == 'form'">
-                        <form  name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
-                            <fieldset>
-                                <div class="form-group" show-errors>
-                                    <label for="firstName">First Name</label>
-                                    <input type="text" id="firstName" name="firstName" class="form-control"
-                                           ng-model="credentials.firstName" placeholder="First Name" required>
-                                    <div ng-messages="userForm.firstName.$error" role="alert">
-                                        <p class="help-block error-text" ng-message="required">First name is required.</p>
-                                    </div>
-                                </div>
-                                <div class="form-group" show-errors>
-                                    <label for="lastName">Last Name</label>
-                                    <input type="text" id="lastName" name="lastName" class="form-control"
-                                           ng-model="credentials.lastName" placeholder="Last Name" required>
-                                    <div ng-messages="userForm.lastName.$error" role="alert">
-                                        <p class="help-block error-text" ng-message="required">Last name is required.</p>
-                                    </div>
-                                </div>
-                                <div class="form-group" show-errors>
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email"
-                                           placeholder="Email" lowercase required>
-                                    <div ng-messages="userForm.email.$error" role="alert">
-                                        <p class="help-block error-text" ng-message="required">Email address is required.</p>
-                                        <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
-                                    </div>
-                                </div>
-                                <div class="form-group" show-errors>
-                                    <label for="username">Username</label>
-                                    <input type="text" id="username" name="username" class="form-control"
-                                           ng-model="credentials.username" placeholder="Username" lowercase required>
-                                    <div ng-messages="userForm.username.$error" role="alert">
-                                        <p class="help-block error-text" ng-message="required">Username is required.</p>
-                                    </div>
-                                </div>
-                                <div class="form-group" show-errors>
-                                    <label for="password">Password</label>
-                                    <input type="password" id="password" name="password" class="form-control"
-                                           ng-model="credentials.password" placeholder="Password" popover="{{popoverMsg}}"
-                                           popover-trigger="focus" password-validator required>
-                                    <div ng-messages="userForm.password.$error" role="alert">
-                                        <p class="help-block error-text" ng-message="required">Password is required.</p>
-                                        <div ng-repeat="passwordError in passwordErrors">
-                                            <p class="help-block error-text" ng-show="userForm.password.$error.requirements">
-                                                {{passwordError}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" ng-show="!userForm.password.$error.required">
-                                    <label>Password Requirements</label>
-                                    <progressbar value="requirementsProgress" type="{{requirementsColor}}"><span
-                                            style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></progressbar>
-                                </div>
-                                <div class="text-center form-group">
-                                    <button type="submit" class="btn btn-primary">Sign up</button>
-                                    &nbsp; or&nbsp;
-                                    <a ui-sref="authentication.signin" class="show-signup">Sign in</a>
-                                </div>
-                                <div ng-show="error" class="text-center text-danger">
-                                    <strong ng-bind="error"></strong>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
 
 
                     <label>
-                        <input type="radio" ng-model="content" name="user" value="select">
+                        <input type="radio" ng-model="content" name="list" value="select">
                         Seleccionar existene
                     </label><br/>
 
                     <md-input-container>
 
-                        <md-select ng-show="content == 'select'" ng-model="users" title="usersList">
+                        <md-select ng-show="content == 'select'" ng-model="newEmployee.user"
+                                   title="usersList" placeholder="Selecciona un usuario" required>
                             <md-select-header>
                                 <span> Selecciona un usuario - </span>
                             </md-select-header>
-                            <md-option ng-repeat="user in users" value="{{user._id}}">{{user.username}}</md-option>
+                            <md-option ng-repeat="user in userData.userList" value="{{user._id}}">{{user.username}}
+                            </md-option>
                         </md-select>
 
                     </md-input-container>
                 </div>
 
-
                 <md-button type="submit" class="md-raised md-primary">Save</md-button>
 
             </form>
         </div>
+
     </md-content>
 </section>
