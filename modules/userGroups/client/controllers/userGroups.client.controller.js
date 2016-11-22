@@ -41,11 +41,13 @@
              */
             $scope.update = function (isValid) {
                 if (isValid) {
+                    console.log($scope.userGroup);
                     var data = {
                         _id: $scope.userGroup._id,
                         name: $scope.userGroup.name,
                         description: $scope.userGroup.description,
-                        permissions: listPermissionsSelected
+                        permissions: listPermissionsSelected,
+                        users: $scope.userGroup.users
                     };
                     UserGroupsService.updateUserGroup(data).then(function (response) {
                         // If success, show a dilaog
