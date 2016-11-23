@@ -115,7 +115,7 @@
                 if (this.check) {
                     this.check = false;
                     for (var i = 0; i < listPermissionsSelected.length; i++) {
-                        if (listPermissionsSelected[i].module == this.$parent.module._id && listPermissionsSelected[i].permission == this.permission._id) {
+                        if (listPermissionsSelected[i].module === this.$parent.module._id && listPermissionsSelected[i].permission === this.permission._id) {
                             listPermissionsSelected.splice(i, 1);
                         }
                     }
@@ -256,8 +256,8 @@
                 var data={};
                 // console.log($scope.userGroup);
                 for(var i=0;i<$scope.userGroup.permissions.length;i++){
-                    if(this.module._id == $scope.userGroup.permissions[i].module._id &&
-                        this.permission._id == $scope.userGroup.permissions[i].permission._id){
+                    if(this.module._id === $scope.userGroup.permissions[i].module._id &&
+                        this.permission._id === $scope.userGroup.permissions[i].permission._id){
                         this.check = true;
                         data = {
                             module: $scope.userGroup.permissions[i].module._id,

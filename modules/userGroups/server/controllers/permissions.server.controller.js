@@ -4,6 +4,7 @@ var path = require('path');
 var mongoose = require("mongoose");
 var Permission = mongoose.model("Permission");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+var UserGroup = mongoose.model('UserGroup');
 
 /**
  * Function to create a permission
@@ -111,5 +112,22 @@ exports.permissionById = function (req, res, next, id) {
 		}
 		req.permission = permission;
 		next();
+	});
+};
+
+exports.permissionsByUserGroup = function (req, res) {
+	UserGroup.findById(req.usergroup._id).populate('permissions.module permissions.permission').exec(function (err, userGroup) {
+		if (err) {
+			res.status(404).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		var permissions =[];
+		for (var i=0 ; i < userGroup.permissions.length ; i++) {
+			var permission = userGroup.permissions[i].module.name + '.'+userGroup.permissions[i].permission.permissionId;
+			permissions.push(permission);
+		}
+		res.json(permissions);
+
 	});
 };

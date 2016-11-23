@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
   validator = require('validator'),
   generatePassword = require('generate-password'),
   owasp = require('owasp-password-strength-test');
+var UserGroup = mongoose.model('UserGroup');
 
 /**
  * A Validation function for local strategy properties
@@ -97,6 +98,17 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
+  },
+  userGroup: {
+    type: Schema.ObjectId,
+    ref: 'UserGroup'
+  }
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
   }
 });
 
