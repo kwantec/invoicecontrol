@@ -58,7 +58,7 @@ exports.update = function (req, res) {
 
 
         }
-    })
+    });
 };
 
 exports.list = function (req, res) {

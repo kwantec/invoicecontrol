@@ -23,15 +23,15 @@ var LoggySchema = new Schema({
   },
   created: {
     type: Date,
-    default: Date.now
+    default: getNow
   },
   employee: {
     type: Schema.ObjectId,
     ref: 'Employee'
   },
-  team: {
+  workTeam: {
     type: Schema.ObjectId,
-    ref: 'Team'
+    ref: 'WorkTeam'
   },
   created_at: {
     type: Date,

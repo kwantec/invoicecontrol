@@ -1,0 +1,104 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.timesheet._id ? 'Edit Timesheet' : 'New Timesheet'}}</h1>
+  </div>
+  <div class="col-md-12">
+
+    <md-content flex layout-padding>
+          <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="vm.save(vm.form.timesheetForm.$valid)" novalidate>
+        <fieldset>
+
+          <div id="info">
+            <table class="table">
+              <tr>
+                <td>Period Start</td>
+                <td>{{timesheet.startDate}}</td>
+              </tr>
+              <tr>
+                <td>Period End</td>
+                <td>{{timesheet.finishDate}}</td>
+              </tr>
+              <tr>
+                <td>Work days in Period</td>
+                <td contenteditable="true">11</td>
+              </tr>
+              <tr>
+                <td>Work days in Month</td>
+                <td contenteditable="true">21</td>
+              </tr>
+              <tr>
+                <td>TEAM</td>
+                <td>Apcera</td>
+              </tr>
+            </table>
+          </div>
+
+
+          <div id="contract">
+            <table class="table">
+              <tr>
+                <th colspan="9" style="text-align:center">Contract Team Staff Billing</th>
+
+              </tr>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Level</th>
+                <th>Monthly</th>
+                <th>Days Worked</th>
+                <th>Vacation/Sick Days</th>
+                <th>Current Period Charges</th>
+                <th>Discount</th>
+                <th>Total Period Charges</th>
+              </tr>
+              <tr ng-repeat="employee in timesheets.employees">
+                <td>{{employee.name}}</td>
+                <td>{{employee.lastName}}</td>
+                <td>{{employee.level}}</td>
+                <td>{{employee.monthly}}</td>
+                <td>{{employee.daysWorked}}</td>
+                <td>{{employee.vacationSickDays}}</td>
+                <td>{{employeecurrentPeriodCharges}}</td>
+                <td>{{employee.discount}}</td>
+                <td>{{empoyee.totalPeriodCharges}}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="form-group" id="logs">
+            <div layout="column">
+              <div flex><h4>Period Activities</h4></div>
+
+              <div layout="row" class="day" ng-repeat="log in timesheet.logs">
+                <div flex="20">{{log.date}}</div>
+                <div flex="80">
+                  <div layout="column" class="logs">
+                    <div layout="row" ng-repeat="item in log.items">
+                      <div flex="30">{{item.name}}</div>
+                      <div flex>
+                        <!--<input type="textarea" value="{{item.activity}}" class="form-control" ng-model="item.activity"> -->
+                        <textarea style="width:100%" elastic ng-model="item.activity">{{item.activity}}</textarea>
+                        <!--<textarea ng-model="item.activity" aria-label="Dynamic textarea"></textarea>-->
+                      </div>
+                    </div>
+
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!--Update Button-->
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">{{vm.timesheet._id ? 'Update' : 'Create'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </md-content>
+  </div>
+</section>
