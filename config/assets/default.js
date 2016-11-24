@@ -7,7 +7,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/angular-material/angular-material.css',
-        'public/lib/material-calendar/src/angular-material-calendar.css'
+        'public/lib/material-calendar/angular-material-calendar.min.css'
       ],
       js: [
         'public/lib/angular/angular.js',

@@ -24,7 +24,7 @@
                 }
             })
             .state('loggies.create', {
-                url: '/create',
+                url: '/create:loggyDate',
                 templateUrl: 'modules/loggies/client/views/form-loggy.client.view.html',
                 controller: 'LoggiesController',
                 controllerAs: 'vm',
@@ -61,18 +61,20 @@
                     pageTitle: 'Loggy {{ loggyResolve.name }}'
                 }
             })
-            .state('loggies.calendar', {
-                abstract: true,
-                url: '/loggies/calendar',
-                template: '<ui-view>'
-            });
     }
 
     getLoggy.$inject = ['$stateParams', 'LoggiesService'];
+    getDate.$inject = ['$stateParams', 'LoggiesDateService'];
 
     function getLoggy($stateParams, LoggiesService) {
         return LoggiesService.get({
             loggyId: $stateParams.loggyId
+        }).$promise;
+    }
+
+    function getDate($stateParams, LoggiesDateService) {
+        return LoggiesDateService.get({
+            loggyDate: $stateParams.loggyDate
         }).$promise;
     }
 
