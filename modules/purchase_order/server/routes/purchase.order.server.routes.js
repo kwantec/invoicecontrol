@@ -10,7 +10,7 @@ module.exports = function (app) {
         .get(purchaseOrder.list)
         .post(purchaseOrder.create);
 
-    app.route('/api/workTeams/:purchaseOrderId')
+    app.route('/api/purchaseOrders/:purchaseOrderId')
         .get(purchaseOrder.read)
         .put(purchaseOrder.update)
         .delete(purchaseOrder.delete);
