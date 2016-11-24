@@ -22,12 +22,16 @@ module.exports = seedUserGroups;
 function seedUserGroups() {
 
   var admin = new UserGroup({
+    _id: '583773d9c7cbed3023ec101f',
     name: 'admin',
-    description: 'User group for the administrator'
+    description: 'User group for the administrator',
+    permissions:[]
   });
   var user = new UserGroup({
+    _id: '583773d9c7cbed3023ec1020',
     name: 'user',
-    description: 'User group for the simple user '
+    description: 'User group for the simple user ',
+    permissions:[]
   });
 
   UserGroup.remove({ name: admin.name })
