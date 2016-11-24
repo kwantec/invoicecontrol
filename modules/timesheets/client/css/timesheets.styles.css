@@ -5,3 +5,11 @@
 .day {
 	border-top: 1px solid #ddd;
 }
+
+input {
+	max-width: 100px;
+}
+
+md-input-container {
+	margin:0px;
+}

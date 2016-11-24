@@ -12,51 +12,101 @@
     var vm = this;
 
     vm.authentication = Authentication;
-    vm.timesheet = timesheet;
+    //vm.timesheet = timesheet;
+    vm.timesheet = $scope.timesheet;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
 
     $scope.timesheet = {
-      logs: [{
+      team: {
+        name: 'FERROS'
+      },
+      startDate: '1/12/2016',
+      finishDate: '30/12/2016',
+      workDaysInPeriod: 15,
+      workDaysInMonth: 15,
+      dayLogs: [{
         date: "12/12/2016",
-        items: [{
-          name: "Migui",
+        employeesLogsDay: [{
+          name: {
+            firstName: 'Migui',
+            lastName: 'Rodriguez'
+          },
           activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
         },{
-          name: "Rob",
+          name: {
+            firstName: 'Rob',
+            lastName: 'Franco'
+          },
           activity: "Actividad de Rob"
         },{
-          name: "Walter",
+          name: {
+            firstName: 'Walter',
+            lastName: 'Mendez'
+          },
           activity: "Actividad de Walter"
         }]
       },
       {
         date: "12/12/2016",
-        items: [{
-          name: "Migui2",
-          activity: "Actividad de Migui"
+        employeesLogsDay: [{
+          name: {
+            firstName: 'Migui',
+            lastName: 'Rodriguez'
+          },
+          activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
         },{
-          name: "Rob2",
+          name: {
+            firstName: 'Rob',
+            lastName: 'Franco'
+          },
           activity: "Actividad de Rob"
         },{
-          name: "Walter2",
+          name: {
+            firstName: 'Walter',
+            lastName: 'Mendez'
+          },
           activity: "Actividad de Walter"
         }]
       },
       {
         date: "12/12/2016",
-        items: [{
-          name: "Migui3",
-          activity: "Actividad de Migui"
+        employeesLogsDay: [{
+          name: {
+            firstName: 'Migui',
+            lastName: 'Rodriguez'
+          },
+          activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
         },{
-          name: "Rob3",
+          name: {
+            firstName: 'Rob',
+            lastName: 'Franco'
+          },
           activity: "Actividad de Rob"
         },{
-          name: "Walter3",
+          name: {
+            firstName: 'Walter',
+            lastName: 'Mendez'
+          },
           activity: "Actividad de Walter"
         }]
+      }],
+      employees: [{
+        employee: {
+          name: 'Migui',
+          lastName: 'Rodriguez'
+        },
+        billing: {
+          level: 'intermediate',
+          monthly: '10000',
+          daysWorked: 15,
+          vacationSickDays: 1,
+          currentPeriodCharges: 0.00,
+          discount: 0.00,
+          totalPeriodCharges: 0.00
+        }
       }]
     };
 

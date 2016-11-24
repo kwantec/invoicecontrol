@@ -37,7 +37,7 @@
         }
       })
       .state('timesheets.edit', {
-        url: '/create',
+        url: '/:timesheet/edit',
         templateUrl: 'modules/timesheets/client/views/edit-timesheet.client.view.html',
         controller: 'TimesheetsController',
         controllerAs: 'vm',
@@ -66,9 +66,10 @@
   getTimesheet.$inject = ['$stateParams', 'TimesheetsService'];
 
   function getTimesheet($stateParams, TimesheetsService) {
-    return TimesheetsService.get({
+    /*return TimesheetsService.get({
       timesheetId: $stateParams.timesheetId
-    }).$promise;
+    }).$promise;*/
+    return {};
   }
 
   newTimesheet.$inject = ['TimesheetsService'];
