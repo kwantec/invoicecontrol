@@ -1,27 +1,24 @@
-<section>
+<section xmlns="http://www.w3.org/1999/html">
   <md-toolbar class="md-theme-light title-section">
-    <h2 class="md-toolbar-tools">
-      <span>{{vm.loggy._id ? 'Editar Loggy' : 'Nuevo Loggy'}}</span>
+    <br class="md-toolbar-tools">
+      <span>{{vm.loggy._id ? 'Editar Loggy' : 'Nuevo Loggy'}}&nbsp;&nbsp;&nbsp;{{loggyDate}}</span>
     </h2>
   </md-toolbar>
 
   <md-content flex layout-padding>
     <div>
-      <form name="vm.form.loggyForm" class="form-horizontal" ng-submit="vm.save(vm.form.loggyForm.$valid)">
         <md-input-container layout-gt-xs="row">
           <label>Actividad</label>
-          <input type="text" ng-model="vm.loggy.activity" title="Activity" required>
+          <input id="activity" type="text" ng-model="vm.loggy.activity" title="Activity" required>
           <div ng-messages="vm.form.loggyForm.activity.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Loggy activity is required.</p>
           </div>
         </md-input-container>
 
-        <md-button type="submit" class="md-raised md-primary">{{vm.loggy._id ? 'Actualizar Log' : 'Guardar Log'}}</md-button>
+        <md-button ng-click="showDialog($event)" class="md-raised md-primary">{{vm.loggy._id ? 'Actualizar Log' : 'Guardar Log'}}</md-button>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
         </div>
-
-      </form>
     </div>
   </md-content>
 </section>

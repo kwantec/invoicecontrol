@@ -1,5 +1,5 @@
 (function (app) {
   'use strict';
 
-  app.registerModule('loggies', ['materialCalendar','ngMaterial']);
+  app.registerModule('loggies');
 }(ApplicationConfiguration));
