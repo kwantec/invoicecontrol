@@ -17,7 +17,7 @@ var mongoose = require('mongoose'),
 var TimesheetSchema = new Schema({
   team: {
     type: Schema.ObjectId,
-    ref: 'Team'
+    ref: 'WorkTeam'
   },
   startDate: {
     type: Date,
@@ -27,9 +27,32 @@ var TimesheetSchema = new Schema({
     type: Date,
     default: getNow
   },
-  logs: [{
-    type: Schema.ObjectId,
-    ref: 'Loggy'
+  workDaysInPeriod : {
+    type: Number,
+    default: 15
+  },
+  workDaysInMonth: {
+    type: Number,
+    default: 15
+  },
+  dayLogs: [{
+    date: {
+      type: Date,
+      required: true
+    },
+    employeesLogsDay: [{
+      name: {
+        firstName : {
+          type: String
+        },
+        lastName: {
+          type: String
+        }
+      },
+      activity: {
+        type: String
+      }
+    }]
   }],
   employees: [{
       employee: {
