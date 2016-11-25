@@ -10,7 +10,7 @@ module.exports = function (app) {
         .get(workTeam.list)
         .post(workTeam.create);
 
-    app.route('/api/workTeams/:teamWorkId')
+    app.route('/api/workTeams/:workTeamId')
         .get(workTeam.read)
         .put(workTeam.update)
         .delete(workTeam.delete);

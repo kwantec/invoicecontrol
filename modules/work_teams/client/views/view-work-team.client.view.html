@@ -15,27 +15,66 @@
           </div>
         </md-card-title-media>
         <md-card-title-text>
-          <span class="md-headline">{{resourceType.name}}</span>
-          <span class="md-subhead description">{{resourceType.created_at}}</span>
+          <span class="md-headline">{{workTeam.name}}</span>
+          <span class="md-subhead description">{{workTeam.description}}</span>
+          <span class="md-subhead description">{{workTeam.tecnologies}}</span>
         </md-card-title-text>
       </md-card-title>
     </md-card>
     <md-toolbar class="md-theme-light">
       <h4 class="md-toolbar-tools">
-        <span>Tarifa</span>
+        <span>Arquitecto</span>
+      </h4>
+    </md-toolbar>
+    <md-card>
+      <md-card-title>
+        <md-card-title-media>
+          <div class="md-media-sm card-media" layout>
+            <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+          </div>
+        </md-card-title-media>
+        <md-card-title-text>
+          <span class="md-headline">{{workTeam.architect.name}} - <small>{{workTeam.architect.email}}</small></span>
+          <span class="md-subhead description">Casa : {{workTeam.architect.phone}} Movil : {{workTeam.architect.cellphone}}</span>
+          <span class="md-subhead description">{{workTeam.architect.office}}</span>
+        </md-card-title-text>
+      </md-card-title>
+    </md-card>
+    <md-toolbar class="md-theme-light">
+      <h4 class="md-toolbar-tools">
+        <span>Lider Remoto</span>
+      </h4>
+    </md-toolbar>
+    <md-card>
+      <md-card-title>
+        <md-card-title-media>
+          <div class="md-media-sm card-media" layout>
+            <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+          </div>
+        </md-card-title-media>
+        <md-card-title-text>
+          <span class="md-headline">{{workTeam.leader.name}} - <small>{{workTeam.leader.email}}</small></span>
+          <span class="md-subhead description">Casa : {{workTeam.leader.phone}} Movil : {{workTeam.leader.cellphone}}</span>
+          <span class="md-subhead description">{{workTeam.leader.office}}</span>
+        </md-card-title-text>
+      </md-card-title>
+    </md-card>
+    <md-toolbar class="md-theme-light">
+      <h4 class="md-toolbar-tools">
+        <span>Integrantes</span>
       </h4>
     </md-toolbar>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="current in resourceType.rates">
+      <md-list-item class="md-3-line" ng-repeat="current in workTeam.employees">
         <div class="md-list-item-text">
-          <h2>{{current.level}} - {{current.name}}</h2>
-          <h3>Tarifa : {{ current.rate | currency }}</h3>
-          <h4>Descripcion : {{current.description}}</h4>
-          <h5>Habilidades : {{current.qualities}}</h5>
+          <h2>{{current.name}} - {{current.lastName}}</h2>
+          <h3>Email : {{ current.personEmail }}</h3>
+          <h4>RFC : {{current.rfc}}</h4>
+          <h5>IMSS : {{current.imss}}</h5>
         </div>
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>
-    <md-button class="text-center md-raised md-primary" ui-sref="resource-types.edit({resourceTypeId: resourceType._id})">Editar</md-button>
+    <md-button class="text-center md-raised md-primary" ui-sref="work-teams.edit({workTeamId: workTeam._id})">Editar</md-button>
   </md-content>
 </section>

@@ -8,7 +8,7 @@ angular.module('workTeams')
             $scope.newWorkTeam = {
                 name : null,
                 description : null,
-                tecnologies : [],
+                technologies : [],
                 leader : {
                     name : null,
                     phone : null,
@@ -110,8 +110,10 @@ angular.module('workTeams')
             // Find a list of WorkTeams
             $scope.find = function () {
                 $scope.workTeams = WorkTeams.query();
-
+                console.log($scope.workTeamss);
             };
+
+            $scope.find();
 
             // Find existing WorkTeam
             $scope.findOne = function () {
