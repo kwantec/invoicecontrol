@@ -2,41 +2,37 @@
   <div class="page-header">
     <h1>{{vm.invoice._id ? 'Editar factura' : 'Nueva factura'}}</h1>
   </div>
-  <div class="col-md-12">
-    <form name="vm.form.invoiceForm" class="form-horizontal" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="number">Number</label>
+
+  <md-content flex layout-padding>
+    <div>
+      <form class="form-horizontal" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
+        <md-input-container layout-gt-xs="row">
+          <label>Number</label>
           <input name="number" type="number" ng-model="vm.invoice.number" id="number" class="form-control" placeholder="Number" required>
-          <div ng-messages="vm.form.invoiceForm.number.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Invoice number is required.</p>
-          </div>
+        </md-input-container>
 
-          <label class="control-label" for="date">Date</label>
+        <md-input-container layout-gt-xs="row">
+          <label>Date</label>
           <input name="date" type="date" ng-model="vm.invoice.date" id="date" class="form-control" placeholder="Date" required>
-          <div ng-messages="vm.form.invoiceForm.date.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Invoice date is required.</p>
-          </div>
+        </md-input-container>
 
-          <label class="control-label" for="daysPeriod">DaysPeriod</label>
+        <md-input-container layout-gt-xs="row">
+          <label>DaysPeriod</label>
           <input name="daysPeriod" type="number" ng-model="vm.invoice.daysPeriod" id="daysPeriod" class="form-control" placeholder="DaysPeriod" required>
-          <div ng-messages="vm.form.invoiceForm.daysPeriod.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Invoice days period is required.</p>
-          </div>
+        </md-input-container>
 
-          <label class="control-label" for="daysMonth">DaysMonth</label>
+        <md-input-container layout-gt-xs="row">
+          <label>DaysPeriod</label>
           <input name="daysMonth" type="number" ng-model="vm.invoice.daysMonth" id="daysMonth" class="form-control" placeholder="DaysMonth" required>
-          <div ng-messages="vm.form.invoiceForm.daysMonth.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Invoice days month is required.</p>
-          </div>
-        </div>
+        </md-input-container>
+
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.invoice._id ? 'Update' : 'Create'}}</button>
+          <md-button type="submit" class="md-raised md-primary">{{vm.invoice._id ? 'Update' : 'Create'}}</md-button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
         </div>
-      </fieldset>
-    </form>
-  </div>
+      </form>
+    </div>
+  </md-content>
 </section>
