@@ -6,9 +6,9 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast'];
 
-  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast) {
     var vm = this;
 
     $scope.newTimesheet = {};
