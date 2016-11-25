@@ -7,9 +7,9 @@
         </h2>
 
         <div>
-          <div ng-if="vm.menu.shouldRender(vm.authentication.user);">
-            <md-menu ng-repeat="item in vm.menu.items | orderBy: 'position'"
-                     ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type"
+          <div ng-if="menu.shouldRender(authentication.user);">
+            <md-menu ng-repeat="item in menu.items | orderBy: 'position'"
+                     ng-if="item.shouldRender(authentication.user);" ng-switch="item.type"
                      ui-sref-active="active" class="{{item.class}}">
 
               <md-button role="button"  ng-click="$mdOpenMenu($event)">{{::item.title}}&nbsp;<span
@@ -17,7 +17,7 @@
               </md-button>
               <md-menu-content width="4">
                 <md-menu-item ng-repeat="subitem in item.items | orderBy: 'position'"
-                              ng-if="subitem.shouldRender(vm.authentication.user);">
+                              ng-if="subitem.shouldRender(authentication.user);">
                   <md-button ui-sref="{{subitem.state}}({{subitem.params}})" ng-bind="subitem.title"></md-button>
                 </md-menu-item>
               </md-menu-content>
@@ -29,19 +29,19 @@
         <span flex></span>
 
         <div>
-          <div ng-hide="vm.authentication.user">
+          <div ng-hide="authentication.user">
             <md-button ui-sref="authentication.signup">Sign Up</md-button>
             <md-button ui-sref="authentication.signin">Sign In</md-button>
           </div>
-          <div ng-show="vm.authentication.user">
-            <img ng-src="/{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}"
+          <div ng-show="authentication.user">
+            <img ng-src="/{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}"
                  class="header-profile-image"/>
             <md-menu>
               <md-button role="button" ng-click="$mdOpenMenu($event)">
-                <span ng-bind="vm.authentication.user.displayName"></span> <b class="caret"></b>
+                <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
               </md-button>
               <md-menu-content width="4">
-                <md-menu-item ng-repeat="item in vm.accountMenu.items">
+                <md-menu-item ng-repeat="item in accountMenu.items">
                   <md-button ui-sref="{{item.state}}" ng-bind="item.title"></md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
