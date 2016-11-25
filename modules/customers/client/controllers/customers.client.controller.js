@@ -97,16 +97,18 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
             });
         };
 
-        $scope.remove = function () {
-            $scope.customer.$delete(
-                {customerId: $stateParams.customerId},
-                function () {
+        $scope.remove = function (customer) {
+            if (customer) {
+                customer.$remove(function () {
                     $location.path('customers/list');
-                },
-                function (errorResponse) {
-                    $scope.error = errorResponse.data.message;
+                });
+
+                for (var i in $scope.customers) {
+                    if ($scope.customers[i] === customer) {
+                        $scope.customers.splice(i, 1);
+                    }
                 }
-            );
+            }
         };
 
         $scope.clearValue = function () {

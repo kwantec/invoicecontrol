@@ -16,11 +16,11 @@
             .state('customers.create', {
                 url: '/create',
                 controller: 'CustomersController',
-                templateUrl: 'modules/customers/client/views/form-customers.client.view.html'
+                templateUrl: 'modules/customers/client/views/create-customer.client.view.html'
             })
             .state('customers.list', {
                 url: '/list',
-                controller: 'CustomersListController',
+                controller: 'CustomersController',
                 templateUrl: 'modules/customers/client/views/list-customers.client.view.html'
             })
             .state('customers.edit', {
