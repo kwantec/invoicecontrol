@@ -41,8 +41,17 @@
                 <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
               </md-button>
               <md-menu-content width="4">
-                <md-menu-item ng-repeat="item in accountMenu.items">
-                  <md-button ui-sref="{{item.state}}" ng-bind="item.title"></md-button>
+                <md-menu-item ui-sref-active="active">
+                  <md-button ui-sref="settings.profile">Edit Profile</md-button>
+                </md-menu-item>
+                <md-menu-item ui-sref-active="active">
+                  <md-button ui-sref="settings.picture">Change Profile Picture</md-button>
+                </md-menu-item>
+                <md-menu-item ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
+                  <md-button ui-sref="settings.password">Change Password</md-button>
+                </md-menu-item>
+                <md-menu-item ui-sref-active="active">
+                  <md-button ui-sref="settings.accounts">Manage Social Accounts</md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
                 <md-menu-item>
