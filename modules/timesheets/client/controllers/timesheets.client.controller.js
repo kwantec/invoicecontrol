@@ -6,10 +6,16 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'timesheetResolve'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve'];
 
-  function TimesheetsController ($scope, $state, $window, Authentication, timesheet) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet) {
     var vm = this;
+
+    $scope.newTimesheet = {};
+    $scope.newTimesheet.name = "";
+    $scope.newTimesheet.startDate = "";
+    $scope.newTimesheet.finishDate = "";
+    $scope.newTimesheet.teamName = "";
 
     vm.authentication = Authentication;
     vm.timesheet = timesheet;
@@ -17,6 +23,29 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+
+    var Timesheet = $resource('/api/timesheets');
+
+    $scope.addTimesheet = function () {
+      console.log($scope.newTimesheet);
+      Timesheet.save($scope.newTimesheet, function () {
+        $scope.newTimesheet = {};
+        $scope.newTimesheet.name = "";
+        $scope.newTimesheet.startDate = "";
+        $scope.newTimesheet.finishDate = "";
+        $scope.newTimesheet.teamName = "";
+        $scope.showToastSave();
+        console.log("Timesheet saved");
+      });
+    };
+
+    $scope.showToastSave = function () {
+      $mdToast.show(
+          $mdToast.simple()
+              .textContent('Timesheet Created!')
+              .hideDelay(3000)
+      );
+    };
 
     // Remove existing Timesheet
     function remove() {

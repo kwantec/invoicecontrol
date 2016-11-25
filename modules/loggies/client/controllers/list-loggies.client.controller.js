@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('loggies')
+      .module('loggies',['materialCalendar','ngMaterial'])
     .controller('LoggiesListController', LoggiesListController);
 
   LoggiesListController.$inject = ['LoggiesService', '$scope', '$filter', '$http', '$q'];
@@ -59,4 +59,7 @@
 
     vm.loggies = LoggiesService.query();
   }
+
+
+
 }());

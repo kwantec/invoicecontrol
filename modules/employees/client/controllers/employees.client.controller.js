@@ -26,6 +26,7 @@
                 $scope.newEmployee.salary = "";
                 $scope.newEmployee.dob = "";
                 $scope.showToastSave();
+                console.log("Employee saved");
             });
         };
 
