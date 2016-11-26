@@ -6,9 +6,8 @@ angular.module('workTeams')
         function ($scope, $stateParams, $location, Authentication, WorkTeams, Employees) {
             $scope.authentication = Authentication;
             $scope.employees = Employees.query();
-            $scope.integrant = null;
-            $scope.leader = null;
-            $scope.workTeam = null;
+            $scope.integrant = {};
+            $scope.leader = {};
 
             $scope.addIntegrant = function(){
                 if(!$scope.workTeam.employees){
@@ -101,6 +100,30 @@ angular.module('workTeams')
                 $scope.employees = $scope.employees.filter(function(item){
                     return !$scope.workTeam.employees.includes(item);
                 });
+            };
+
+            $scope.resetWorkTeam = function(){
+                $scope.workTeam = {
+                    name : null,
+                    description : null,
+                    technologies : [],
+                    leader : {
+                        name : null,
+                        phone : null,
+                        office : null,
+                        cellphone : null,
+                        email : null
+                    },
+                    architect : {
+                        name : null,
+                        phone : null,
+                        office : null,
+                        cellphone : null,
+                        email : null
+                    },
+                    employees : [],
+                    employeeLeader : {}
+                };
             };
         }
     ]);

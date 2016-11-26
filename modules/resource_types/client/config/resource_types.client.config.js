@@ -20,8 +20,7 @@ angular.module('resourceTypes').run(['Menus',
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'resource-types', {
       title: 'Crear un Tipo de Recurso',
-      state: 'resource-types.create',
-      roles: ['user']
+      state: 'resource-types.create'
     });
   }
 ]);

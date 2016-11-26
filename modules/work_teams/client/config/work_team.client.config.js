@@ -21,7 +21,6 @@ angular.module('workTeams').run(['Menus',
     Menus.addSubMenuItem('topbar', 'work-teams', {
       title: 'Crear un Equipo de Trabajo',
       state: 'work-teams.create',
-      roles: ['user']
     });
   }
 ]);
