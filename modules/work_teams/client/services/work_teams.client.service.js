@@ -4,7 +4,7 @@
 angular.module('workTeams').factory('WorkTeams', ['$resource',
     function ($resource) {
         return $resource('api/workTeams/:workTeamId', {
-            resourceTypeId: '@_id'
+            workTeamId: '@_id'
         }, {
             update: {
                 method: 'PUT'

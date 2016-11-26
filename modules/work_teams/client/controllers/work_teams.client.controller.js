@@ -62,13 +62,11 @@ angular.module('workTeams')
 
                 // Create new WorkTeam object
                 var workTeam = new WorkTeams($scope.newWorkTeam);
-                console.log($scope.newWorkTeam);
 
                 // Redirect after save
                 workTeam.$save(function (response) {
                     $location.path('work-teams/' + response._id);
                 }, function (errorResponse) {
-                    console.log(errorResponse);
                     $scope.error = errorResponse.data.message;
                 });
             };
@@ -110,7 +108,6 @@ angular.module('workTeams')
             // Find a list of WorkTeams
             $scope.find = function () {
                 $scope.workTeams = WorkTeams.query();
-                console.log($scope.workTeamss);
             };
 
             $scope.find();
@@ -121,6 +118,10 @@ angular.module('workTeams')
                     workTeamId: $stateParams.workTeamId
                 });
                 $scope.newWorkTeam = $scope.workTeam;
+
+                $scope.newWorkTeam.employees.forEach( function(item) {
+                    item = Employees.get({employeeId : item});
+                });
                 $scope.employeesIntegrants = $scope.employeesIntegrants.filter(function(item){
                     return !$scope.newWorkTeam.employees.includes(item);
                 });

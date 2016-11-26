@@ -26,7 +26,7 @@ exports.create = function (req, res) {
 
 
 exports.update = function (req, res) {
-    var team = WorkTeam.findById(req.params.teamWorkId).exec(function (err, team) {
+    var team = WorkTeam.findById(req.params.workTeamId).exec(function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -72,7 +72,7 @@ exports.list = function (req, res) {
 };
 
 exports.read = function (req, res) {
-    WorkTeam.findById(req.params.teamWorkId, function (err, team) {
+    WorkTeam.findById(req.params.workTeamId, function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -86,11 +86,11 @@ exports.read = function (req, res) {
 
             res.json(team);
         }
-    });
+    }).populate(["employee"]);
 };
 
 exports.delete = function (req, res) {
-    WorkTeam.findById(req.params.teamWorkId).exec(function (err, team) {
+    WorkTeam.findById(req.params.workTeamId).exec(function (err, team) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
