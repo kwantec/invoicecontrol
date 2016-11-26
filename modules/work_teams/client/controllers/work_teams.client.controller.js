@@ -5,50 +5,31 @@ angular.module('workTeams')
     .controller('WorkTeamsController', ['$scope', '$stateParams', '$location', 'Authentication', 'WorkTeams', 'Employees',
         function ($scope, $stateParams, $location, Authentication, WorkTeams, Employees) {
             $scope.authentication = Authentication;
-            $scope.newWorkTeam = {
-                name : null,
-                description : null,
-                technologies : [],
-                leader : {
-                    name : null,
-                    phone : null,
-                    office : null,
-                    cellphone : null,
-                    email : null
-                },
-                architect : {
-                    name : null,
-                    phone : null,
-                    office : null,
-                    cellphone : null,
-                    email : null
-                },
-                employees : [],
-                employeeLeader : {}
-            };
-            $scope.selectedEmployee = {};
-            $scope.employeeLeader = {};
-            $scope.employeesIntegrants = Employees.query();
-            $scope.employeesLeader = Employees.query();
+            $scope.employees = Employees.query();
+            $scope.integrant = null;
+            $scope.leader = null;
+            $scope.workTeam = null;
 
             $scope.addIntegrant = function(){
-                if(!$scope.newWorkTeam.employees.includes($scope.selectedEmployee)){
-                    $scope.newWorkTeam.employees.push($scope.selectedEmployee);
+                if(!$scope.workTeam.employees){
+                    $scope.workTeam.employees = [];
                 }
-                $scope.employeesIntegrants = $scope.employeesIntegrants.filter(function(item){
-                    return !$scope.newWorkTeam.employees.includes(item);
+
+                $scope.workTeam.employees.push($scope.integrant);
+                $scope.employes = $scope.employees.filter(function(item){
+                    return $scope.integrant != item;
                 });
             };
 
             $scope.setLeader = function(){
-                $scope.newWorkTeam.employeeLeader = $scope.employeeLeader;
+                $scope.workTeam.employeeLeader = $scope.leader;
             };
 
             $scope.deleteIntegrant = function(toDeleteIntegrant){
-                $scope.newWorkTeam.employees = $scope.newWorkTeam.employees.filter(function(item){
+                $scope.workTeam.employees = $scope.workTeam.employees.filter(function(item){
                     return item != toDeleteIntegrant;
                 });
-                $scope.employeesIntegrants.push(toDeleteIntegrant);
+                $scope.employees.push(toDeleteIntegrant);
             };
             // Create new WorkTeam
             $scope.create = function (isValid) {
@@ -61,7 +42,7 @@ angular.module('workTeams')
                 }
 
                 // Create new WorkTeam object
-                var workTeam = new WorkTeams($scope.newWorkTeam);
+                var workTeam = new WorkTeams($scope.workTeam);
 
                 // Redirect after save
                 workTeam.$save(function (response) {
@@ -96,7 +77,7 @@ angular.module('workTeams')
                     return false;
                 }
 
-                var workTeam = $scope.newWorkTeam;
+                var workTeam = $scope.workTeam;
 
                 workTeam.$update(function () {
                     $location.path('work-teams/' + workTeam._id);
@@ -110,20 +91,15 @@ angular.module('workTeams')
                 $scope.workTeams = WorkTeams.query();
             };
 
-            $scope.find();
 
             // Find existing WorkTeam
             $scope.findOne = function () {
                 $scope.workTeam = WorkTeams.get({
                     workTeamId: $stateParams.workTeamId
                 });
-                $scope.newWorkTeam = $scope.workTeam;
 
-                $scope.newWorkTeam.employees.forEach( function(item) {
-                    item = Employees.get({employeeId : item});
-                });
-                $scope.employeesIntegrants = $scope.employeesIntegrants.filter(function(item){
-                    return !$scope.newWorkTeam.employees.includes(item);
+                $scope.employees = $scope.employees.filter(function(item){
+                    return !$scope.workTeam.employees.includes(item);
                 });
             };
         }

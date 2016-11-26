@@ -14,7 +14,7 @@
             })
             .state('work-teams.list', {
                 url: '',
-                templateUrl: 'modules/work_teams/client/views/list-work-team.client.view.html'
+                templateUrl: 'modules/work_teams/client/views/list-work-team.client.view.html',
             })
             .state('work-teams.create', {
                 url: '/create',

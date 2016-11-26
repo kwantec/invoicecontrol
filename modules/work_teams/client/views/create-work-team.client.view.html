@@ -1,4 +1,4 @@
-<section ng-controller="WorkTeamsController">
+<section ng-controller="WorkTeamsController"">
   <md-toolbar md-scroll-shrink>
     <div class="md-toolbar-tools">
       <h3>
@@ -11,87 +11,92 @@
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-xs>
           <label>Nombre</label>
-          <input ng-model="newWorkTeam.name" md-maxlength="50" required ng-required="true">
+          <input ng-model="workTeam.name" md-maxlength="50" required ng-required="true">
         </md-input-container>
       </div>
 
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-xs>
           <label>Descripcion</label>
-          <input ng-model="newWorkTeam.description" md-maxlength="250" required ng-required="true">
+          <input ng-model="workTeam.description" md-maxlength="250" required ng-required="true">
         </md-input-container>
       </div>
 
       <h5 class="md-title">Tecnologias</h5>
-      <md-chips ng-model="newWorkTeam.technologies" readonly="ctrl.readonly" md-removable="ctrl.removable"
+      <md-chips ng-model="workTeam.technologies" readonly="ctrl.readonly" md-removable="ctrl.removable"
                 md-enable-chip-edit="true" placeholder="Agrega una cualidad" secondary-placeholder=" + MEAN.JS"></md-chips>
 
-      <md-toolbar md-scroll-shrink>
-        <div class="md-toolbar-tools">
-          <h3>
-            <span>Informacion del Arquitecto</span>
-          </h3>
+      <div layout="row">
+        <div flex layout-padding="5">
+          <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+              <h3>
+                <span>Informacion del Arquitecto</span>
+              </h3>
+            </div>
+          </md-toolbar>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Nombre</label>
+              <input ng-model="workTeam.architect.name" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Correo</label>
+              <input ng-model="workTeam.architect.email" type="email" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+          </div>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Telefono de Casa</label>
+              <input ng-model="workTeam.architect.phone" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Telefono M&oacute;vil</label>
+              <input ng-model="workTeam.architect.cellphone" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+          </div>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Oficina</label>
+              <input ng-model="workTeam.architect.office" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+          </div>
         </div>
-      </md-toolbar>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Nombre</label>
-          <input ng-model="newWorkTeam.architect.name" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Correo</label>
-          <input ng-model="newWorkTeam.architect.email" type="email" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-      </div>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Telefono de Casa</label>
-          <input ng-model="newWorkTeam.architect.phone" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Telefono M&oacute;vil</label>
-          <input ng-model="newWorkTeam.architect.cellphone" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-      </div>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Oficina</label>
-          <input ng-model="newWorkTeam.architect.office" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-      </div>
-
-      <md-toolbar md-scroll-shrink>
-        <div class="md-toolbar-tools">
-          <h3>
-            <span>Informacion del Lider Remoto</span>
-          </h3>
+        <div flex layout-padding="5">
+          <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+              <h3>
+                <span>Informacion del Lider Remoto</span>
+              </h3>
+            </div>
+          </md-toolbar>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Nombre</label>
+              <input ng-model="workTeam.leader.name" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Correo</label>
+              <input ng-model="workTeam.leader.email" type="email" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+          </div>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Telefono de Casa</label>
+              <input ng-model="workTeam.leader.phone" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Telefono M&oacute;vil</label>
+              <input ng-model="workTeam.leader.cellphone" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+          </div>
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Oficina</label>
+              <input ng-model="workTeam.leader.office" md-maxlength="50" required ng-required="true">
+            </md-input-container>
+          </div>
         </div>
-      </md-toolbar>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Nombre</label>
-          <input ng-model="newWorkTeam.leader.name" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Correo</label>
-          <input ng-model="newWorkTeam.leader.email" type="email" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-      </div>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Telefono de Casa</label>
-          <input ng-model="newWorkTeam.leader.phone" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Telefono M&oacute;vil</label>
-          <input ng-model="newWorkTeam.leader.cellphone" md-maxlength="50" required ng-required="true">
-        </md-input-container>
-      </div>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Oficina</label>
-          <input ng-model="newWorkTeam.leader.office" md-maxlength="50" required ng-required="true">
-        </md-input-container>
       </div>
 
       <md-toolbar md-scroll-shrink>
@@ -102,21 +107,24 @@
         </div>
       </md-toolbar>
       <md-list>
-        <md-list-item class="md-3-line" ng-repeat="current in newWorkTeam.employees">
-          <div class="md-list-item-text">
-            <h3>{{current.name + " " + current.lastName}} </h3>
-            <h4>{{current.rfc}}</h4>
-          </div>
-          <md-button class="md-secondary" ng-click="deleteIntegrant(current)">Eliminar</md-button>
-          <md-divider ng-if="!$last"></md-divider>
-        </md-list-item>
+        <md-radio-group ng-model="leader">
+          <md-list-item class="md-3-line" ng-repeat="current in workTeam.employees">
+            <div class="md-list-item-text">
+              <h3>{{current.name + " " + current.lastName}} </h3>
+              <h4>{{current.rfc}}</h4>
+            </div>
+            <md-radio-button value="current" class="md-primary"></md-radio-button>
+            <md-button class="md-secondary" ng-click="deleteIntegrant(current)">Eliminar</md-button>
+            <md-divider ng-if="!$last"></md-divider>
+          </md-list-item>
+        </md-radio-group>
       </md-list>
-      <div layout-gt-xs="row">
 
+      <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-xs>
           <label>Selecciona un integrante</label>
-          <md-select  ng-model="selectedEmployee"   ng-model-options="{trackBy: '$value.id'}">
-            <md-option  ng-repeat="employee in employeesIntegrants" ng-value="employee">
+          <md-select  ng-model="integrant"   ng-model-options="{trackBy: '$value.id'}">
+            <md-option  ng-repeat="employee in employees" ng-value="employee">
               {{employee.name  + " " + employee.lastName}}
             </md-option>
           </md-select>
@@ -135,17 +143,17 @@
           </h3>
         </div>
       </md-toolbar>
-      <div class="text-center" ng-if="!newWorkTeam.employeeLeader.name">
+      <div class="text-center" ng-if="!workTeam.employeeLeader.name">
         <h2>Lider local no establecido</h2>
       </div>
-      <div class="text-center" ng-if="newWorkTeam.employeeLeader.name">
-        <h2>Lider Local : {{newWorkTeam.employeeLeader.name + " " + newWorkTeam.employeeLeader.lastName}}</h2>
+      <div class="text-center" ng-if="workTeam.employeeLeader.name">
+        <h2>Lider Local : {{workTeam.employeeLeader.name + " " + workTeam.employeeLeader.lastName}}</h2>
       </div>
       <div layout-gt-xs="row">
         <md-input-container class="md-block" flex-gt-xs>
           <label>Selecciona un lider</label>
-          <md-select  ng-model="employeeLeader"   ng-model-options="{trackBy: '$value.id'}" ng-required="true" required>
-            <md-option  ng-repeat="employee in employeesLeader" ng-value="employee">
+          <md-select  ng-model="workTeam.employeeLeader"   ng-model-options="{trackBy: '$value.id'}" ng-required="true" required>
+            <md-option  ng-repeat="employee in employees" ng-value="employee">
               {{employee.name  + " " + employee.lastName}}
             </md-option>
           </md-select>

@@ -86,7 +86,7 @@ exports.read = function (req, res) {
 
             res.json(team);
         }
-    }).populate(["employee"]);
+    }).populate("employees");
 };
 
 exports.delete = function (req, res) {

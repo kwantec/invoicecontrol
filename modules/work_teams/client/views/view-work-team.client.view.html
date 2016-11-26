@@ -21,44 +21,50 @@
         </md-card-title-text>
       </md-card-title>
     </md-card>
-    <md-toolbar class="md-theme-light">
-      <h4 class="md-toolbar-tools">
-        <span>Arquitecto</span>
-      </h4>
-    </md-toolbar>
-    <md-card>
-      <md-card-title>
-        <md-card-title-media>
-          <div class="md-media-sm card-media" layout>
-            <md-icon md-svg-icon="person" style="color:grey"></md-icon>
-          </div>
-        </md-card-title-media>
-        <md-card-title-text>
-          <span class="md-headline">{{workTeam.architect.name}} - <small>{{workTeam.architect.email}}</small></span>
-          <span class="md-subhead description">Casa : {{workTeam.architect.phone}} Movil : {{workTeam.architect.cellphone}}</span>
-          <span class="md-subhead description">{{workTeam.architect.office}}</span>
-        </md-card-title-text>
-      </md-card-title>
-    </md-card>
-    <md-toolbar class="md-theme-light">
-      <h4 class="md-toolbar-tools">
-        <span>Lider Remoto</span>
-      </h4>
-    </md-toolbar>
-    <md-card>
-      <md-card-title>
-        <md-card-title-media>
-          <div class="md-media-sm card-media" layout>
-            <md-icon md-svg-icon="person" style="color:grey"></md-icon>
-          </div>
-        </md-card-title-media>
-        <md-card-title-text>
-          <span class="md-headline">{{workTeam.leader.name}} - <small>{{workTeam.leader.email}}</small></span>
-          <span class="md-subhead description">Casa : {{workTeam.leader.phone}} Movil : {{workTeam.leader.cellphone}}</span>
-          <span class="md-subhead description">{{workTeam.leader.office}}</span>
-        </md-card-title-text>
-      </md-card-title>
-    </md-card>
+    <div layout="row">
+      <div flex>
+        <md-toolbar class="md-theme-light">
+          <h4 class="md-toolbar-tools">
+            <span>Arquitecto</span>
+          </h4>
+        </md-toolbar>
+        <md-card>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media" layout>
+                <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+              </div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">{{workTeam.architect.name}} - <small>{{workTeam.architect.email}}</small></span>
+              <span class="md-subhead description">Casa : {{workTeam.architect.phone}} Movil : {{workTeam.architect.cellphone}}</span>
+              <span class="md-subhead description">{{workTeam.architect.office}}</span>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+      </div>
+      <div flex>
+        <md-toolbar class="md-theme-light">
+          <h4 class="md-toolbar-tools">
+            <span>Lider Remoto</span>
+          </h4>
+        </md-toolbar>
+        <md-card>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media" layout>
+                <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+              </div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">{{workTeam.leader.name}} - <small>{{workTeam.leader.email}}</small></span>
+              <span class="md-subhead description">Casa : {{workTeam.leader.phone}} Movil : {{workTeam.leader.cellphone}}</span>
+              <span class="md-subhead description">{{workTeam.leader.office}}</span>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+      </div>
+    </div>
     <md-toolbar class="md-theme-light">
       <h4 class="md-toolbar-tools">
         <span>Integrantes</span>
