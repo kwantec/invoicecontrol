@@ -1,12 +1,12 @@
 <div ng-init="findOne()">
     <div class="page-header">
         <div layout="row" layout-align="start center">
-            <h1 ng-bind="customer.name"></h1>
-            <md-button class="md-raised md-primary" ui-sref="customers.edit({customerId: customer._id})" flex="none">
+            <h1 ng-bind="client.name"></h1>
+            <md-button class="md-raised md-primary" ui-sref="clients.edit({clientId: client._id})" flex="none">
                 <span class="glyphicon glyphicon-pencil"></span>
                 Editar
             </md-button>
-            <md-button class="md-raised md-warn" ng-click="remove(customer)">
+            <md-button class="md-raised md-warn" ng-click="remove(client)">
                 <span class="glyphicon glyphicon-trash"></span>
                 Borrar
             </md-button>
@@ -25,43 +25,43 @@
                     </md-card-title>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.name}}</h3>
+                            <h3>{{client.name}}</h3>
                             <p>Nombre</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.email}}</h3>
+                            <h3>{{client.email}}</h3>
                             <p>Email</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.phone}}</h3>
+                            <h3>{{client.phone}}</h3>
                             <p>Tel&eacute;fono</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.taxId}}</h3>
+                            <h3>{{client.taxId}}</h3>
                             <p>Tax ID</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.url}}</h3>
+                            <h3>{{client.url}}</h3>
                             <p>Sitio web</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.address.city + ", " + customer.address.state + ", " +
-                                customer.address.country}}</h3>
+                            <h3>{{client.address.city + ", " + client.address.state + ", " +
+                                client.address.country}}</h3>
                             <p>Ubicaci&oacute;n</p>
                         </div>
                     </md-list-item>
@@ -80,28 +80,28 @@
                     </md-card-title>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.contact.name}}</h3>
+                            <h3>{{client.contact.name}}</h3>
                             <p>Nombre</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.contact.email}}</h3>
+                            <h3>{{client.contact.email}}</h3>
                             <p>Email</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.contact.officePhone}}</h3>
+                            <h3>{{client.contact.officePhone}}</h3>
                             <p>Tel&eacute;fono de oficina</p>
                         </div>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item class="md-2-line" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{customer.contact.cellPhone}}</h3>
+                            <h3>{{client.contact.cellPhone}}</h3>
                             <p>Tel&eacute;fono celular</p>
                         </div>
                     </md-list-item>

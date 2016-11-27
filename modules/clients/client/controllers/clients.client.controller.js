@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('customers').controller('CustomersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Customers',
-    function ($scope, $stateParams, $location, Authentication, Customers) {
+angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients',
+    function ($scope, $stateParams, $location, Authentication, Clients) {
         $scope.authentication = Authentication;
         $scope.sortType = 'name';
         $scope.sortReverse = false;
-        $scope.searchCustomer = '';
+        $scope.searchClient = '';
 
-        $scope.newCustomer = {
+        $scope.newClient = {
             name: "",
             taxId: "",
             phone: "",
@@ -39,25 +39,25 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
 
             if (!isValid) {
                 console.log("error");
-                $scope.$broadcast('show-errors-check-validity', 'customerForm');
+                $scope.$broadcast('show-errors-check-validity', 'clientForm');
 
                 return false;
             }
 
-            var customer = new Customers({
-                name: $scope.newCustomer.name,
-                taxId: $scope.newCustomer.taxId,
-                phone: $scope.newCustomer.phone,
-                email: $scope.newCustomer.email,
-                url: $scope.newCustomer.url,
-                contact: $scope.newCustomer.contact,
-                address: $scope.newCustomer.address,
-                workTeams: $scope.newCustomer.workTeams,
-                purchaseOrders: $scope.newCustomer.purchaseOrders
+            var client = new Clients({
+                name: $scope.newClient.name,
+                taxId: $scope.newClient.taxId,
+                phone: $scope.newClient.phone,
+                email: $scope.newClient.email,
+                url: $scope.newClient.url,
+                contact: $scope.newClient.contact,
+                address: $scope.newClient.address,
+                workTeams: $scope.newClient.workTeams,
+                purchaseOrders: $scope.newClient.purchaseOrders
             });
 
-            customer.$save(function (response) {
-                $location.path('customers/' + response._id);
+            client.$save(function (response) {
+                $location.path('clients/' + response._id);
             }, function (errorResponse) {
                 console.log('fail');
                 $scope.error = errorResponse.data.message;
@@ -73,14 +73,14 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
         };
 
         $scope.find = function () {
-            $scope.customers = Customers.query();
+            $scope.clients = Clients.query();
         };
 
         $scope.findOne = function () {
-            Customers.get(
-                {customerId: $stateParams.customerId},
-                function (customer) {
-                    $scope.customer = customer;
+            Clients.get(
+                {clientId: $stateParams.clientId},
+                function (client) {
+                    $scope.client = client;
                 },
                 function (errorResponse) {
                     $scope.error = errorResponse.data.message;
@@ -89,23 +89,23 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
         };
 
         $scope.update = function () {
-            var customer = $scope.customer;
-            customer.$update(function () {
-                $location.path('customers/' + customer._id);
+            var client = $scope.client;
+            client.$update(function () {
+                $location.path('clients/' + client._id);
             }, function (errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
         };
 
-        $scope.remove = function (customer) {
-            if (customer) {
-                customer.$remove(function () {
-                    $location.path('customers/list');
+        $scope.remove = function (client) {
+            if (client) {
+                client.$remove(function () {
+                    $location.path('clients/list');
                 });
 
-                for (var i in $scope.customers) {
-                    if ($scope.customers[i] === customer) {
-                        $scope.customers.splice(i, 1);
+                for (var i in $scope.clients) {
+                    if ($scope.clients[i] === client) {
+                        $scope.clients.splice(i, 1);
                     }
                 }
             }

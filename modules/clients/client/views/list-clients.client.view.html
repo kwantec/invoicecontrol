@@ -6,7 +6,7 @@
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-                <input type="text" class="form-control" placeholder="Buscar cliente..." ng-model="searchCustomer">
+                <input type="text" class="form-control" placeholder="Buscar cliente..." ng-model="searchClient">
             </div>
         </div>
     </form>
@@ -25,9 +25,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="customer in customers | orderBy:sortType:sortReverse | filter:searchCustomer">
-            <td><a ng-href="/customers/{{customer._id}}">{{customer.name}}</a></td>
-            <td>{{customer.taxId}}</td>
+        <tr ng-repeat="client in clients | orderBy:sortType:sortReverse | filter:searchClient">
+            <td><a ng-href="/clients/{{client._id}}">{{client.name}}</a></td>
+            <td>{{client.taxId}}</td>
             <td>
                 <md-button class="md-raised" ng-href="#">
                     <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -38,7 +38,7 @@
         </tbody>
     </table>
     <div layout="row" layout-align="end" flex>
-        <md-button class="md-fab" aria-label="Agregar cliente" ng-href="/customers/create">
+        <md-button class="md-fab" aria-label="Agregar cliente" ng-href="/clients/create">
             <span class="glyphicon glyphicon-plus"></span>
         </md-button>
     </div>

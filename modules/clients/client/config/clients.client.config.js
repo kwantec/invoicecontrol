@@ -1,22 +1,22 @@
 'use strict';
 
-angular.module('customers').run(['Menus',
+angular.module('clients').run(['Menus',
     function (Menus) {
         Menus.addMenuItem('topbar', {
             title: 'Clientes',
-            state: 'customers',
+            state: 'clients',
             type: 'dropdown',
             roles: ['*']
         });
 
-        Menus.addSubMenuItem('topbar', 'customers', {
+        Menus.addSubMenuItem('topbar', 'clients', {
             title: 'Lista de Clientes',
-            state: 'customers.list'
+            state: 'clients.list'
         });
 
-        Menus.addSubMenuItem('topbar', 'customers', {
+        Menus.addSubMenuItem('topbar', 'clients', {
             title: 'Agregar un Cliente',
-            state: 'customers.create'
+            state: 'clients.create'
         });
     }
 ]);
