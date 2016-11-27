@@ -78,8 +78,7 @@
           }else{
             vm.loggies[i].created = $filter("date")(vm.loggies[i].created, 'MMM d, y');
             if (vm.loggies[i].created == dater) {
-              var act = vm.loggies[i].activity;
-              deferred.resolve("<p>" + act + "</p>");
+              deferred.resolve("<p class='colorFont'><i class='fa fa-check-square-o fa-3x' aria-hidden='true'></i></p>");
             }
           }
         }
