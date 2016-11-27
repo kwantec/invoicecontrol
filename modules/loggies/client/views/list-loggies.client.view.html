@@ -11,16 +11,14 @@
                title-format="'MMMM y'"
                ng-model='selectedDate'
                week-starts-on="firstDayOfWeek"
+               day-content="setDayContent"
   <--Set the initial month here. "8" is September. Defaults to current&ndash;&gt;
-  data-start-month="8"
   <--Set the initial year here. Defaults to current.&ndash;&gt;
-  data-start-year="2014"
   tooltips="tooltips"
   day-format="dayFormat"
   day-label-format="'EEE'"
   day-label-tooltip-format="'EEEE'"
   day-tooltip-format="'fullDate'"
-  day-content="setDayContent"
   disable-future-selection="false"
   <-- Allows dates in the future to be disabled and unselectable. Defaults to false--> ></calendar-md>
 

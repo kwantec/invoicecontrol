@@ -21,12 +21,5 @@
       title: 'List Loggies',
       state: 'loggies.list'
     });
-
-    // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'loggies', {
-      title: 'Calendar',
-      state: 'loggies.calendar'
-    });
-
   }
 }());
