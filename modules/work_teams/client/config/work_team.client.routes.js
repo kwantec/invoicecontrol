@@ -14,14 +14,11 @@
             })
             .state('work-teams.list', {
                 url: '',
-                templateUrl: 'modules/work_teams/client/views/list-work-team.client.view.html',
+                templateUrl: 'modules/work_teams/client/views/list-work-team.client.view.html'
             })
             .state('work-teams.create', {
                 url: '/create',
-                templateUrl: 'modules/work_teams/client/views/create-work-team.client.view.html',
-                data: {
-                    roles: ['user', 'admin']
-                }
+                templateUrl: 'modules/work_teams/client/views/create-work-team.client.view.html'
             })
             .state('work-teams.view', {
                 url: '/:workTeamId',
@@ -29,10 +26,7 @@
             })
             .state('work-teams.edit', {
                 url: '/:workTeamId/edit',
-                templateUrl: 'modules/work_teams/client/views/edit-work-team.client.view.html',
-                data: {
-                    roles: ['user', 'admin']
-                }
+                templateUrl: 'modules/work_teams/client/views/edit-work-team.client.view.html'
             });
     }
 })();

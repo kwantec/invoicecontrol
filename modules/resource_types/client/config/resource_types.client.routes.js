@@ -18,10 +18,7 @@
             })
             .state('resource-types.create', {
                 url: '/create',
-                templateUrl: 'modules/resource_types/client/views/create-resource-type.client.view.html',
-                data: {
-                    roles: ['user', 'admin']
-                }
+                templateUrl: 'modules/resource_types/client/views/create-resource-type.client.view.html'
             })
             .state('resource-types.view', {
                 url: '/:resourceTypeId',
@@ -29,10 +26,7 @@
             })
             .state('resource-types.edit', {
                 url: '/:resourceTypeId/edit',
-                templateUrl: 'modules/resource_types/client/views/edit-resource-type.client.view.html',
-                data: {
-                    roles: ['user', 'admin']
-                }
+                templateUrl: 'modules/resource_types/client/views/edit-resource-type.client.view.html'
             });
     }
 })();

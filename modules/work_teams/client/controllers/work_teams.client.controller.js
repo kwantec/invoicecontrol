@@ -7,28 +7,27 @@ angular.module('workTeams')
             $scope.authentication = Authentication;
             $scope.employees = Employees.query();
             $scope.integrant = {};
-            $scope.leader = {};
 
             $scope.addIntegrant = function(){
-                if(!$scope.workTeam.employees){
-                    $scope.workTeam.employees = [];
-                }
-
                 $scope.workTeam.employees.push($scope.integrant);
-                $scope.employes = $scope.employees.filter(function(item){
-                    return $scope.integrant != item;
+                $scope.integrant = {};
+                $scope.employees = $scope.employees.filter(function(item){
+                    return !$scope.workTeam.employees.includes(item);
                 });
             };
 
-            $scope.setLeader = function(){
-                $scope.workTeam.employeeLeader = $scope.leader;
+            $scope.setLeader = function(employee){
+                $scope.workTeam.employeeLeader = employee;
             };
 
             $scope.deleteIntegrant = function(toDeleteIntegrant){
+                $scope.employees.push(toDeleteIntegrant);
                 $scope.workTeam.employees = $scope.workTeam.employees.filter(function(item){
                     return item != toDeleteIntegrant;
                 });
-                $scope.employees.push(toDeleteIntegrant);
+                if($scope.workTeam.employeeLeader == toDeleteIntegrant){
+                    $scope.workTeam.employeeLeader = {};
+                }
             };
             // Create new WorkTeam
             $scope.create = function (isValid) {

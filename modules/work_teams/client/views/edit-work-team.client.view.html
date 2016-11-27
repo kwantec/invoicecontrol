@@ -27,7 +27,7 @@
                 md-enable-chip-edit="true" placeholder="Agrega una cualidad" secondary-placeholder=" + MEAN.JS"></md-chips>
 
       <div layout="row">
-        <div flex layout-padding="5">
+        <div flex layout-padding="3">
           <md-toolbar md-scroll-shrink>
             <div class="md-toolbar-tools">
               <h3>
@@ -62,7 +62,7 @@
             </md-input-container>
           </div>
         </div>
-        <div flex layout-padding="5">
+        <div flex layout-padding="3">
           <md-toolbar md-scroll-shrink>
             <div class="md-toolbar-tools">
               <h3>
@@ -106,23 +106,31 @@
           </h3>
         </div>
       </md-toolbar>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h4>
+            <span ng-if="!workTeam.employeeLeader.name" class="has-error"> Este equipo no tiene líder, selecciona cualquiera de sus integrantes para asignarlo</span>
+            <span ng-if="workTeam.employeeLeader.name"> Líder de este equipo : {{workTeam.employeeLeader.name + " " + workTeam.employeeLeader.lastName}}</span>
+          </h4>
+        </div>
+      </md-toolbar>
       <md-list>
-        <md-list-item class="md-3-line" ng-repeat="current in workTeam.employees">
+        <md-list-item class="md-3-line" ng-repeat="current in workTeam.employees" ng-click="setLeader(current)">
           <div class="md-list-item-text">
             <h3>{{current.name + " " + current.lastName}} </h3>
             <h4>{{current.rfc}}</h4>
+            <h4 ng-if="workTeam.employeeLeader._id == current._id">Este miembro es el LÍDER DE EQUIPO</h4>
           </div>
           <md-button class="md-secondary" ng-click="deleteIntegrant(current)">Eliminar</md-button>
           <md-divider ng-if="!$last"></md-divider>
         </md-list-item>
       </md-list>
       <div layout-gt-xs="row">
-
         <md-input-container class="md-block" flex-gt-xs>
-          <label>Selecciona un integrante</label>
-          <md-select  ng-model="integrant"   ng-model-options="{trackBy: '$value.id'}">
-            <md-option  ng-repeat="employee in employees" ng-value="employee">
-              {{employee.name  + " " + employee.lastName}}
+          <label>Empleado</label>
+          <md-select ng-model="integrant">
+            <md-option ng-repeat="employee in employees" ng-value="employee">
+              {{employee.name}}
             </md-option>
           </md-select>
         </md-input-container>
@@ -130,39 +138,8 @@
           type="button"
           ng-disabled="false"
           class="md-raised md-primary text-center"
-          ng-click="addIntegrant()">Agregar</md-button>
+          ng-click="addIntegrant()">Agregar Integrante</md-button>
       </div>
-
-      <md-toolbar md-scroll-shrink>
-        <div class="md-toolbar-tools">
-          <h3>
-            <span>Lider Local</span>
-          </h3>
-        </div>
-      </md-toolbar>
-      <div class="text-center" ng-if="!workTeam.employeeLeader.name">
-        <h2>Lider local no establecido</h2>
-      </div>
-      <div class="text-center" ng-if="workTeam.employeeLeader.name">
-        <h2>Lider Local : {{workTeam.employeeLeader.name + " " + workTeam.employeeLeader.lastName}}</h2>
-      </div>
-      <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Selecciona un lider</label>
-          <md-select  ng-model="leader"   ng-model-options="{trackBy: '$value.id'}" ng-required="true" required>
-            <md-option  ng-repeat="employee in employees" ng-value="employee">
-              {{employee.name  + " " + employee.lastName}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-        <md-button
-          type="button"
-          ng-disabled="false"
-          class="md-raised md-primary text-center"
-          ng-click="setLeader()">Establecer</md-button>
-      </div>
-
-
       <md-button
         type="submit"
         ng-disabled="resourceTypeForm.$invalid"

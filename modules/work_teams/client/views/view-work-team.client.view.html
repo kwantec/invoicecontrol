@@ -73,7 +73,7 @@
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="current in workTeam.employees">
         <div class="md-list-item-text">
-          <h2>{{current.name}} - {{current.lastName}}</h2>
+          <h2>{{current.name + " " + current.lastName}}</h2>
           <h3>Email : {{ current.personEmail }}</h3>
           <h4>RFC : {{current.rfc}}</h4>
           <h5>IMSS : {{current.imss}}</h5>
