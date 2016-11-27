@@ -5,13 +5,13 @@
   <div class="col-md-12">
     <md-content flex layout-padding>
       <div>
-        <form class="form-horizontal" ng-submit="addEmployee()">
+        <form class="form-horizontal" ng-submit="addTimesheet()">
 
           <md-card>
             <md-card-title>
               <md-card-title-text>
                 <span class="md-headline">Crear Timesheet</span>
-                <span class="md-subhead">Contenido de la Timesheet</span>
+                <!--<span class="md-subhead">Contenido de la Timesheet</span>-->
               </md-card-title-text>
             </md-card-title>
 
@@ -19,11 +19,11 @@
               <div layout="row">
                 <div flex-gt-s>
                   <h4>De:</h4>
-                  <md-datepicker ng-model="newEmployee.dob" md-placeholder="Enter date" required></md-datepicker>
+                  <md-datepicker ng-model="newTimesheet.startDate" md-placeholder="Enter date" required></md-datepicker>
                 </div>
                 <div flex-gt-xs>
                   <h4>Hasta:</h4>
-                  <md-datepicker ng-model="newEmployee.dob" md-placeholder="Enter date" required></md-datepicker>
+                  <md-datepicker ng-model="newTimesheet.finishDate" md-placeholder="Enter date" required></md-datepicker>
                 </div>
               </div>
               <div layout="row">
@@ -31,22 +31,22 @@
                 <div flex>
                   <md-input-container>
                     <label>Nombre del timesheet:</label>
-                    <input>
+                    <input type="text" ng-model="newTimesheet.name" title="name" required>
                   </md-input-container>
                 </div>
 
                 <div flex>
                   <md-input-container>
-                    <label>Equipo: </label>
-                    <md-select ng-model="ctrl.userState">
+                    <label>Seleccionar Equipo</label>
+                    <md-select ng-model="newTimesheet.teamName">
                       <md-option><em>None</em></md-option>
-                      <md-option ng-disabled="$index === 1">
+                      <md-option ng-value="team1">
                         Team 1
                       </md-option>
-                      <md-option ng-disabled="$index === 1">
+                      <md-option ng-value="team2">
                         Team 2
                       </md-option>
-                      <md-option ng-disabled="$index === 1">
+                      <md-option ng-value="team3">
                         Team 3
                       </md-option>
                     </md-select>
