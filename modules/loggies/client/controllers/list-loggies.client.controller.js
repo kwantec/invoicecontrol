@@ -5,12 +5,12 @@
     .module('loggies')
     .controller('LoggiesListController', LoggiesListController);
 
-  LoggiesListController.$inject = ['LoggiesService', '$scope', '$state', '$filter', '$http', '$q', '$location'];
+  LoggiesListController.$inject = ['LoggiesService', '$scope', '$state', '$filter', '$http', '$q', '$location', '$timeout'];
 
-  function LoggiesListController(LoggiesService, $scope, $state, $filter, $http, $q, $location, loggy, loggies, $ngRepeat) {
+  function LoggiesListController(LoggiesService, $scope, $state, $filter, $http, $q, $location, $timeout) {
     var vm = this;
-    vm.loggy = loggy;
-    vm.loggies = loggies;
+
+    vm.loggies = LoggiesService.query();
 
     $scope.dayFormat = "d";
 
@@ -27,14 +27,26 @@
     };
 
     $scope.dayClick = function(date) {
-      //$scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
-      //console.log("You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z"));
-      var loggyDate = $filter("date")(date, 'MMM d, y');
+      var loggyDate = $filter("date")(date, 'yyyy-MM-dd');
+      var tam = vm.loggies.length;
+      var i;
+      var dater = $filter("date")(date, 'MMM d, y');
+      for (i=0 ; i < tam; i++) {
+        if(vm.loggies[i] == undefined) {
+
+        }else{
+          vm.loggies[i].created = $filter("date")(vm.loggies[i].created, 'MMM d, y');
+          if (vm.loggies[i].created == dater) {
+            $state.go('loggies.view', {
+              loggyId: vm.loggies[i]._id
+            });
+            return ;
+          }
+        }
+      }
       $state.go('loggies.create', {
         loggyDate: loggyDate
       });
-      //window.location.href="/loggies/create:"+loggyDate;
-
     };
 
     $scope.prevMonth = function(data) {
@@ -47,27 +59,33 @@
 
     $scope.tooltips = true;
     $scope.setDayContent = function(date) {
-
-      $ngRepeat = loggy in vm.loggies;
-      loggies.view({ loggyId: loggy._id });
       // You would inject any HTML you wanted for
       // that particular date here.
-      if (date == loggy.created({date:'dd-M-y'})) {
-        return "<p>loggy.activity</p>";
-      }
+      //return "<p>" + vm.loggies[0] + "</p>";
 
       // You could also use an $http function directly.
-      return $http.get("/some/external/api");
+      //return $http.get("/some/external/api");
 
       // You could also use a promise.
       var deferred = $q.defer();
       $timeout(function() {
-        deferred.resolve("<p></p>");
+        var tam = vm.loggies.length;
+        var i;
+        var dater = $filter("date")(date, 'MMM d, y');
+        for (i=0 ; i < tam; i++) {
+          if(vm.loggies[i] == undefined) {
+
+          }else{
+            vm.loggies[i].created = $filter("date")(vm.loggies[i].created, 'MMM d, y');
+            if (vm.loggies[i].created == dater) {
+              var act = vm.loggies[i].activity;
+              deferred.resolve("<p>" + act + "</p>");
+            }
+          }
+        }
       }, 1000);
       return deferred.promise;
 
     };
-
-    vm.loggies = LoggiesService.query();
   }
 }());
