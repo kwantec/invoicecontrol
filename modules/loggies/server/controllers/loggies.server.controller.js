@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Loggy = mongoose.model('Loggy'),
   Employee = mongoose.model('Employee'),
+  ResourceType = mongoose.model('ResourceType'),
   WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   seeder = require("../seeders/loggies.server.seeder"),
@@ -17,7 +18,44 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var loggy = new Loggy(req.body);
-  loggy.user = req.user;
+
+  /*var resource = new ResourceType({
+    name: "Recurso Demo",
+    rates: [{
+      level: 1,
+      name: "Junior",
+      description: "Descripcion de prueba",
+      qualities: [
+          "PHP","Java", "COBOL"
+      ],
+      rate: 10000
+    }]
+  });
+
+  var workTeam = new WorkTeam({
+    name: "Team Ferros",
+    description: "Equipo Ferros es el mejor"
+  });
+
+  var employee = new Employee({
+    name: req.user.name,
+    lastname : req.user.lastname,
+    addrees: {
+      city: "Merida",
+      state: "Yucatan",
+      country: "Mexico",
+      zipCode: "97203"
+    },
+    personEmail: req.user.email,
+    workEmail:req.user.email,
+    user: req.user._id,
+    resourceType : resource._id
+  });
+
+  loggy.employee = employee._id;
+  loggy.workTeam = workTeam._id;
+
+  console.log(loggy);*/
 
   loggy.save(function(err) {
     if (err) {
