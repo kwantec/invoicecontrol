@@ -16,8 +16,7 @@
             })
             .state('loggies.list', {
                 url: '',
-                //templateUrl: 'modules/loggies/client/views/list-loggies.client.view.html',
-                templateUrl: 'modules/loggies/client/views/calendar-loggy.client.view.html',
+                templateUrl: 'modules/loggies/client/views/list-loggies.client.view.html',
                 controller: 'LoggiesListController',
                 controllerAs: 'vm',
                 data: {

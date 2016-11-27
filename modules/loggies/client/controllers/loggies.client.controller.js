@@ -3,7 +3,7 @@
 
   // Loggies controller
   angular
-    .module('loggies',['materialCalendar','ngMaterial'])
+    .module('loggies')
     .controller('LoggiesController', LoggiesController);
 
   LoggiesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'loggyResolve'];
