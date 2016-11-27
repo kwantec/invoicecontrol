@@ -71,7 +71,6 @@ angular.module('workTeams')
 
                 if (!isValid) {
                     $scope.$broadcast('show-errors-check-validity', 'workTeamForm');
-
                     return false;
                 }
 
@@ -92,12 +91,19 @@ angular.module('workTeams')
 
             // Find existing WorkTeam
             $scope.findOne = function () {
-                $scope.workTeam = WorkTeams.get({
+                WorkTeams.get({
                     workTeamId: $stateParams.workTeamId
-                });
-
-                $scope.employees = $scope.employees.filter(function(item){
-                    return !$scope.workTeam.employees.includes(item);
+                }, function(workTeamRetrieved){
+                    $scope.workTeam = workTeamRetrieved;
+                    $scope.employees = $scope.employees.filter(function(item){
+                        var shouldAddItemToList = true;
+                        angular.forEach($scope.workTeam.employees,function(employee, key){
+                            if(employee._id == item._id){
+                                shouldAddItemToList = false;
+                            }
+                        });
+                        return shouldAddItemToList;
+                    });
                 });
             };
 

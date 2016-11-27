@@ -44,6 +44,7 @@ exports.update = function (req, res) {
             team.architect = req.body.architect;
             team.technologies = req.body.technologies;
             team.employees = req.body.employees;
+            team.employeeLeader = req.body.employeeLeader;
 
             team.save(function (err) {
                 if (err) {
