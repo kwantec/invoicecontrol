@@ -21,12 +21,13 @@
         }
 
         $scope.addEmployee = function () {
-            Employee.save($scope.newEmployee, function () {
+           var newEmployee = Employee.save($scope.newEmployee, function () {
                 console.log($scope.newEmployee);
                 //updateUser($scope.newEmployee);
                 initNewEmployee();
                 $scope.showToastSave();
             });
+            updateUser(newEmployee)
         };
 
         $scope.findEmployee = function () {
