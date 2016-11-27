@@ -1,0 +1,30 @@
+<section ng-init="findOne()">
+    <div class="page-header">
+        <h1>Editando {{purchaseOrder.name}}</h1>
+    </div>
+    <form name="editPurchaseOrder" class="form-horizontal" ng-submit="update()" novalidate>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>N&uacute;mero de compra</label>
+            <input type="text" ng-model="purchaseOrder.purchaseNumber" title="purchaseNumber" required>
+        </md-input-container>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>Nombre</label>
+            <input type="text" title="name" ng-model="purchaseOrder.name" md-maxlength="50" required>
+        </md-input-container>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>Descripci&oacute;n</label>
+            <input type="text" title="description" ng-model="purchaseOrder.description" md-maxlength="250" required>
+        </md-input-container>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>Monto asignado (MXN)</label>
+            <input type="number" title="assignedAmount" ng-model="purchaseOrder.assignedAmount" min="0" required>
+        </md-input-container>
+        <md-input-container class="md-block" layout-gt-xs="row">
+            <label>Monto restante (MXN)</label>
+            <input type="number" title="remainingAmount" ng-model="purchaseOrder.remainingAmount" min="0" required>
+        </md-input-container>
+        <div layout="row" class="md-block" layout-align="end" flex>
+            <md-button type="submit" ng-disabled="editPurchaseOrder.$invalid" class="md-primary">Guardar cambios</md-button>
+        </div>
+    </form>
+</section>

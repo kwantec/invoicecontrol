@@ -1,0 +1,107 @@
+<section ng-controller="WorkTeamsController" ng-init="findOne()">
+  <md-content>
+    <div layout="row">
+      <div flex="50">
+        <div layout="column" layout-padding>
+          <div flex>
+            <md-toolbar md-scroll-shrink>
+              <div class="md-toolbar-tools">
+                <h1>
+                  <span>Equipo de Trabajo</span>
+                </h1>
+              </div>
+            </md-toolbar>
+            <md-card>
+              <md-card-title>
+                <md-card-title-media>
+                  <div class="md-media-sm card-media" layout>
+                    <md-icon class="material-icons md-96">important_devices</md-icon>
+                  </div>
+                </md-card-title-media>
+                <md-card-title-text>
+                  <div class="text-center">
+                    <h3 class="md-headline">"{{workTeam.name}}"</h3>
+                    <p class="md-subhead description">{{workTeam.description}}</p>
+                    <span class="md-subhead description">Tecnologias : {{workTeam.technologies}}</span>
+                  </div>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+          <div flex>
+            <md-toolbar class="md-theme-light">
+              <h4 class="md-toolbar-tools">
+                <span>Arquitecto</span>
+              </h4>
+            </md-toolbar>
+            <md-card>
+              <md-card-title>
+                <md-card-title-media>
+                  <div class="md-media-sm card-media" layout>
+                    <md-icon class="material-icons md-48">brush</md-icon>
+                  </div>
+                </md-card-title-media>
+                <md-card-title-text>
+                  <div class="text-center">
+                    <h4 class="md-headline">{{workTeam.architect.name}} <small>({{workTeam.architect.email}})</small></h4>
+                    <p class="md-subhead description">Casa : {{workTeam.architect.phone}} Movil : {{workTeam.architect.cellphone}}</p>
+                    <span class="md-subhead description">Oficina : {{workTeam.architect.office}}</span>
+                  </div>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+          <div flex>
+            <md-toolbar class="md-theme-light">
+              <h4 class="md-toolbar-tools">
+                <span>Lider Remoto</span>
+              </h4>
+            </md-toolbar>
+            <md-card>
+              <md-card-title>
+                <md-card-title-media>
+                  <div class="md-media-sm card-media" layout>
+                    <md-icon class="material-icons md-48">star</md-icon>
+                  </div>
+                </md-card-title-media>
+                <md-card-title-text>
+                  <div class="text-center">
+                    <h4 class="md-headline">{{workTeam.leader.name}} <small>({{workTeam.leader.email}})</small></h4>
+                    <p class="md-subhead description">Casa : {{workTeam.leader.phone}} Movil : {{workTeam.leader.cellphone}}</p>
+                    <span class="md-subhead description">Oficina : {{workTeam.leader.office}}</span>
+                  </div>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </div>
+      <div flex="50">
+        <div layout="column" layout-padding>
+          <div flex>
+            <md-toolbar class="md-theme-light">
+              <h4 class="md-toolbar-tools">
+                <span>Integrantes</span>
+              </h4>
+            </md-toolbar>
+            <md-card
+              md-whiteframe="{{height}}" ng-init="height = 3" ng-mouseenter="height = 15" ng-mouseleave="height = 3" ng-repeat="current in workTeam.employees" ng-click="visitProfile(current)">
+              <md-card-title>
+                <md-card-title-media>
+                  <div class="md-media-sm card-media" layout>
+                    <md-icon class="material-icons md-24 ligth">{{(workTeam.employeeLeader._id == current._id)?"mood":"sentiment_satisfied"}}</md-icon>
+                  </div>
+                </md-card-title-media>
+                <md-card-title-text>
+                  <h4 class="md-headline">{{current.name + " " + current.lastName}} <small><span ng-if="workTeam.employeeLeader._id == current._id">( Líder de Equipo )</span></small></h4>
+                  <p class="md-subhead description">Email : {{ current.personEmail }}</p>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <md-button class="text-center md-raised md-primary" ui-sref="work-teams.edit({workTeamId: workTeam._id})">Editar</md-button>
+  </md-content>
+</section>

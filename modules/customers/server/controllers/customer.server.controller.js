@@ -1,59 +1,55 @@
+/**
+ * Created by Andre on 13/11/2016.
+ */
 'use strict';
 
 var path = require('path');
 var mongoose = require("mongoose");
-var Employee = mongoose.model("Employee");
+var Customer = mongoose.model("Customer");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 exports.create = function (req, res) {
-    var employee = new Employee(req.body);
+    var customer = new Customer(req.body);
 
-    employee.save(function (err) {
+    customer.save(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.json(employee);
+            res.json(customer);
         }
     });
 };
 
 exports.update = function (req, res) {
-    var employee = Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    var customer = Customer.findById(req.params.customerId).exec(function (err, customer) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!customer) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el cliente"
                 });
             }
-            employee.name = req.body.name;
-            employee.lastName = req.body.lastName;
-            employee.address.country= req.body.address.country;
-            employee.address.state= req.body.address.state;
-            employee.address.city= req.body.address.city;
-            employee.address.zipCode= req.body.address.zipCode;
-            employee.personEmail = req.body.personEmail;
-            employee.workEmail = req.body.workEmail;
-            employee.rfc = req.body.rfc;
-            employee.imss = req.body.imss;
-            employee.curp = req.body.curp;
-            employee.picture = req.body.picture;
-            employee.user = req.body.user;
 
+            customer.name = req.body.name;
+            customer.contact = req.body.contact;
+            customer.address = req.body.address;
+            customer.taxId = req.body.taxId;
+            customer.phone = req.body.phone;
+            customer.email = req.body.email;
+            customer.url = req.body.url;
 
-
-            employee.save(function (err) {
+            customer.save(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    res.json(customer);
                 }
             });
         }
@@ -61,56 +57,59 @@ exports.update = function (req, res) {
 };
 
 exports.list = function (req, res) {
-    Employee.find({deleted:false}, function (err, employees) {
+    Customer.find({deleted:false}, function (err, customers) {
         if (err) {
             console.log(err);
         } else {
-            res.json(employees);
+            res.json(customers);
         }
-    }).populate("user");
+    });
 };
 
 exports.read = function (req, res) {
-    Employee.findById(req.params.employeeId, function (err, employee) {
+    Customer.findById(req.params.customerId, function (err, customer) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!customer) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el cliente"
                 });
             }
 
-            res.json(employee);
+            console.log(customer);
+            res.json(customer);
         }
-    }).populate("user");;
+    });
 };
 
 exports.delete = function (req, res) {
-    Employee.findById(req.params.employeeId).exec(function (err, employee) {
+    Customer.findById(req.params.customerId).exec(function (err, customer) {
         if (err) {
+            console.log('err');
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            if (!employee) {
+            if (!customer) {
                 return res.status(404).send({
-                    message: 'No se encontró el empleado'
+                    message: "No se encontro el cliente"
                 });
             }
 
-            employee.delete(function (err) {
+            customer.delete(function (err) {
                 if (err) {
+                    console.log('error');
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 } else {
-                    res.json(employee);
+                    console.log('success');
+                    res.json(customer);
                 }
             });
         }
     });
 };
-

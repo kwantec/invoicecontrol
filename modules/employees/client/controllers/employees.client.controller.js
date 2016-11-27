@@ -10,21 +10,20 @@
     EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location', '$mdToast'];
 
     function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast) {
-        $scope.newEmployee = {};
-        $scope.newEmployee.name = "";
-        $scope.newEmployee.lastName = "";
-        $scope.newEmployee.salary = "";
-        $scope.newEmployee.dob = "";
-
         var Employee = $resource('/api/employees');
+        var Users = $resource('/api/users');
+
+        $scope.userData = {
+            userList: getUsers()
+        };
+
+        function getUsers() {
+            return Users.query();
+        }
 
         $scope.addEmployee = function () {
             Employee.save($scope.newEmployee, function () {
-                $scope.newEmployee = {};
-                $scope.newEmployee.name = "";
-                $scope.newEmployee.lastName = "";
-                $scope.newEmployee.salary = "";
-                $scope.newEmployee.dob = "";
+                initNewEmployee();
                 $scope.showToastSave();
                 console.log("Employee saved");
             });
@@ -76,5 +75,25 @@
                     .hideDelay(3000)
             );
         };
+
+
+        function initNewEmployee() {
+            $scope.newEmployee = {};
+            $scope.newEmployee.name = "";
+            $scope.newEmployee.lastName = "";
+            $scope.newEmployee.address = {};
+            $scope.newEmployee.address.city = "";
+            $scope.newEmployee.address.state = "";
+            $scope.newEmployee.address.country = "";
+            $scope.newEmployee.address.zipCode = "";
+            $scope.newEmployee.personEmail = "";
+            $scope.newEmployee.workEmail = "";
+            $scope.newEmployee.rfc = "";
+            $scope.newEmployee.imss = "";
+            $scope.newEmployee.curp = "";
+            $scope.newEmployee.picture = "";
+            $scope.newEmployee.user = "";
+            return 0;
+        }
     }
 }());

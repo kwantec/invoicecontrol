@@ -97,7 +97,8 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
-  }
+  },
+  employee:{type:Schema.Types.ObjectId, ref:'Employee'}
 });
 
 /**
