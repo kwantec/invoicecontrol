@@ -142,5 +142,9 @@ angular.module('workTeams')
                     $scope.remove(current);
                 });
             };
+
+            $scope.visitProfile = function(employee) {
+                $location.path('employees/' + employee._id);
+            }
         }
     ]);

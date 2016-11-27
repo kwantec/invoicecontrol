@@ -2,7 +2,7 @@
   <md-content>
     <div layout="row">
       <div flex="50">
-        <div layout="column">
+        <div layout="column" layout-padding>
           <div flex>
             <md-toolbar md-scroll-shrink>
               <div class="md-toolbar-tools">
@@ -15,13 +15,15 @@
               <md-card-title>
                 <md-card-title-media>
                   <div class="md-media-sm card-media" layout>
-                    <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+                    <md-icon class="material-icons md-96">important_devices</md-icon>
                   </div>
                 </md-card-title-media>
                 <md-card-title-text>
-                  <h4 class="md-headline">{{workTeam.name}}</h4>
-                  <span class="md-subhead description">{{workTeam.description}}</span>
-                  <span class="md-subhead description">Tecnologias : {{workTeam.technologies}}</span>
+                  <div class="text-center">
+                    <h3 class="md-headline">"{{workTeam.name}}"</h3>
+                    <p class="md-subhead description">{{workTeam.description}}</p>
+                    <span class="md-subhead description">Tecnologias : {{workTeam.technologies}}</span>
+                  </div>
                 </md-card-title-text>
               </md-card-title>
             </md-card>
@@ -36,13 +38,15 @@
               <md-card-title>
                 <md-card-title-media>
                   <div class="md-media-sm card-media" layout>
-                    <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+                    <md-icon class="material-icons md-48">brush</md-icon>
                   </div>
                 </md-card-title-media>
                 <md-card-title-text>
-                  <span class="md-headline">{{workTeam.architect.name}} - <small>{{workTeam.architect.email}}</small></span>
-                  <span class="md-subhead description">Casa : {{workTeam.architect.phone}} Movil : {{workTeam.architect.cellphone}}</span>
-                  <span class="md-subhead description">{{workTeam.architect.office}}</span>
+                  <div class="text-center">
+                    <h4 class="md-headline">{{workTeam.architect.name}} <small>({{workTeam.architect.email}})</small></h4>
+                    <p class="md-subhead description">Casa : {{workTeam.architect.phone}} Movil : {{workTeam.architect.cellphone}}</p>
+                    <span class="md-subhead description">Oficina : {{workTeam.architect.office}}</span>
+                  </div>
                 </md-card-title-text>
               </md-card-title>
             </md-card>
@@ -57,13 +61,15 @@
               <md-card-title>
                 <md-card-title-media>
                   <div class="md-media-sm card-media" layout>
-                    <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+                    <md-icon class="material-icons md-48">star</md-icon>
                   </div>
                 </md-card-title-media>
                 <md-card-title-text>
-                  <span class="md-headline">{{workTeam.leader.name}} - <small>{{workTeam.leader.email}}</small></span>
-                  <span class="md-subhead description">Casa : {{workTeam.leader.phone}} Movil : {{workTeam.leader.cellphone}}</span>
-                  <span class="md-subhead description">{{workTeam.leader.office}}</span>
+                  <div class="text-center">
+                    <h4 class="md-headline">{{workTeam.leader.name}} <small>({{workTeam.leader.email}})</small></h4>
+                    <p class="md-subhead description">Casa : {{workTeam.leader.phone}} Movil : {{workTeam.leader.cellphone}}</p>
+                    <span class="md-subhead description">Oficina : {{workTeam.leader.office}}</span>
+                  </div>
                 </md-card-title-text>
               </md-card-title>
             </md-card>
@@ -71,24 +77,26 @@
         </div>
       </div>
       <div flex="50">
-        <div layout="column">
+        <div layout="column" layout-padding>
           <div flex>
             <md-toolbar class="md-theme-light">
               <h4 class="md-toolbar-tools">
                 <span>Integrantes</span>
               </h4>
             </md-toolbar>
-            <md-list>
-              <md-list-item class="md-3-line" ng-repeat="current in workTeam.employees">
-                <div class="md-list-item-text">
-                  <h2>{{current.name + " " + current.lastName}} <span ng-if="workTeam.employeeLeader._id == current._id">( Líder de Equipo )</span></h2>
-                  <h3>Email : {{ current.personEmail }}</h3>
-                  <h4>RFC : {{current.rfc}}</h4>
-                  <h5>IMSS : {{current.imss}}</h5>
-                </div>
-                <md-divider ng-if="!$last"></md-divider>
-              </md-list-item>
-            </md-list>
+            <md-card ng-repeat="current in workTeam.employees" ng-click="visitProfile(current)">
+              <md-card-title>
+                <md-card-title-media>
+                  <div class="md-media-sm card-media" layout>
+                    <md-icon class="material-icons md-24">{{(workTeam.employeeLeader._id == current._id)?"star":"mood"}}</md-icon>
+                  </div>
+                </md-card-title-media>
+                <md-card-title-text>
+                  <h4 class="md-headline">{{current.name + " " + current.lastName}} <small><span ng-if="workTeam.employeeLeader._id == current._id">( Líder de Equipo )</span></small></h4>
+                  <p class="md-subhead description">Email : {{ current.personEmail }}</p>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
           </div>
         </div>
       </div>
