@@ -84,11 +84,12 @@
                 <span>Integrantes</span>
               </h4>
             </md-toolbar>
-            <md-card ng-repeat="current in workTeam.employees" ng-click="visitProfile(current)">
+            <md-card
+              md-whiteframe="{{height}}" ng-init="height = 3" ng-mouseenter="height = 15" ng-mouseleave="height = 3" ng-repeat="current in workTeam.employees" ng-click="visitProfile(current)">
               <md-card-title>
                 <md-card-title-media>
                   <div class="md-media-sm card-media" layout>
-                    <md-icon class="material-icons md-24">{{(workTeam.employeeLeader._id == current._id)?"star":"mood"}}</md-icon>
+                    <md-icon class="material-icons md-24 ligth">{{(workTeam.employeeLeader._id == current._id)?"mood":"sentiment_satisfied"}}</md-icon>
                   </div>
                 </md-card-title-media>
                 <md-card-title-text>
