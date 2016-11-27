@@ -17,6 +17,7 @@
         vm.form = {};
         vm.remove = remove;
         vm.save = save;
+        vm.successActivity = successActivity;
 
         $scope.loggyDate = $stateParams.loggyDate;
 
@@ -99,6 +100,10 @@
             }else{
                 $scope.showDialog($event);
             }
+        }
+
+        function successActivity(){
+            $state.go('loggies.list');
         }
     }
 }());
