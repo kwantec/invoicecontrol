@@ -37,7 +37,7 @@
         }
       })
       .state('timesheets.edit', {
-        url: '/:timesheet/edit',
+        url: '/:timesheetId/edit',
         templateUrl: 'modules/timesheets/client/views/edit-timesheet.client.view.html',
         controller: 'TimesheetsController',
         controllerAs: 'vm',
