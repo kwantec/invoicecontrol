@@ -25,7 +25,7 @@ angular.module('workTeams')
                 $scope.workTeam.employees = $scope.workTeam.employees.filter(function(item){
                     return item != toDeleteIntegrant;
                 });
-                if($scope.workTeam.employeeLeader == toDeleteIntegrant){
+                if($scope.workTeam.employeeLeader._id == toDeleteIntegrant._id){
                     $scope.workTeam.employeeLeader = {};
                 }
             };

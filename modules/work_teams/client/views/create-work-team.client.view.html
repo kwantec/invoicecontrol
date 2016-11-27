@@ -136,13 +136,13 @@
         </md-input-container>
         <md-button
           type="button"
-          ng-disabled="false"
+          ng-disabled="!integrant.name"
           class="md-raised md-primary text-center"
           ng-click="addIntegrant()">Agregar Integrante</md-button>
       </div>
       <md-button
         type="submit"
-        ng-disabled="resourceTypeForm.$invalid"
+        ng-disabled="resourceTypeForm.$invalid || !workTeam.employeeLeader.name"
         class="md-raised md-primary text-center"
         ng-click="create(resourceTypeForm.$valid)">Guardar</md-button>
     </form>
