@@ -6,7 +6,6 @@ var ApplicationConfiguration = (function () {
   var applicationModuleName = 'mean';
   var applicationModuleVendorDependencies = ['ngMaterial','ngSanitize','materialCalendar', 'ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ui.utils', 'angularFileUpload'];
 
-
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {
     // Create angular module
