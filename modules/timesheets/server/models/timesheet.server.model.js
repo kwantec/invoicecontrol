@@ -66,7 +66,7 @@ var TimesheetSchema = new Schema({
               trim: true
           },
           monthly: {
-              type: String,
+              type: Number,
               default: '',
               trim: true
           },
