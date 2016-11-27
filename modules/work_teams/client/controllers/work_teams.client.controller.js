@@ -2,8 +2,8 @@
 
 // Work Teams controller
 angular.module('workTeams')
-    .controller('WorkTeamsController', ['$scope', '$stateParams', '$location', 'Authentication', 'WorkTeams', 'Employees',
-        function ($scope, $stateParams, $location, Authentication, WorkTeams, Employees) {
+    .controller('WorkTeamsController', ['$scope', '$stateParams', '$mdDialog', '$location', 'Authentication', 'WorkTeams', 'Employees',
+        function ($scope, $stateParams,$mdDialog, $location, Authentication, WorkTeams, Employees) {
             $scope.authentication = Authentication;
             $scope.employees = Employees.query();
             $scope.integrant = {};
@@ -123,6 +123,18 @@ angular.module('workTeams')
                     employees : [],
                     employeeLeader : {}
                 };
+            };
+
+            $scope.showConfirmDialog = function(current) {
+                var confirm = $mdDialog.confirm()
+                    .title('¿Realmente deseas eliminar este equipo de trabajo?')
+                    .textContent('Esta operacion solo es reversible por el administrador')
+                    .ok('Si')
+                    .cancel('No');
+
+                $mdDialog.show(confirm).then(function() {
+                    $scope.remove(current);
+                });
             };
         }
     ]);
