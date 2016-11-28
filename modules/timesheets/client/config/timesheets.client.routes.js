@@ -66,9 +66,9 @@
   getTimesheet.$inject = ['$stateParams', 'TimesheetsService'];
 
   function getTimesheet($stateParams, TimesheetsService) {
-    /*return TimesheetsService.get({
+    return TimesheetsService.get({
       timesheetId: $stateParams.timesheetId
-    }).$promise;*/
+    }).$promise;
     return getTimesheetMock;
   }
 

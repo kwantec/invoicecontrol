@@ -5,14 +5,14 @@
   <div class="col-md-12">
 
     <md-content flex layout-padding>
-          <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="vm.save(vm.form.timesheetForm.$valid)" novalidate>
+          <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="update()" novalidate>
         <fieldset>
 
           <div id="info">
             <table class="table">
               <tr>
                 <td>Period Start</td>
-                <td>{{vm.timesheet.startDate}}</td>
+                <td>{{timesheet.startDate}}</td>
               </tr>
               <tr>
                 <td>Period End</td>

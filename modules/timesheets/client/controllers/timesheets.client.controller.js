@@ -6,9 +6,9 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees', '$stateParams'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees', '$stateParams', 'TimesheetsService'];
 
-  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees, $stateParams) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees, $stateParams, TimesheetsService) {
 
     var vm = this;
     var Timesheet = $resource('/api/timesheets');
@@ -22,15 +22,16 @@
     $scope.employees = Employees.query();
 
     vm.authentication = Authentication;
-    //vm.timesheet = timesheet;
-    vm.timesheet = getTimesheetMock();
+    vm.timesheet = timesheet;
+    //vm.timesheet = getTimesheetMock();
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
 
     if($stateParams.timesheetId){
-    $scope.timesheet = getTimesheetMock();
+      //$scope.timesheet = vm.timesheet;
+      $scope.timesheet = getTimesheetMock();
     }
 
     function getTimesheetMock(){
@@ -209,6 +210,16 @@
         vm.error = res.data.message;
       }
     }
+
+    $scope.update = function () {
+        var timesheet = $scope.timesheet;
+        timesheet.$update(function () {
+            console.log("timesheet actualizada");
+        }, function (errorResponse) {
+            $scope.error = errorResponse.data.message;
+            console.log(errorResponse);
+        });
+    };
 
     $scope.showDialog = function($event) {
        
