@@ -12,7 +12,7 @@
             <table class="table">
               <tr>
                 <td>Period Start</td>
-                <td>{{timesheet.startDate}}</td>
+                <td>{{vm.timesheet.startDate}}</td>
               </tr>
               <tr>
                 <td>Period End</td>
@@ -58,8 +58,9 @@
                 <th>Current Period Charges</th>
                 <th>Discount</th>
                 <th>Total Period Charges</th>
+                <th></th>
               </tr>
-              <tr ng-repeat="employee in timesheet.employees">
+              <tr ng-repeat="employee in timesheet.employees track by $index">
                 <td>{{employee.employee.name}}</td>
                 <td>{{employee.employee.lastName}}</td>
                 <td>
@@ -83,6 +84,9 @@
                 <td>
                   <input type="text" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges">
                 </td>
+                <td style="vertical-align:middle">
+                  <a ng-click="removeEmployee($index, employee.employee.name, employee.employee.lastName);"><i class="glyphicon glyphicon-trash"></i></a>
+                </td> 
               </tr>
             </table>
             <div layout="row">
@@ -117,7 +121,7 @@
 
           <!--Update Button-->
           <div class="form-group">
-            <button type="submit" class="btn btn-default">Actualizar</button>
+            <button type="submit" class="md-raised md-primary md-button md-ink-ripple">Actualizar</button>
           </div>
           <div ng-show="vm.error" class="text-danger">
             <strong ng-bind="vm.error"></strong>

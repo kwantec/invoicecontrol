@@ -6,12 +6,12 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees', '$stateParams'];
 
-  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees, $stateParams) {
 
     var vm = this;
-
+    var Timesheet = $resource('/api/timesheets');
 
     $scope.newTimesheet = {};
     $scope.newTimesheet.name = "";
@@ -23,104 +23,139 @@
 
     vm.authentication = Authentication;
     //vm.timesheet = timesheet;
-    vm.timesheet = $scope.timesheet;
+    vm.timesheet = getTimesheetMock();
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
 
-    $scope.timesheet = {
-      team: {
-        name: 'FERROS'
-      },
-      startDate: '1/12/2016',
-      finishDate: '30/12/2016',
-      workDaysInPeriod: 3,
-      workDaysInMonth: 3,
-      dayLogs: [{
-        date: "12/12/2016",
-        employeesLogsDay: [{
-          name: {
-            firstName: 'Migui',
+    if($stateParams.timesheetId){
+    $scope.timesheet = getTimesheetMock();
+    }
+
+    function getTimesheetMock(){
+      return {
+        _id: "583b266a41afddb2122415c1",
+        team: {
+          name: 'FERROS'
+        },
+        startDate: '1/12/2016',
+        finishDate: '30/12/2016',
+        workDaysInPeriod: 3,
+        workDaysInMonth: 3,
+        dayLogs: [{
+          date: "12/12/2016",
+          employeesLogsDay: [{
+            name: {
+              firstName: 'Migui',
+              lastName: 'Rodriguez'
+            },
+            activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
+          }, {
+            name: {
+              firstName: 'Rob',
+              lastName: 'Franco'
+            },
+            activity: "Actividad de Rob"
+          }, {
+            name: {
+              firstName: 'Walter',
+              lastName: 'Mendez'
+            },
+            activity: "Actividad de Walter"
+          }]
+        },
+          {
+            date: "12/12/2016",
+            employeesLogsDay: [{
+              name: {
+                firstName: 'Migui',
+                lastName: 'Rodriguez'
+              },
+              activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
+            }, {
+              name: {
+                firstName: 'Rob',
+                lastName: 'Franco'
+              },
+              activity: "Actividad de Rob"
+            }, {
+              name: {
+                firstName: 'Walter',
+                lastName: 'Mendez'
+              },
+              activity: "Actividad de Walter"
+            }]
+          },
+          {
+            date: "12/12/2016",
+            employeesLogsDay: [{
+              name: {
+                firstName: 'Migui',
+                lastName: 'Rodriguez'
+              },
+              activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
+            }, {
+              name: {
+                firstName: 'Rob',
+                lastName: 'Franco'
+              },
+              activity: "Actividad de Rob"
+            }, {
+              name: {
+                firstName: 'Walter',
+                lastName: 'Mendez'
+              },
+              activity: "Actividad de Walter"
+            }]
+          }],
+        employees: [{
+          employee: {
+            name: 'Migui',
             lastName: 'Rodriguez'
           },
-          activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
-        }, {
-          name: {
-            firstName: 'Rob',
+          billing: {
+            level: 'intermediate',
+            monthly: '10000',
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
+        },
+        {
+          employee: {
+            name: 'Rob',
             lastName: 'Franco'
           },
-          activity: "Actividad de Rob"
-        }, {
-          name: {
-            firstName: 'Walter',
+          billing: {
+            level: 'intermediate',
+            monthly: '10000',
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
+        },
+        {
+          employee: {
+            name: 'Walter',
             lastName: 'Mendez'
           },
-          activity: "Actividad de Walter"
+          billing: {
+            level: 'intermediate',
+            monthly: '10000',
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
         }]
-      },
-        {
-          date: "12/12/2016",
-          employeesLogsDay: [{
-            name: {
-              firstName: 'Migui',
-              lastName: 'Rodriguez'
-            },
-            activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
-          }, {
-            name: {
-              firstName: 'Rob',
-              lastName: 'Franco'
-            },
-            activity: "Actividad de Rob"
-          }, {
-            name: {
-              firstName: 'Walter',
-              lastName: 'Mendez'
-            },
-            activity: "Actividad de Walter"
-          }]
-        },
-        {
-          date: "12/12/2016",
-          employeesLogsDay: [{
-            name: {
-              firstName: 'Migui',
-              lastName: 'Rodriguez'
-            },
-            activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
-          }, {
-            name: {
-              firstName: 'Rob',
-              lastName: 'Franco'
-            },
-            activity: "Actividad de Rob"
-          }, {
-            name: {
-              firstName: 'Walter',
-              lastName: 'Mendez'
-            },
-            activity: "Actividad de Walter"
-          }]
-        }],
-      employees: [{
-        employee: {
-          name: 'Migui',
-          lastName: 'Rodriguez'
-        },
-        billing: {
-          level: 'intermediate',
-          monthly: '10000',
-          daysWorked: 15,
-          vacationSickDays: 1,
-          currentPeriodCharges: 0.00,
-          discount: 0.00,
-          totalPeriodCharges: 0.00
-        }
-      }]
-    };
-
-    var Timesheet = $resource('/api/timesheets');
+      };
+    }
 
     $scope.addTimesheet = function () {
       console.log($scope.newTimesheet);
@@ -198,6 +233,21 @@
           $scope.closeDialog();
           addEmployee(_id);
         }
+      }
+    }
+
+    $scope.removeEmployee = function(index, name, lastName){
+      $scope.timesheet.employees.splice(index, 1);
+      var dayLogs = $scope.timesheet.dayLogs[0].employeesLogsDay;
+      var indexLog = 0;
+      for(var i=0; i<dayLogs.length; i++){
+        if(dayLogs[i].name.firstName == name){
+          indexLog = i;
+          break;
+        }
+      }
+      for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
+        $scope.timesheet.dayLogs[date].employeesLogsDay.splice(indexLog, 1);
       }
     }
 

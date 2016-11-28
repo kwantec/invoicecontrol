@@ -23,3 +23,8 @@ md-input-container {
 #select-modal {
 	width: 150px;
 }
+
+#contract {
+	overflow-x: scroll;
+}
+
