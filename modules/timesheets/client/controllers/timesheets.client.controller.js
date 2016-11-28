@@ -6,17 +6,20 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees'];
 
-  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees) {
 
     var vm = this;
+
 
     $scope.newTimesheet = {};
     $scope.newTimesheet.name = "";
     $scope.newTimesheet.startDate = "";
     $scope.newTimesheet.finishDate = "";
     $scope.newTimesheet.teamName = "";
+
+    $scope.employees = Employees.query();
 
     vm.authentication = Authentication;
     //vm.timesheet = timesheet;
@@ -32,8 +35,8 @@
       },
       startDate: '1/12/2016',
       finishDate: '30/12/2016',
-      workDaysInPeriod: 15,
-      workDaysInMonth: 15,
+      workDaysInPeriod: 3,
+      workDaysInMonth: 3,
       dayLogs: [{
         date: "12/12/2016",
         employeesLogsDay: [{
@@ -170,6 +173,65 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    $scope.showDialog = function($event) {
+       
+       console.log("emp", $scope.employees);
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl: 'modules/timesheets/client/views/modal-addemployee.client.view.html',
+         locals: {
+           employees: $scope.employees
+         },
+         controller: DialogController
+      });
+      function DialogController($scope, $mdDialog, employees) {
+        $scope.employees = employees;
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+        }
+
+        $scope.selectedEmployee = function(_id) {
+          $scope.closeDialog();
+          addEmployee(_id);
+        }
+      }
+    }
+
+    function addEmployee(_id) {
+      console.log("received");
+      var newLogs = getNewEmployeeLogs(_id, timesheet.startDate, timesheet.finishDate);
+      for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
+        $scope.timesheet.dayLogs[date].employeesLogsDay.push(newLogs[date]);
+      }
+    }
+
+    // recurso para obtener logs del usuario
+    function getNewEmployeeLogs(_id, startDate, finishDate) {
+      return [{
+        name: {
+          firstName: "Carlos",
+          lastName: "Riancho"
+        },
+        activity: "Activity"
+      },
+      {
+        name: {
+          firstName: "Carlos",
+          lastName: "Riancho"
+        },
+        activity: "Activity"
+      },
+      {
+        name: {
+          firstName: "Carlos",
+          lastName: "Riancho"
+        },
+        activity: "Activity"
+      }]
     }
   }
 }());
