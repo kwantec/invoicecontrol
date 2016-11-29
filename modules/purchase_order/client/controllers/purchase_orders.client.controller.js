@@ -85,7 +85,7 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
             );
         };
 
-        $scope.showConfirm = function (event) {
+        $scope.showConfirmDialog = function (event) {
             var confirm = $mdDialog.confirm()
                 .title('¿Desea eliminar esta orden de compra?')
                 .targetEvent(event)

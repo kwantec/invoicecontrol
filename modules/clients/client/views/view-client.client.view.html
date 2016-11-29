@@ -8,7 +8,7 @@
                 Editar
             </md-button>
 
-            <md-button class="md-raised md-warn" ng-click="showConfirm($event)">
+            <md-button class="md-raised md-warn" ng-click="showConfirmDialog($event)">
                 <span class="glyphicon glyphicon-trash"></span>
                 Borrar
             </md-button>
@@ -162,21 +162,36 @@
             <md-tab id="tab2">
                 <md-tab-label>&Oacute;rdenes de compra</md-tab-label>
                 <md-tab-body>
-                    <div>
+                    <div style="margin-top: 15px">
                         <!-- ÓRDENES DE COMPRA DEL CLIENTE -->
                         <table class="table table-striped table-hover table-condensed">
                             <thead>
                             <tr>
+                                <th>N&uacute;mero de compra</th>
                                 <th>Nombre</th>
                                 <th>Monto asignado</th>
                                 <th>Monto restante</th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="purchaseOrder in client.purchaseOrders">
+                                <td>
+                                    <a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.purchaseNumber}}</a>
+                                </td>
                                 <td><a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.name}}</a></td>
-                                <td>{{purchaseOrder.assignedAmount}}</td>
-                                <td>{{purchaseOrder.remainingAmount}}</td>
+                                <td>{{'$' + purchaseOrder.assignedAmount}}</td>
+                                <td>{{'$' + purchaseOrder.remainingAmount}}</td>
+                                <td>
+                                    <md-button class="md-secondar md-icon-button md-primary"
+                                               ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">
+                                        <md-icon class="material-icons">remove_red_eye</md-icon>
+                                    </md-button>
+                                    <md-button class="md-secondary md-icon-button md-warn"
+                                               ng-click="removePurchaseOrder(purchaseOrder)">
+                                        <md-icon>close</md-icon>
+                                    </md-button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -204,17 +219,34 @@
             <md-tab id="tab3">
                 <md-tab-label>Equipos de trabajo</md-tab-label>
                 <md-tab-body>
-                    <div>
+                    <div style="margin-top: 15px">
                         <!-- EQUIPOS DE TRABAJO DEL CLIENTE -->
                         <table class="table table-striped table-hover table-condensed">
                             <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>L&iacute;der Local</th>
+                                <th>L&iacute;der Remoto</th>
+                                <th>Arquitecto</th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="workTeam in client.workTeams">
                                 <td><a ng-href="/work-teams/{{workTeam._id}}">{{workTeam.name}}</a></td>
+                                <td>{{workTeam.employeeLeader.name}}</td>
+                                <td>{{workTeam.leader.name}}</td>
+                                <td>{{workTeam.architect.name}}</td>
+                                <td>
+                                    <md-button class="md-secondar md-icon-button md-primary"
+                                               ui-sref="work-teams.view({workTeamId: workTeam._id})">
+                                        <md-icon class="material-icons">remove_red_eye</md-icon>
+                                    </md-button>
+                                    <md-button class="md-secondary md-icon-button md-warn"
+                                               ng-click="removeWorkTeam(workTeam)">
+                                        <md-icon>close</md-icon>
+                                    </md-button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

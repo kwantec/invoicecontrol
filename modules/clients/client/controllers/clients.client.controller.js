@@ -16,8 +16,8 @@ angular.module('clients').controller('ClientsController', [
         $scope.sortReverse = false;
         $scope.authentication = Authentication;
         $scope.purchaseOrder = {};
-        $scope.purchaseOrders = PurchaseOrders.query();
         $scope.workTeam = {};
+        $scope.purchaseOrders = PurchaseOrders.query();
         $scope.workTeams = WorkTeams.query();
 
         $scope.newClient = {
@@ -157,6 +157,16 @@ angular.module('clients').controller('ClientsController', [
             }
         };
 
+        $scope.removeWorkTeam = function (workTeam) {
+            $scope.workTeams.push(workTeam);
+            $scope.client.workTeams = $scope.client.workTeams.filter(function (item) {
+                return item != workTeam;
+            });
+
+            $scope.update();
+            $scope.findOne();
+        }
+
         $scope.addPurchaseOrder = function () {
             if ($scope.client) {
                 $scope.client.purchaseOrders.push($scope.purchaseOrder);
@@ -170,7 +180,17 @@ angular.module('clients').controller('ClientsController', [
             }
         };
 
-        $scope.showConfirm = function (event) {
+        $scope.removePurchaseOrder = function (purchaseOrder) {
+            $scope.purchaseOrders.push(purchaseOrder);
+            $scope.client.purchaseOrders = $scope.client.purchaseOrders.filter(function (item) {
+                return item != purchaseOrder;
+            });
+
+            $scope.update();
+            $scope.findOne();
+        };
+
+        $scope.showConfirmDialog = function (event) {
             var confirm = $mdDialog.confirm()
                 .title('¿Desea eliminar a este cliente?')
                 .targetEvent(event)
