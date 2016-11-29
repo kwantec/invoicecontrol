@@ -21,6 +21,7 @@
                     for (var i = 0; i < $scope.userGroup.users.length; i++) {
                         $scope.users.push($scope.userGroup.users[i]);
                     }
+                    console.log("ASDASDASD", $scope.userGroup);
                 }).catch(function (err) {
                     // If error, show a dilaog
                     $mdDialog.show($mdDialog.alert()
@@ -254,6 +255,7 @@
                 //  console.log(this.module._id);
                 //  console.log(this.permission._id);
                 var data={};
+
                 // console.log($scope.userGroup);
                 for(var i=0;i<$scope.userGroup.permissions.length;i++){
                     if(this.module._id === $scope.userGroup.permissions[i].module._id &&
@@ -266,11 +268,6 @@
                         listPermissionsSelected.push(data);
                     }
                 }
-
-
-
-
-
             };
 
         }
