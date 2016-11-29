@@ -2,8 +2,8 @@
 
 // ResourceTypes controller
 angular.module('resourceTypes')
-    .controller('ResourceTypesController', ['$scope', '$stateParams', '$location', 'Authentication', 'ResourceTypes',
-        function ($scope, $stateParams, $location, Authentication, ResourceTypes) {
+    .controller('ResourceTypesController', ['$scope', '$stateParams', '$location', 'Authentication', 'ResourceTypes', '$mdDialog',
+        function ($scope, $stateParams, $location, Authentication, ResourceTypes, $mdDialog) {
             $scope.authentication = Authentication;
             $scope.newResourceType = {
                 name : null,
@@ -103,6 +103,18 @@ angular.module('resourceTypes')
                     resourceTypeId: $stateParams.resourceTypeId
                 });
                 $scope.newResourceType = $scope.resourceType;
+            };
+
+            $scope.showConfirmDialog = function(current) {
+                var confirm = $mdDialog.confirm()
+                    .title('¿Realmente deseas eliminar este tipo de recurso?')
+                    .textContent('Después de esta acción el tipo de recurso seleccionado ya no sera visible')
+                    .ok('Si')
+                    .cancel('No');
+
+                $mdDialog.show(confirm).then(function() {
+                    $scope.remove(current);
+                });
             };
         }
     ]);

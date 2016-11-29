@@ -134,7 +134,7 @@ angular.module('workTeams')
             $scope.showConfirmDialog = function(current) {
                 var confirm = $mdDialog.confirm()
                     .title('¿Realmente deseas eliminar este equipo de trabajo?')
-                    .textContent('Esta operacion solo es reversible por el administrador')
+                    .textContent('Después de esta acción el equipo de trabajo seleccionado ya no sera visible')
                     .ok('Si')
                     .cancel('No');
 
