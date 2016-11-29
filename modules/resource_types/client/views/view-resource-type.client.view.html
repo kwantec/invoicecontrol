@@ -33,9 +33,14 @@
           </div>
         </md-card-title-media>
         <md-card-title-text>
-          <h4>#{{current.level}} {{current.name}} ({{current.description}})</h4>
-          <h5>Tarifa : {{ current.rate | currency }}</h5>
-          <h6>Habilidades : {{current.qualities}}</h6>
+          <h4 class="md-headline">#{{current.level}} {{current.name}} ({{current.description}})</h4>
+          <h5 class="md-subhead description">Tarifa : {{ current.rate | currency }}</h5>
+          <h5>Cualidades Deseadas: </h5>
+          <ul>
+            <li ng-repeat="item in current.qualities">
+              {{item}}
+            </li>
+          </ul>
         </md-card-title-text>
       </md-card-title>
     </md-card>

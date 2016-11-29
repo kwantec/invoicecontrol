@@ -2,8 +2,8 @@
 
 // Work Teams controller
 angular.module('workTeams')
-    .controller('WorkTeamsController', ['$scope', '$stateParams', '$mdDialog', '$location', 'Authentication', 'WorkTeams', 'Employees',
-        function ($scope, $stateParams,$mdDialog, $location, Authentication, WorkTeams, Employees) {
+    .controller('WorkTeamsController', ['$scope', '$stateParams', '$mdDialog', '$location', 'Authentication', 'WorkTeams', 'Employees', '$window',
+        function ($scope, $stateParams,$mdDialog, $location, Authentication, WorkTeams, Employees, $window) {
             $scope.authentication = Authentication;
             $scope.employees = Employees.query();
             $scope.integrant = {};
@@ -145,6 +145,10 @@ angular.module('workTeams')
 
             $scope.visitProfile = function(employee) {
                 $location.path('employees/' + employee._id);
-            }
+            };
+
+            $scope.searchTerm = function(word){
+                $window.open('https://www.google.com/search?q=' + word, '_blank');
+            };
         }
     ]);

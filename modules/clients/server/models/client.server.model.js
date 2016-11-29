@@ -6,7 +6,7 @@ var mongoose_delete = require('mongoose-delete');
 var Schema = mongoose.Schema;
 var email_match = [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Invalid Email"];
 
-var customerSchema = new Schema({
+var clientSchema = new Schema({
         name: String,
         contact: {
             name: String,
@@ -35,5 +35,5 @@ var customerSchema = new Schema({
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at', deleteAt: 'delete_at'}
     });
 
-customerSchema.plugin(mongoose_delete,{ deletedAt : true });
-mongoose.model("Customer", customerSchema);
+clientSchema.plugin(mongoose_delete,{ deletedAt : true });
+mongoose.model("Client", clientSchema);

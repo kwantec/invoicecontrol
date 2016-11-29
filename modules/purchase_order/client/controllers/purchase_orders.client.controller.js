@@ -1,28 +1,29 @@
 'use strict';
 
-angular.module('purchaseOrders').controller('PurchaseOrdersController', ['$scope', '$stateParams', '$location', 'Authentication', 'PurchaseOrders',
-    function ($scope, $stateParams, $location, Authentication, PurchaseOrders) {
+angular.module('purchaseOrders').controller('PurchaseOrdersController', [
+    '$scope',
+    '$stateParams',
+    '$location',
+    'Authentication',
+    'PurchaseOrders',
+    '$mdDialog',
+    '$mdToast',
+    function ($scope, $stateParams, $location, Authentication, PurchaseOrders, $mdDialog, $mdToast) {
         $scope.authentication = Authentication;
-        /*
-        $scope.sortType = 'name';
-        $scope.sortReverse = false;
-        $scope.searchCustomer = '';
-        */
 
         $scope.newPurchaseOrder = {
             purchaseNumber: "",
             name: "",
             description: "",
-            assignedAmount: "",
-            remainingAmount: "",
+            assignedAmount: 0,
+            remainingAmount: 0,
         };
 
         $scope.create = function (isValid) {
             $scope.error = null;
 
             if (!isValid) {
-                console.log("error");
-                //$scope.$broadcast('show-errors-check-validity', 'customerForm');
+                $scope.$broadcast('show-errors-check-validity', 'purchaseOrderForm');
 
                 return false;
             }
@@ -38,7 +39,6 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', ['$scope
             purchaseOrder.$save(function (response) {
                 $location.path('purchase-orders/' + response._id);
             }, function (errorResponse) {
-                console.log('fail');
                 $scope.error = errorResponse.data.message;
             });
         };
@@ -73,11 +73,34 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', ['$scope
                 {purchaseOrderId: $stateParams.purchaseOrderId},
                 function () {
                     $location.path('purchase-orders/list');
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Orden de compra eliminada')
+                            .hideDelay(3000)
+                    );
                 },
                 function (errorResponse) {
                     $scope.error = errorResponse.data.message;
                 }
             );
         };
+
+        $scope.showConfirm = function (event) {
+            var confirm = $mdDialog.confirm()
+                .title('¿Desea eliminar esta orden de compra?')
+                .targetEvent(event)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+
+            $mdDialog.show(confirm).then(function () {
+                $scope.remove();
+            });
+        };
+
+        $scope.setRemainingAmount = function () {
+            if ($scope.purchaseOrderForm.remainingAmount.$untouched) {
+                $scope.newPurchaseOrder.remainingAmount = $scope.newPurchaseOrder.assignedAmount;
+            }
+        }
     }
 ]);
