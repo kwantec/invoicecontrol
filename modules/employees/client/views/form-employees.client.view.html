@@ -85,7 +85,7 @@
 
                     <label>
                         <input type="radio" ng-model="content" name="list" value="select">
-                        Seleccionar existene
+                        Seleccionar existente
                     </label><br/>
 
                     <md-input-container>
@@ -95,7 +95,8 @@
                             <md-select-header>
                                 <span> Selecciona un usuario - </span>
                             </md-select-header>
-                            <md-option ng-repeat="user in userData.userList" value="{{user._id}}">{{user.username}}
+                            <md-option ng-repeat="user in userData.userList" value="{{user._id}}">
+                                {{user.username}}
                             </md-option>
                         </md-select>
 
