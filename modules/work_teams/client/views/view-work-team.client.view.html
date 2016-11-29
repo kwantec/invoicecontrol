@@ -15,12 +15,13 @@
               <md-card-title>
                 <md-card-title-media>
                   <div class="md-media-sm card-media" layout>
-                    <md-icon class="material-icons md-96">important_devices</md-icon>
+                    <md-icon class="material-icons md-48">important_devices</md-icon>
                   </div>
                 </md-card-title-media>
                 <md-card-title-text>
                     <h3 class="md-headline">"{{workTeam.name}}"</h3>
-                    <p class="md-subhead description">{{workTeam.description}}</p>
+                    <h5 class="md-subhead description">{{workTeam.description}}</h5>
+                    <h5>{{workTeam.name}} Stack: </h5>
                     <md-chips>
                       <md-chip ng-repeat="tech in workTeam.technologies" ng-click="searchTerm(tech)">{{tech}}</md-chip>
                     </md-chips>
