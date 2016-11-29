@@ -142,7 +142,7 @@
       </div>
       <md-button
         type="submit"
-        ng-disabled="resourceTypeForm.$invalid || !workTeam.employeeLeader.name"
+        ng-disabled="workTeamForm.$invalid || !workTeam.employeeLeader.name"
         class="md-raised md-primary text-center"
         ng-click="create(resourceTypeForm.$valid)">Guardar</md-button>
     </form>
