@@ -10,16 +10,39 @@
     <h2>A&uacute;n no has agregado un equipo de trabajo</h2>
     <md-button class="text-center md-raised md-primary" ui-sref="work-teams.create()">Crear Uno</md-button>
   </div>
-  <md-list>
-    <md-list-item class="md-3-line" ng-repeat="current in workTeams">
-      <div class="md-list-item-text">
-        <h2>{{current.name}}</h2>
-        <p class="text-info">Creado en : {{current.created_at}}</p>
-      </div>
-      <md-button class="md-secondary" ui-sref="work-teams.view({workTeamId: current._id})">Ver</md-button>
-      <md-button class="md-secondary" ng-click="showConfirmDialog(current)">Eliminar</md-button>
-      <md-divider ng-if="!$last"></md-divider>
-    </md-list-item>
-  </md-list>
-  {{lol}}
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Líder Local</th>
+      <th>Líder Remoto</th>
+      <th>Arquitecto</th>
+      <th>Integrantes</th>
+      <th>N&uacute;mero Tecnolog&iacute;as</th>
+      <th>Acciones</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="current in workTeams">
+      <td>{{current.name}}</td>
+      <td>{{current.employeeLeader.name}}</td>
+      <td>{{current.leader.name}}</td>
+      <td>{{current.architect.name}}</td>
+      <td>{{current.employees.length}}</td>
+      <td>{{current.technologies.length}}</td>
+      <td>
+        <md-button class="md-secondar md-icon-button md-primary" ui-sref="work-teams.view({workTeamId: current._id})">
+          <md-icon class="material-icons">remove_red_eye</md-icon>
+        </md-button>
+        <md-button class="md-secondar md-icon-button md-primary" ui-sref="work-teams.edit({workTeamId: current._id})">
+          <md-icon class="material-icons">mode_edit</md-icon>
+        </md-button>
+        <md-button class="md-secondary md-icon-button md-warn" ng-click="showConfirmDialog(current)">
+          <md-icon>delete</md-icon>
+        </md-button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </section>
