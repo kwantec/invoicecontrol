@@ -1,11 +1,21 @@
 'use strict';
 
-angular.module('clients').controller('ClientsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Clients',
-    function ($scope, $stateParams, $location, Authentication, Clients) {
-        $scope.authentication = Authentication;
+angular.module('clients').controller('ClientsController', [
+    '$scope',
+    '$stateParams',
+    '$location',
+    'Authentication',
+    'Clients',
+    'PurchaseOrders',
+    '$mdDialog',
+    '$mdToast',
+    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, $mdDialog, $mdToast) {
+        $scope.searchClient = '';
         $scope.sortType = 'name';
         $scope.sortReverse = false;
-        $scope.searchClient = '';
+        $scope.authentication = Authentication;
+        $scope.purchaseOrder = {};
+        $scope.purchaseOrders = PurchaseOrders.query();
 
         $scope.newClient = {
             name: "",
@@ -64,14 +74,6 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
             });
         };
 
-        $scope.addWorkTeam = function () {
-            /* TODO */
-        };
-
-        $scope.addPurchaseOrder = function () {
-            /* TODO */
-        };
-
         $scope.find = function () {
             $scope.clients = Clients.query();
         };
@@ -90,6 +92,7 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
 
         $scope.update = function () {
             var client = $scope.client;
+
             client.$update(function () {
                 $location.path('clients/' + client._id);
             }, function (errorResponse) {
@@ -97,10 +100,15 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
             });
         };
 
-        $scope.remove = function (client) {
-            if (client) {
-                client.$remove(function () {
+        $scope.remove = function () {
+            if ($scope.client) {
+                $scope.client.$remove(function () {
                     $location.path('clients/list');
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Cliente eliminado')
+                            .hideDelay(3000)
+                    );
                 });
 
                 for (var i in $scope.clients) {
@@ -111,8 +119,32 @@ angular.module('clients').controller('ClientsController', ['$scope', '$statePara
             }
         };
 
-        $scope.clearValue = function () {
+        $scope.addWorkTeam = function () {
+            /* TODO */
+        };
 
+        $scope.addPurchaseOrder = function () {
+            if ($scope.client) {
+                $scope.client.purchaseOrders.push($scope.purchaseOrder);
+                $scope.purchaseOrder = {};
+                $scope.purchaseOrders = $scope.purchaseOrders.filter(function (item) {
+                    return !$scope.client.purchaseOrders.includes(item);
+                });
+
+                $scope.update();
+            }
+        };
+
+        $scope.showConfirm = function (event) {
+            var confirm = $mdDialog.confirm()
+                .title('¿Desea eliminar a este cliente?')
+                .targetEvent(event)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+
+            $mdDialog.show(confirm).then(function () {
+                $scope.remove();
+            });
         };
     }
 ]);
