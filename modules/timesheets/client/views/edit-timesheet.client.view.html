@@ -1,0 +1,124 @@
+<section>
+  <div class="page-header">
+    <h1>Edit Timesheet</h1>
+  </div>
+  <div class="col-md-12">
+
+    <md-content flex layout-padding>
+          <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="vm.save(vm.form.timesheetForm.$valid)" novalidate>
+        <fieldset>
+
+          <div id="info">
+            <table class="table">
+              <tr>
+                <td>Period Start</td>
+                <td>{{timesheet.startDate}}</td>
+              </tr>
+              <tr>
+                <td>Period End</td>
+                <td>{{timesheet.finishDate}}</td>
+              </tr>
+              <tr>
+                <td>Work days in Period</td>
+                <td>
+                  <md-input-container layout-gt-xs="row">
+                      <input type="number" ng-model="timesheet.workDaysInPeriod" required value="{{timesheet.workDaysInPeriod}}">
+                  </md-input-container>
+                </td>
+              </tr>
+              <tr>
+                <td>Work days in Month</td>
+                <td>
+                  <md-input-container layout-gt-xs="row">
+                    <input type="number" value="{{timesheet.workDaysInMonth}}" ng-model="timesheet.workDaysInMonth">
+                  </md-input-container>
+                </td>
+              </tr>
+              <tr>
+                <td>TEAM</td>
+                <td>{{timesheet.team.name}}</td>
+              </tr>
+            </table>
+          </div>
+
+
+          <div id="contract">
+            <table class="table">
+              <tr>
+                <th colspan="9" style="text-align:center">Contract Team Staff Billing</th>
+
+              </tr>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Level</th>
+                <th>Monthly</th>
+                <th>Days Worked</th>
+                <th>Vacation/Sick Days</th>
+                <th>Current Period Charges</th>
+                <th>Discount</th>
+                <th>Total Period Charges</th>
+              </tr>
+              <tr ng-repeat="employee in timesheet.employees">
+                <td>{{employee.employee.name}}</td>
+                <td>{{employee.employee.lastName}}</td>
+                <td>
+                  <input type="text" value="{{employee.billing.level}}" ng-model="employee.billing.level">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.monthly}}" ng-model="employee.billing.monthly">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.daysWorked}}" ng-model="employee.billing.daysWorked">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.vacationSickDays}}" ng-model="employee.billing.vacationSickDays">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.currentPeriodCharges}}" ng-model="employee.billing.currentPeriodCharges">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.discount}}" ng-model="employee.billing.discount">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges">
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="form-group" id="logs">
+            <div layout="column">
+              <div flex><h4>Period Activities</h4></div>
+
+              <div layout="row" class="day" ng-repeat="day in timesheet.dayLogs">
+                <div flex="20">{{day.date}}</div>
+                <div flex="80">
+                  <div layout="column" class="logs">
+                    <div layout="row" ng-repeat="log in day.employeesLogsDay">
+                      <div flex="30">{{log.name.firstName}} {{log.name.lastName}}</div>
+                      <div flex>
+                        <textarea style="width:100%" elastic ng-model="log.activity">{{log.activity}}</textarea>
+                      </div>
+                    </div>
+
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!--Update Button-->
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">Actualizar</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </md-content>
+  </div>
+</section>

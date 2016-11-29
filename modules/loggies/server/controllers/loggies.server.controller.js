@@ -6,7 +6,11 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Loggy = mongoose.model('Loggy'),
+  Employee = mongoose.model('Employee'),
+  ResourceType = mongoose.model('ResourceType'),
+  WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  seeder = require("../seeders/loggies.server.seeder"),
   _ = require('lodash');
 
 /**
@@ -14,7 +18,44 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   var loggy = new Loggy(req.body);
-  loggy.user = req.user;
+
+  /*var resource = new ResourceType({
+    name: "Recurso Demo",
+    rates: [{
+      level: 1,
+      name: "Junior",
+      description: "Descripcion de prueba",
+      qualities: [
+          "PHP","Java", "COBOL"
+      ],
+      rate: 10000
+    }]
+  });
+
+  var workTeam = new WorkTeam({
+    name: "Team Ferros",
+    description: "Equipo Ferros es el mejor"
+  });
+
+  var employee = new Employee({
+    name: req.user.name,
+    lastname : req.user.lastname,
+    addrees: {
+      city: "Merida",
+      state: "Yucatan",
+      country: "Mexico",
+      zipCode: "97203"
+    },
+    personEmail: req.user.email,
+    workEmail:req.user.email,
+    user: req.user._id,
+    resourceType : resource._id
+  });
+
+  loggy.employee = employee._id;
+  loggy.workTeam = workTeam._id;
+
+  console.log(loggy);*/
 
   loggy.save(function(err) {
     if (err) {
@@ -81,12 +122,39 @@ exports.delete = function(req, res) {
  * List of Loggies
  */
 exports.list = function(req, res) {
-  Loggy.find().sort('-created').populate('user', 'displayName').exec(function(err, loggies) {
+  Loggy
+      .find({
+      })
+      .sort('-created')
+      .populate({
+        path : 'employee',
+        model: 'Employee',
+        match: {
+          user: {
+            $in: req.user._id
+          }
+        },
+        populate: {
+          path: 'user',
+          model: 'User'
+        }
+      })
+      .populate({
+        path: 'workTeam',
+        model: 'WorkTeam'
+      })
+      .exec(function(err, loggies) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
+
     } else {
+      loggies = loggies.filter(function(loggie) {
+        return loggie.employee;
+      });
+      //TODO WARNING: When execute the following line the app will crash, but the seeder documents are created correct, comment the next line and restart the app to repair
+      /*seeder.seedMongo(req.user._id);*/
       res.jsonp(loggies);
     }
   });
@@ -103,15 +171,24 @@ exports.loggyByID = function(req, res, next, id) {
     });
   }
 
-  Loggy.findById(id).populate('user', 'displayName').exec(function (err, loggy) {
-    if (err) {
-      return next(err);
-    } else if (!loggy) {
-      return res.status(404).send({
-        message: 'No Loggy with that identifier has been found'
+  Loggy.findById(id)
+      .populate({
+        path : 'employee',
+        model: 'Employee',
+        populate: {
+          path: 'user',
+          model: 'User'
+        }
+      })
+      .exec(function (err, loggy) {
+        if (err) {
+          return next(err);
+        } else if (!loggy) {
+          return res.status(404).send({
+            message: 'No Loggy with that identifier has been found'
+          });
+        }
+        req.loggy = loggy;
+        next();
       });
-    }
-    req.loggy = loggy;
-    next();
-  });
 };

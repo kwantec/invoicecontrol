@@ -1,6 +1,6 @@
 <section>
   <div class="page-header">
-    <h1 ng-bind="vm.loggy.name"></h1>
+    <h1 ng-bind="vm.loggy.activity"></h1>
   </div>
   <div class="pull-right"
        ng-show="vm.loggy.isCurrentUserOwner">
@@ -17,10 +17,14 @@
       Posted on
       <span ng-bind="vm.loggy.created | date:'mediumDate'"></span>
       by
-      <span ng-if="vm.loggy.user"
-            ng-bind="vm.loggy.user.displayName"></span>
-      <span ng-if="!vm.loggy.user">Deleted User</span>
+      <span ng-if="vm.loggy.employee.user"
+            ng-bind="vm.loggy.employee.user.displayName"></span>
+      <span ng-if="!vm.loggy.employee.user">Deleted User</span>
     </em>
   </small>
+  <div align="center">
+    <md-button ng-click="vm.successActivity()" class="md-raised md-primary">Regresar
+    </md-button>
+  </div>
   <p class="lead" ng-bind="vm.loggy.content"></p>
 </section>

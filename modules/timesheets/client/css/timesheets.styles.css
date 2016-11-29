@@ -1,0 +1,16 @@
+.layout-row {
+	padding: 5px;
+}
+
+.day {
+	border-top: 1px solid #ddd;
+}
+
+/*TODO: Maijto corrige esto c:*/
+/*input {
+	max-width: 100px;
+}*/
+
+md-input-container {
+	margin:0px;
+}

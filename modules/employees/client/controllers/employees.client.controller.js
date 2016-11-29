@@ -25,6 +25,7 @@
             Employee.save($scope.newEmployee, function () {
                 initNewEmployee();
                 $scope.showToastSave();
+                console.log("Employee saved");
             });
         };
 

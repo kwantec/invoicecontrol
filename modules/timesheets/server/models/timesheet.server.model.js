@@ -17,7 +17,7 @@ var mongoose = require('mongoose'),
 var TimesheetSchema = new Schema({
   team: {
     type: Schema.ObjectId,
-    ref: 'Team'
+    ref: 'WorkTeam'
   },
   startDate: {
     type: Date,
@@ -27,48 +27,71 @@ var TimesheetSchema = new Schema({
     type: Date,
     default: getNow
   },
-  logs: [{
-    type: Schema.ObjectId,
-    ref: 'Loggy'
+  workDaysInPeriod : {
+    type: Number,
+    default: 15
+  },
+  workDaysInMonth: {
+    type: Number,
+    default: 15
+  },
+  dayLogs: [{
+    date: {
+      type: Date,
+      required: true
+    },
+    employeesLogsDay: [{
+      name: {
+        firstName : {
+          type: String
+        },
+        lastName: {
+          type: String
+        }
+      },
+      activity: {
+        type: String
+      }
+    }]
   }],
   employees: [{
-      type: Schema.ObjectId,
-      ref: 'Employee'
-    },{
+      employee: {
+          type: Schema.ObjectId,
+          ref: 'Employee'
+      },
       billing: {
-        level: {
-          type: String,
-          default: '',
-          trim: true
-        },
-        monthly: {
-          type: String,
-          default: '',
-          trim: true
-        },
-        daysWorked: {
-          type: Number,
-          default: 0
-        },
-        vacationSickDays: {
-          type: Number,
-          default: 0
-        },
-        currentPeriodCharges: {
-          type: Number,
-          default: 0.00
-        },
-        discount: {
-          type: Number,
-          default: 0.00
-        },
-        totalPeriodCharges: {
-          type: Number,
-          default: 0.00
-        }
+          level: {
+              type: String,
+              default: '',
+              trim: true
+          },
+          monthly: {
+              type: Number,
+              default: '',
+              trim: true
+          },
+          daysWorked: {
+              type: Number,
+              default: 0
+          },
+          vacationSickDays: {
+              type: Number,
+              default: 0
+          },
+          currentPeriodCharges: {
+              type: Number,
+              default: 0.00
+          },
+          discount: {
+              type: Number,
+              default: 0.00
+          },
+          totalPeriodCharges: {
+              type: Number,
+              default: 0.00
+          }
       }
-    }
-  ],
+  }],
   created_at: {
     type: Date,
     default: getNow

@@ -6,6 +6,7 @@
     <a ng-repeat="timesheet in vm.timesheets"
        ui-sref="timesheets.view({ timesheetId: timesheet._id })"
        class="list-group-item">
+      ID: {{timesheet._id}}
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="timesheet.created | date:'mediumDate'"></span>

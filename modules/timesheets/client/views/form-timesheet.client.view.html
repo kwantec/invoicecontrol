@@ -3,22 +3,68 @@
     <h1>{{vm.timesheet._id ? 'Edit Timesheet' : 'New Timesheet'}}</h1>
   </div>
   <div class="col-md-12">
-    <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="vm.save(vm.form.timesheetForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.timesheet.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.timesheetForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Timesheet name is required.</p>
+    <md-content flex layout-padding>
+      <div>
+        <form class="form-horizontal" ng-submit="addTimesheet()">
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Crear Timesheet</span>
+                <!--<span class="md-subhead">Contenido de la Timesheet</span>-->
+              </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+              <div layout="row">
+                <div flex-gt-s>
+                  <h4>De:</h4>
+                  <md-datepicker ng-model="newTimesheet.startDate" md-placeholder="Enter date" required></md-datepicker>
+                </div>
+                <div flex-gt-xs>
+                  <h4>Hasta:</h4>
+                  <md-datepicker ng-model="newTimesheet.finishDate" md-placeholder="Enter date" required></md-datepicker>
+                </div>
+              </div>
+              <div layout="row">
+
+                <div flex>
+                  <md-input-container>
+                    <label>Nombre del timesheet:</label>
+                    <input type="text" ng-model="newTimesheet.name" title="name" required>
+                  </md-input-container>
+                </div>
+
+                <div flex>
+                  <md-input-container>
+                    <label>Seleccionar Equipo</label>
+                    <md-select ng-model="newTimesheet.teamName">
+                      <md-option><em>None</em></md-option>
+                      <md-option ng-value="team1">
+                        Team 1
+                      </md-option>
+                      <md-option ng-value="team2">
+                        Team 2
+                      </md-option>
+                      <md-option ng-value="team3">
+                        Team 3
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+
+              </div>
+            </md-card-content>
+          </md-card>
+          <div layout="row">
+            <div flex-gt-xs layout-align="end center">
+              <md-button type="button" class="md-raised md-warn">Cancelar</md-button>
+              <md-button type="submit" class="md-raised md-primary">Guardar</md-button>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.timesheet._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
+
+        </form>
+      </div>
+    </md-content>
   </div>
 </section>

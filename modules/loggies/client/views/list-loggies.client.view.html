@@ -2,6 +2,26 @@
   <div class="page-header">
     <h1>Loggies</h1>
   </div>
+
+  <calendar-md flex layout layout-fill
+               calendar-direction="direction"
+               on-prev-month="prevMonth"
+               on-next-month="nextMonth"
+               on-day-click="dayClick"
+               title-format="'MMMM y'"
+               ng-model='selectedDate'
+               week-starts-on="firstDayOfWeek"
+               day-content="setDayContent"
+  <--Set the initial month here. "8" is September. Defaults to current&ndash;&gt;
+  <--Set the initial year here. Defaults to current.&ndash;&gt;
+  tooltips="tooltips"
+  day-format="dayFormat"
+  day-label-format="'EEE'"
+  day-label-tooltip-format="'EEEE'"
+  day-tooltip-format="'fullDate'"
+  disable-future-selection="false"
+  <-- Allows dates in the future to be disabled and unselectable. Defaults to false--> ></calendar-md>
+
   <div class="list-group">
     <a ng-repeat="loggy in vm.loggies"
        ui-sref="loggies.view({ loggyId: loggy._id })"
@@ -10,13 +30,15 @@
         Posted on
         <span ng-bind="loggy.created | date:'mediumDate'"></span>
         by
-        <span ng-if="loggy.user" ng-bind="loggy.user.displayName"></span>
-        <span ng-if="!loggy.user">Deleted User</span>
+        <span ng-if="loggy.employee.user" ng-bind="loggy.employee.user.displayName"></span>
+        <span ng-if="!loggy.employee.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="loggy.name"></h4>
+      <h4 class="list-group-item-heading" ng-bind="loggy.activity"></h4>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.loggies.$resolved && !vm.loggies.length">
     No Loggies yet, why don't you <a ui-sref="loggies.create">create one</a>?
   </div>
 </section>
+
+

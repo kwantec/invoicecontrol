@@ -1,24 +1,27 @@
-<section>
-  <div class="page-header">
-    <h1>{{vm.loggy._id ? 'Edit Loggy' : 'New Loggy'}}</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="vm.form.loggyForm" class="form-horizontal" ng-submit="vm.save(vm.form.loggyForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.loggy.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.loggyForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Loggy name is required.</p>
-          </div>
+<section xmlns="http://www.w3.org/1999/html">
+  <md-toolbar class="md-theme-light title-section">
+    <br class="md-toolbar-tools">
+    <span>{{vm.loggy._id ? 'Editar Loggy' : 'Nuevo Loggy'}}&nbsp;&nbsp;&nbsp;{{loggyDate}}</span>
+    </h2>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+    <div>
+      <form name="vm.form.loggyForm" class="form-horizontal" ng-submit="vm.save(vm.form.loggyForm.$valid,$event)">
+      <md-input-container layout-gt-xs="row">
+        <label>Actividad</label>
+        <input id="activity" type="text" ng-model="vm.loggy.activity" title="Activity" required>
+        <div ng-messages="vm.form.loggyForm.activity.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Loggy activity is required.</p>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.loggy._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+      </md-input-container>
+
+      <md-button type="submit" class="md-raised md-primary">{{vm.loggy._id ? 'Actualizar Log' : 'GuardarLog'}}
+      </md-button>
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+    </div>
+        </form>
+      </div>
+  </md-content>
 </section>

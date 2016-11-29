@@ -21,12 +21,5 @@
       title: 'List Loggies',
       state: 'loggies.list'
     });
-
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'loggies', {
-      title: 'Create Loggy',
-      state: 'loggies.create',
-      roles: ['user']
-    });
   }
 }());

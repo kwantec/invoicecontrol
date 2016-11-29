@@ -11,5 +11,6 @@
     var vm = this;
 
     vm.timesheets = TimesheetsService.query();
+    console.log(vm.timesheets);
   }
 }());
