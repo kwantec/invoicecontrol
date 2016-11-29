@@ -6,25 +6,49 @@
   <md-content flex layout-padding>
     <div>
       <form class="form-horizontal" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
-        <md-input-container layout-gt-xs="row">
-          <label>Number</label>
-          <input name="number" type="number" ng-model="vm.invoice.number" id="number" class="form-control" placeholder="Number" required>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero de factura</label>
+          <input type="number" ng-model="vm.invoice.number" id="number" class="form-control" required>
         </md-input-container>
 
-        <md-input-container layout-gt-xs="row">
-          <label>Date</label>
-          <input name="date" type="date" ng-model="vm.invoice.date" id="date" class="form-control" placeholder="Date" required>
+        <div flex-gt-xs>
+          <h4>Fecha</h4>
+          <md-datepicker ng-model="vm.invoice.date" md-placeholder="Elija la fecha"></md-datepicker>
+        </div>
+
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Dirección</label>
+          <input type="string" ng-model="vm.invoice.address" id="address" class="form-control" required>
         </md-input-container>
 
-        <md-input-container layout-gt-xs="row">
-          <label>DaysPeriod</label>
-          <input name="daysPeriod" type="number" ng-model="vm.invoice.daysPeriod" id="daysPeriod" class="form-control" placeholder="DaysPeriod" required>
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Total de dias de trabajo del periodo</label>
+          <input type="number" ng-model="vm.invoice.daysPeriod" id="daysPeriod" class="form-control" required>
         </md-input-container>
 
-        <md-input-container layout-gt-xs="row">
-          <label>DaysPeriod</label>
-          <input name="daysMonth" type="number" ng-model="vm.invoice.daysMonth" id="daysMonth" class="form-control" placeholder="DaysMonth" required>
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Total de dias de trabajo del mes</label>
+          <input type="number" ng-model="vm.invoice.daysMonth" id="daysMonth" class="form-control" required>
         </md-input-container>
+
+        <table style="width:100%">
+          <tr>
+            <th>Contract Team Staff Billing</th>
+          </tr>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Level</th>
+            <th>Fixed Monthly rate</th>
+            <th>Days worked</th>
+            <th>Vacation/sick days</th>
+            <th>Current Period Charges</th>
+            <th>Discount</th>
+            <th>Current Period Charges</th>
+          </tr>
+          <tr>
+          </tr>
+        </table>
 
         <div class="form-group">
           <md-button type="submit" class="md-raised md-primary">{{vm.invoice._id ? 'Update' : 'Create'}}</md-button>

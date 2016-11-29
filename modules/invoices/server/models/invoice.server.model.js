@@ -22,6 +22,12 @@ var InvoiceSchema = new Schema({
     required: 'Please fill Invoice date',
     trim: true
   },
+  address: {
+    type: String,
+    default: '',
+    required: 'Please fill Invoice address',
+    trim: true
+  },
   daysPeriod: {
     type: Number,
     default: '',
