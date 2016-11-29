@@ -43,6 +43,7 @@ exports.update = function (req, res) {
             client.email = req.body.email;
             client.url = req.body.url;
             client.purchaseOrders = req.body.purchaseOrders;
+            client.workTeams = req.body.workTeams;
 
             client.save(function (err) {
                 if (err) {
@@ -86,7 +87,7 @@ exports.read = function (req, res) {
             console.log(client);
             res.json(client);
         }
-    }).populate("purchaseOrders");
+    }).populate("purchaseOrders").populate("workTeams");
 };
 
 exports.delete = function (req, res) {

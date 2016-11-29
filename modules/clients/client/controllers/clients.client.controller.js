@@ -7,15 +7,18 @@ angular.module('clients').controller('ClientsController', [
     'Authentication',
     'Clients',
     'PurchaseOrders',
+    'WorkTeams',
     '$mdDialog',
     '$mdToast',
-    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, $mdDialog, $mdToast) {
+    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, WorkTeams, $mdDialog, $mdToast) {
         $scope.searchClient = '';
         $scope.sortType = 'name';
         $scope.sortReverse = false;
         $scope.authentication = Authentication;
         $scope.purchaseOrder = {};
         $scope.purchaseOrders = PurchaseOrders.query();
+        $scope.workTeam = {};
+        $scope.workTeams = WorkTeams.query();
 
         $scope.newClient = {
             name: "",
@@ -94,6 +97,17 @@ angular.module('clients').controller('ClientsController', [
 
                         return shouldAddItemToList;
                     });
+                    $scope.workTeams = $scope.workTeams.filter(function (item) {
+                        var shouldAddItemToList = true;
+
+                        angular.forEach($scope.client.workTeams, function (workTeam, key) {
+                            if (workTeam._id == item._id) {
+                                shouldAddItemToList = false;
+                            }
+                        });
+
+                        return shouldAddItemToList;
+                    });
                 },
                 function (errorResponse) {
                     $scope.error = errorResponse.data.message;
@@ -131,7 +145,16 @@ angular.module('clients').controller('ClientsController', [
         };
 
         $scope.addWorkTeam = function () {
-            /* TODO */
+            if ($scope.workTeam) {
+                $scope.client.workTeams.push($scope.workTeam);
+                $scope.workTeam = {};
+                $scope.workTeams = $scope.workTeams.filter(function (item) {
+                    return !$scope.client.workTeams.includes(item);
+                });
+
+                $scope.update();
+                $scope.findOne();
+            }
         };
 
         $scope.addPurchaseOrder = function () {
