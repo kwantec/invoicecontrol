@@ -1,20 +1,23 @@
 <div ng-init="findOne()">
     <div class="page-header">
         <div layout="row" layout-align="start center">
-            <h1 ng-bind="purchaseOrder.name"></h1>
-            <md-button class="md-raised md-primary" ui-sref="purchase-orders.edit({purchaseOrderId: purchaseOrder._id})" flex="none">
+            <h1 class="md-display-1" ng-bind="purchaseOrder.name"></h1>
+
+            <md-button class="md-raised md-primary" ui-sref="purchase-orders.edit({purchaseOrderId: purchaseOrder._id})"
+                       flex="none">
                 <span class="glyphicon glyphicon-pencil"></span>
                 Editar
             </md-button>
+
             <md-button class="md-raised md-warn" ng-click="showConfirm($event)">
                 <span class="glyphicon glyphicon-trash"></span>
                 Borrar
             </md-button>
         </div>
     </div>
-</div>
-<div layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column">
+
+    <div>
+        <!-- INFORMACIÓN DE LA ORDEN DE COMPRA -->
         <md-card>
             <md-card-content>
                 <md-list flex>
@@ -23,37 +26,56 @@
                             <span class="md-headline">Informaci&oacute;n general</span>
                         </md-card-title-text>
                     </md-card-title>
+
+                    <!-- NÚMERO DE COMPRA -->
                     <md-list-item class="md-2-line" ng-click="null">
+                        <md-icon class="material-icons md-32">confirmation_number</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{purchaseOrder.purchaseNumber}}</h3>
                             <p>N&uacute;mero de compra</p>
                         </div>
                     </md-list-item>
+
                     <md-divider></md-divider>
+
+                    <!-- NOMBRE DE LA COMPRA -->
                     <md-list-item class="md-2-line" ng-click="null">
+                        <md-icon class="material-icons md-32">shopping_basket</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{purchaseOrder.name}}</h3>
                             <p>Nombre</p>
                         </div>
                     </md-list-item>
+
                     <md-divider></md-divider>
+
+                    <!-- DESCRIPCIÓN -->
                     <md-list-item class="md-2-line" ng-click="null">
+                        <md-icon class="material-icons md-32">description</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <h3>{{purchaseOrder.description}}</h3>
                             <p>Descripci&oacute;n</p>
                         </div>
                     </md-list-item>
+
                     <md-divider></md-divider>
+
+                    <!-- MONTO ASIGNADO -->
                     <md-list-item class="md-2-line" ng-click="null">
+                        <md-icon class="material-icons md-32">attach_money</md-icon>
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{purchaseOrder.assignedAmount}}</h3>
+                            <h3>{{'$' + purchaseOrder.assignedAmount}}</h3>
                             <p>Monto asignado</p>
                         </div>
                     </md-list-item>
+
                     <md-divider></md-divider>
+
+                    <!-- MONTO RESTANTE -->
                     <md-list-item class="md-2-line" ng-click="null">
+                        <md-icon class="material-icons md-32">money_off</md-icon>
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{purchaseOrder.remainingAmount}}</h3>
+                            <h3>{{'$' + purchaseOrder.remainingAmount}}</h3>
                             <p>Monto restante</p>
                         </div>
                     </md-list-item>
