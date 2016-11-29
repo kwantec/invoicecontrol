@@ -83,6 +83,17 @@ angular.module('clients').controller('ClientsController', [
                 {clientId: $stateParams.clientId},
                 function (client) {
                     $scope.client = client;
+                    $scope.purchaseOrders = $scope.purchaseOrders.filter(function (item) {
+                        var shouldAddItemToList = true;
+
+                        angular.forEach($scope.client.purchaseOrders, function (purchaseOrder, key) {
+                            if (purchaseOrder._id == item._id) {
+                                shouldAddItemToList = false;
+                            }
+                        });
+
+                        return shouldAddItemToList;
+                    });
                 },
                 function (errorResponse) {
                     $scope.error = errorResponse.data.message;
@@ -132,6 +143,7 @@ angular.module('clients').controller('ClientsController', [
                 });
 
                 $scope.update();
+                $scope.findOne();
             }
         };
 
