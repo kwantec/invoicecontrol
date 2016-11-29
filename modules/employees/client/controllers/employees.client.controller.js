@@ -17,13 +17,12 @@
         };
 
         function getUsers() {
-            return Users.query();
+            return Users.query({restriction:true});
         }
 
+
         $scope.addEmployee = function () {
-           var newEmployee = Employee.save($scope.newEmployee, function () {
-                console.log($scope.newEmployee);
-                //updateUser($scope.newEmployee);
+            var newEmployee = Employee.save($scope.newEmployee, function () {
                 initNewEmployee();
                 $scope.showToastSave();
             });

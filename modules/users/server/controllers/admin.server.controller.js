@@ -61,15 +61,30 @@ exports.delete = function (req, res) {
  * List of Users
  */
 exports.list = function (req, res) {
-    User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        }
 
-        res.json(users);
-    });
+    if (req.query.restriction === true) {
+        User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+
+            res.json(users);
+        });
+    } else {
+        User.find({employee: undefined}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+
+            res.json(users);
+        });
+    }
+
+
 };
 
 /**
