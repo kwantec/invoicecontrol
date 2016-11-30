@@ -160,19 +160,29 @@ exports.userGroupById = function (req, res, next, id) {
 };
 
 exports.addUsers = function (req, res) {
-	var users = req.body;
-	for (var u = 0; u < users.length; u++) {
-		User.findById(users[u]).exec(function (err,user) {
-			if (err) {
-				res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			}
-			user.userGroup =req.usergroup._id;
-			user.save();
-		});
-	}
-	res.status(200).send({
-		message: 'ok'
-	});
+  var users = req.body;
+  User.find({ userGroup: req.usergroup._id }).exec()
+    .then(function (usersOld) {
+      for (var u =0; u < usersOld.length ; u++) {
+        usersOld[u].userGroup = null;
+      }
+      return usersOld;
+    }).then(function () {
+      for (var u = 0; u < users.length; u++) {
+        User.findById(users[u]).exec(function (err,user) {
+          if (err) {
+            res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          }
+          user.userGroup = req.usergroup._id;
+          user.save();
+        });
+      }
+      res.status(200).send({
+        message: 'ok'
+      });
+  });
+	
+	
 };
