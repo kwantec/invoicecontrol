@@ -23,6 +23,9 @@ module.exports = function (app) {
         .delete(userGroups.delete)
         .put(userGroups.update);
 
+    app.route('/api/usersGroup/:userGroupId/addusers')
+      .post(userGroups.addUsers);
+
     // Finish by binding the employee middleware
     app.param('username', userGroups.userByUsername);
     app.param('userGroupId', userGroups.userGroupById);

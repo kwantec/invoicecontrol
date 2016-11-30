@@ -158,3 +158,21 @@ exports.userGroupById = function (req, res, next, id) {
 		next();
 	});
 };
+
+exports.addUsers = function (req, res) {
+	var users = req.body;
+	for (var u = 0; u < users.length; u++) {
+		User.findById(users[u]).exec(function (err,user) {
+			if (err) {
+				res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			user.userGroup =req.usergroup._id;
+			user.save();
+		});
+	}
+	res.status(200).send({
+		message: 'ok'
+	});
+};
