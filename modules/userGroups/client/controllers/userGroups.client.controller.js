@@ -3,8 +3,8 @@
 
     // Employees controller
     angular.module('userGroups').controller('UserGroupsController', ['$scope', '$stateParams', '$state', '$mdDialog',
-        '$mdToast', 'Authentication', 'UserGroupsService',
-        function ($scope, $stateParams, $state, $mdDialog, $mdToast, Authentication, UserGroupsService) {
+        '$mdToast', 'Authentication', 'UserGroupsService', '$timeout',
+        function ($scope, $stateParams, $state, $mdDialog, $mdToast, Authentication, UserGroupsService, $timeout) {
             $scope.authentication = Authentication;
             $scope.successTextAlert = 'Some content';
             $scope.users = [];
@@ -21,6 +21,7 @@
                     for (var i = 0; i < $scope.userGroup.users.length; i++) {
                         $scope.users.push($scope.userGroup.users[i]);
                     }
+
                 }).catch(function (err) {
                     // If error, show a dilaog
                     $mdDialog.show($mdDialog.alert()
@@ -249,30 +250,23 @@
                 }
             };
 
-            $scope.permissionsSelected = function(){
-                // console.log(this);
-                //  console.log(this.module._id);
-                //  console.log(this.permission._id);
-                var data={};
-                // console.log($scope.userGroup);
-                for(var i=0;i<$scope.userGroup.permissions.length;i++){
-                    if(this.module._id === $scope.userGroup.permissions[i].module._id &&
-                        this.permission._id === $scope.userGroup.permissions[i].permission._id){
-                        this.check = true;
-                        data = {
-                            module: $scope.userGroup.permissions[i].module._id,
-                            permission: $scope.userGroup.permissions[i].permission._id
-                        };
-                        listPermissionsSelected.push(data);
+            $scope.permissionsSelected = function () {
+                var t = this;
+                var data = {};
+                $timeout(function () {
+                    for (var i = 0; i < $scope.userGroup.permissions.length; i++) {
+                        if (t.module._id === $scope.userGroup.permissions[i].module._id &&
+                            t.permission._id === $scope.userGroup.permissions[i].permission._id) {
+                            t.check = true;
+                            data = {
+                                module: $scope.userGroup.permissions[i].module._id,
+                                permission: $scope.userGroup.permissions[i].permission._id
+                            };
+                            listPermissionsSelected.push(data);
+                        }
                     }
-                }
-
-
-
-
-
+                }, 500);
             };
-
         }
     ]);
 }());
