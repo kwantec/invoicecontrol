@@ -21,6 +21,8 @@
     vm.timesheet = timesheet[0];
     console.log(vm.timesheet);
 
+    vm.finishDate = new Date(vm.timesheet.finishDate);
+
     // Remove existing Invoice
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
