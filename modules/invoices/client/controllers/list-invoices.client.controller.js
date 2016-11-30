@@ -39,13 +39,13 @@
     }
 -------------------------------------------------------------*/
 
-    var timeSheetsModule= angular
+    angular
         .module('timesheets')
         .controller('TimesheetsListController', TimesheetsListController);
 
     TimesheetsListController.$inject = ['TimesheetsService'];
 
-    var invoicesModule= angular
+    angular
         .module('invoices')
         .controller('InvoicesListController', InvoicesListController);
 
