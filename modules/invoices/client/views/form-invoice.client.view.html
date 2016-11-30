@@ -31,27 +31,32 @@
           <input type="string" ng-model="vm.invoice.invoiceFor" id="invoiceFor" class="form-control" required>
         </md-input-container>
 
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Team Name</label>
+          <input type="string" ng-model="vm.invoice.teamName" id="teaName" class="form-control" required>
+        </md-input-container>
+
         <div layout-gt-md="row">
           <md-input-container class="md-block" flex-gt-s>
-            <label>Total de dias de trabajo del periodo</label>
-            <input type="number" ng-model="vm.invoice.workDaysPeriod" id="workDaysPeriod" class="form-control" required>
+            <label>Total work days in period</label>
+            <input type="number" ng-model="vm.timesheet.workDaysPeriod" id="workDaysPeriod" class="form-control" required>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-s>
             <label>Period Start</label>
-            <md-datepicker ng-model="vm.invoice.startDate" md-placeholder="Elija la fecha"></md-datepicker>
+            <md-datepicker ng-model="vm.timesheet.startDate" md-placeholder="Elija la fecha"></md-datepicker>
           </md-input-container>
         </div>
 
         <div layout-gt-md="row">
           <md-input-container class="md-block" flex-gt-s>
-            <label>Total de dias de trabajo del mes</label>
-            <input type="number" ng-model="vm.invoice.workDaysMonth" id="workDaysMonth" class="form-control" required>
+            <label>Total work days in month</label>
+            <input type="number" ng-model="vm.timesheet.workDaysMonth" id="workDaysMonth" class="form-control" required>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-s>
             <label>Period End</label>
-            <md-datepicker ng-model="vm.invoice.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
+            <md-datepicker ng-model="vm.timesheet.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
           </md-input-container>
         </div>
 

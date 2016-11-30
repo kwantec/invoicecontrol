@@ -40,6 +40,12 @@ var InvoiceSchema = new Schema({
     required: 'Please fill Invoice For',
     trim: true
   },
+  teamName: {
+    type: String,
+    default: '',
+    required: 'Please fill Invoice Team Name',
+    trim: true
+  },
   daysPeriod: {
     type: Number,
     default: '',
