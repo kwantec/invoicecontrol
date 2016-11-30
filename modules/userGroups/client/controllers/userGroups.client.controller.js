@@ -21,7 +21,6 @@
                     for (var i = 0; i < $scope.userGroup.users.length; i++) {
                         $scope.users.push($scope.userGroup.users[i]);
                     }
-
                 }).catch(function (err) {
                     // If error, show a dilaog
                     $mdDialog.show($mdDialog.alert()
@@ -52,6 +51,9 @@
                     };
                     UserGroupsService.updateUserGroup(data).then(function (response) {
                         // If success, show a dilaog
+
+                        UserGroupsService.addUsersGroupToUser(data.users, data._id);
+
                         $mdDialog.show($mdDialog.alert()
                             .clickOutsideToClose(true)
                             .title('Operación exitosa')
@@ -250,13 +252,17 @@
                 }
             };
 
-            $scope.permissionsSelected = function () {
+            $scope.permissionsSelected = function(){
+                // console.log(this);
+                //  console.log(this.module._id);
+                //  console.log(this.permission._id);
+                var data={};
                 var t = this;
-                var data = {};
+                // console.log($scope.userGroup);
                 $timeout(function () {
-                    for (var i = 0; i < $scope.userGroup.permissions.length; i++) {
-                        if (t.module._id === $scope.userGroup.permissions[i].module._id &&
-                            t.permission._id === $scope.userGroup.permissions[i].permission._id) {
+                    for(var i=0;i<$scope.userGroup.permissions.length;i++){
+                        if(t.module._id === $scope.userGroup.permissions[i].module._id &&
+                            t.permission._id === $scope.userGroup.permissions[i].permission._id){
                             t.check = true;
                             data = {
                                 module: $scope.userGroup.permissions[i].module._id,
@@ -266,7 +272,13 @@
                         }
                     }
                 }, 500);
+
+
+
+
+
             };
+
         }
     ]);
 }());

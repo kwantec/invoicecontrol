@@ -16,7 +16,8 @@
             deleteUserGroup: deleteUserGroup,
             createUserGroup: createUserGroup,
             getListModules: getListModules,
-            updateUserGroup: updateUserGroup
+            updateUserGroup: updateUserGroup,
+            addUsersGroupToUser: addUsersGroupToUser
         };
 
         function getUserGroup(userGroupId) {
@@ -41,6 +42,11 @@
 
         function updateUserGroup(data) {
             return $http({method: 'PUT', data: data, url: 'http://localhost:3000/api/userGroups/' + data._id});
+        }
+
+        function addUsersGroupToUser(data, userGroupId) {
+            console.log('http://localhost:3000/api/usersGroup/' + userGroupId + '/addusers');
+            return $http({method: 'POST', data: data, url: 'http://localhost:3000/api/usersGroup/' + userGroupId + '/addusers'});
         }
     }
 }());
