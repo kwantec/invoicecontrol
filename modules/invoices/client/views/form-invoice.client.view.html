@@ -12,7 +12,7 @@
         </md-input-container>
 
         <div flex-gt-xs>
-          <h4>Fecha</h4>
+          <label>Fecha</label>
           <md-datepicker ng-model="vm.invoice.date" md-placeholder="Elija la fecha"></md-datepicker>
         </div>
 
@@ -22,18 +22,78 @@
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-s>
-          <label>Total de dias de trabajo del periodo</label>
-          <input type="number" ng-model="vm.invoice.daysPeriod" id="daysPeriod" class="form-control" required>
+          <label>Purchase Order</label>
+          <input type="string" ng-model="vm.invoice.purchaseOrder" id="purchaseOrder" class="form-control" required>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-s>
-          <label>Total de dias de trabajo del mes</label>
-          <input type="number" ng-model="vm.invoice.daysMonth" id="daysMonth" class="form-control" required>
+          <label>Invoice for</label>
+          <input type="string" ng-model="vm.invoice.invoiceFor" id="invoiceFor" class="form-control" required>
         </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Team Name</label>
+          <input type="string" ng-model="vm.invoice.teamName" id="teaName" class="form-control" required>
+        </md-input-container>
+
+        <div layout-gt-md="row">
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Total work days in period</label>
+            <input type="number" ng-model="vm.timesheet.workDaysPeriod" id="workDaysPeriod" class="form-control" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Period Start</label>
+            <md-datepicker ng-model="vm.timesheet.startDate" md-placeholder="Elija la fecha"></md-datepicker>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-md="row">
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Total work days in month</label>
+            <input type="number" ng-model="vm.timesheet.workDaysMonth" id="workDaysMonth" class="form-control" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Period End</label>
+            <md-datepicker ng-model="vm.timesheet.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
+          </md-input-container>
+        </div>
+
+        <div>
+          <table class="table">
+            <thead>
+              <tr align="center">Contract Team Staff Billing</tr>
+            </thead>
+            <tbody>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>Fixed Monthly Rate</td>
+              <td>Days Worked</td>
+              <td>Vacation/Sick Days</td>
+              <td>Current Period Charges</td>
+              <td>Discount</td>
+              <td>Current Period Charges</td>
+            </tbody>
+            <tbody>
+              <tr ng-repeat="x in StaffBilling">
+                <td>{{x.firstName}}</td>
+                <td>{{x.lastName}}</td>
+                <td>{{x.rate}}</td>
+                <td>{{x.daysWorked}}</td>
+                <td>{{x.vacationDays}}</td>
+                <td>{{x.chargesWithoutDiscount}}</td>
+                <td>{{x.discount}}</td>
+                <td>{{x.chargeswithDiscount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="form-group">
           <md-button type="submit" class="md-raised md-primary">{{vm.invoice._id ? 'Update' : 'Create'}}</md-button>
         </div>
+
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
         </div>
