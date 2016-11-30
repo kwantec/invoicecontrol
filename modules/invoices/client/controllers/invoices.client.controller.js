@@ -22,6 +22,7 @@
     console.log(vm.timesheet);
 
     vm.finishDate = new Date(vm.timesheet.finishDate);
+    vm.startDate =  new Date(vm.timesheet.startDate)
 
     // Remove existing Invoice
     function remove() {
