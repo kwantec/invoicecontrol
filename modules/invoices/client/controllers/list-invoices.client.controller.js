@@ -1,43 +1,43 @@
 (function () {
     'use strict';
 
-/*Código original------------------------------
-    angular
-        .module('invoices')
-        .controller('InvoicesListController', InvoicesListController);
+    /*Código original------------------------------
+     angular
+     .module('invoices')
+     .controller('InvoicesListController', InvoicesListController);
 
-    InvoicesListController.$inject = ['InvoicesService', '$mdDialog', '$scope'];
+     InvoicesListController.$inject = ['InvoicesService', '$mdDialog', '$scope'];
 
-    function InvoicesListController(InvoicesService, $mdDialog, $scope) {
-        var vm = this;
+     function InvoicesListController(InvoicesService, $mdDialog, $scope) {
+     var vm = this;
 
-        vm.invoices = InvoicesService.query();
+     vm.invoices = InvoicesService.query();
 
-        vm.showPrompt = function ($event) {
-            var parentEl = angular.element(document.body);
-            $mdDialog.show({
-                parent: parentEl,
-                targetEvent: $event,
-                templateUrl: 'modules/invoices/client/views/modal.pick.timesheet.html',
-                locals: {},
-                controller: DialogController
-            });
-        };
+     vm.showPrompt = function ($event) {
+     var parentEl = angular.element(document.body);
+     $mdDialog.show({
+     parent: parentEl,
+     targetEvent: $event,
+     templateUrl: 'modules/invoices/client/views/modal.pick.timesheet.html',
+     locals: {},
+     controller: DialogController
+     });
+     };
 
-        function DialogController($scope, $mdDialog) {
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
+     function DialogController($scope, $mdDialog) {
+     $scope.closeDialog = function () {
+     $mdDialog.hide();
+     };
 
-            $scope.hasChanged = function () {
-                console.log($scope.selected);
-            };
+     $scope.hasChanged = function () {
+     console.log($scope.selected);
+     };
 
-            $scope.fieldTable = [1,2,3,4];
-        }
+     $scope.fieldTable = [1,2,3,4];
+     }
 
-    }
--------------------------------------------------------------*/
+     }
+     -------------------------------------------------------------*/
 
     angular
         .module('timesheets')
@@ -53,12 +53,12 @@
 
     //angular.module("CombineModule", ["timesheets", "invoices"]);
 
-   function TimesheetsListController(TimesheetsService) {
+    function TimesheetsListController(TimesheetsService) {
         var vm = this;
         vm.timesheets = TimesheetsService.query();
     }
 
-    function InvoicesListController(TimesheetsService, InvoicesService, $mdDialog, $scope) {
+    function InvoicesListController(TimesheetsService, InvoicesService, $mdDialog) {
         var vm = this;
 
         vm.invoices = InvoicesService.query();
@@ -76,13 +76,17 @@
             });
         };
 
-        function DialogController($scope, $mdDialog) {
+        function DialogController($scope, $mdDialog, $state) {
             $scope.closeDialog = function () {
                 $mdDialog.hide();
             };
 
             $scope.hasChanged = function () {
-                console.log($scope.selected);
+                console.log($scope.selected._id);
+                $scope.closeDialog();
+                $state.go('invoices.create', {
+                    timesheetId: $scope.selected._id
+                });
             };
 
             $scope.fieldTable = vm.timesheets;
