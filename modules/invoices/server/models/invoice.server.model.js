@@ -47,7 +47,7 @@ var InvoiceSchema = new Schema({
       required: 'Please fill Invoice Team Name',
       trim: true
     },
-    workDaysPeriod: {
+    workDaysInPeriod: {
       type: Number,
       default: '',
       required: 'Please fill Invoice work days period',
@@ -59,7 +59,7 @@ var InvoiceSchema = new Schema({
       required: 'Please fill Invoice date',
       trim: true
     },
-    workDaysMonth: {
+    workDaysInMonth: {
       type: Number,
       default: '',
       required: 'Please fill Invoice work days month',
