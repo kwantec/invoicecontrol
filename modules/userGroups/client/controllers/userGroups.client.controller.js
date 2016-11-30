@@ -50,8 +50,12 @@
                         permissions: listPermissionsSelected,
                         users: $scope.userGroup.users
                     };
+
                     UserGroupsService.updateUserGroup(data).then(function (response) {
-                        // If success, show a dilaog
+                        // Update the users, add the user group to the users
+                        UserGroupsService.addUsersGroupToUser(data.users, data._id);
+
+                        // show a dilaog
                         $mdDialog.show($mdDialog.alert()
                             .clickOutsideToClose(true)
                             .title('Operación exitosa')
