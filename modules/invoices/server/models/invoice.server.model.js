@@ -40,23 +40,37 @@ var InvoiceSchema = new Schema({
     required: 'Please fill Invoice For',
     trim: true
   },
-  teamName: {
-    type: String,
-    default: '',
-    required: 'Please fill Invoice Team Name',
-    trim: true
-  },
-  daysPeriod: {
-    type: Number,
-    default: '',
-    required: 'Please fill Invoice work days period',
-    trim: true
-  },
-  daysMonth: {
-    type: Number,
-    default: '',
-    required: 'Please fill Invoice work days month',
-    trim: true
+  timesheet: {
+    teamName: {
+      type: String,
+      default: '',
+      required: 'Please fill Invoice Team Name',
+      trim: true
+    },
+    workDaysPeriod: {
+      type: Number,
+      default: '',
+      required: 'Please fill Invoice work days period',
+      trim: true
+    },
+    startDate: {
+      type: Date,
+      default: '',
+      required: 'Please fill Invoice date',
+      trim: true
+    },
+    workDaysMonth: {
+      type: Number,
+      default: '',
+      required: 'Please fill Invoice work days month',
+      trim: true
+    },
+    finishDate: {
+      type: Date,
+      default: '',
+      required: 'Please fill Invoice date',
+      trim: true
+    }
   },
   created: {
     type: Date,
