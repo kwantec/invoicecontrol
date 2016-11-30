@@ -45,7 +45,8 @@
         }
 
         function addUsersGroupToUser(data, userGroupId) {
-            return $http({method: 'POST', data: data, url: 'http://localhost:3000/api/userGroups/' + userGroupId + '/addUsers'});
+            console.log('http://localhost:3000/api/usersGroup/' + userGroupId + '/addusers');
+            return $http({method: 'POST', data: data, url: 'http://localhost:3000/api/usersGroup/' + userGroupId + '/addusers'});
         }
     }
 }());
