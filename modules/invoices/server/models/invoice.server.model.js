@@ -28,6 +28,18 @@ var InvoiceSchema = new Schema({
     required: 'Please fill Invoice address',
     trim: true
   },
+  purchaseOrder: {
+    type: String,
+    default: '',
+    required: 'Please fill Invoice Purchase Order',
+    trim: true
+  },
+  invoiceFor: {
+    type: String,
+    default: '',
+    required: 'Please fill Invoice For',
+    trim: true
+  },
   daysPeriod: {
     type: Number,
     default: '',

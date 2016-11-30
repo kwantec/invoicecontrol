@@ -12,7 +12,7 @@
         </md-input-container>
 
         <div flex-gt-xs>
-          <h4>Fecha</h4>
+          <label>Fecha</label>
           <md-datepicker ng-model="vm.invoice.date" md-placeholder="Elija la fecha"></md-datepicker>
         </div>
 
@@ -22,14 +22,38 @@
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-s>
-          <label>Total de dias de trabajo del periodo</label>
-          <input type="number" ng-model="vm.invoice.daysPeriod" id="DaysPeriod" class="form-control" required>
+          <label>Purchase Order</label>
+          <input type="string" ng-model="vm.invoice.purchaseOrder" id="purchaseOrder" class="form-control" required>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-s>
-          <label>Total de dias de trabajo del mes</label>
-          <input type="number" ng-model="vm.invoice.daysMonth" id="daysMonth" class="form-control" required>
+          <label>Invoice for</label>
+          <input type="string" ng-model="vm.invoice.invoiceFor" id="invoiceFor" class="form-control" required>
         </md-input-container>
+
+        <div layout-gt-md="row">
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Total de dias de trabajo del periodo</label>
+            <input type="number" ng-model="vm.invoice.workDaysPeriod" id="workDaysPeriod" class="form-control" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Period Start</label>
+            <md-datepicker ng-model="vm.invoice.startDate" md-placeholder="Elija la fecha"></md-datepicker>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-md="row">
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Total de dias de trabajo del mes</label>
+            <input type="number" ng-model="vm.invoice.workDaysMonth" id="workDaysMonth" class="form-control" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Period End</label>
+            <md-datepicker ng-model="vm.invoice.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
+          </md-input-container>
+        </div>
 
         <div>
           <table class="table">
