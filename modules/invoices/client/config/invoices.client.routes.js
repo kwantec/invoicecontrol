@@ -24,13 +24,13 @@
                 }
             })
             .state('invoices.create', {
-                url: '/create/:timesheet',
+                url: '/:timesheetId/create',
                 templateUrl: 'modules/invoices/client/views/form-invoice.client.view.html',
                 controller: 'InvoicesController',
                 controllerAs: 'vm',
                 resolve: {
                     invoiceResolve: newInvoice,
-                    timesheet: timeSheet
+                    timesheetResolve: getTimesheet
                 },
                 data: {
                     roles: ['user', 'admin'],
@@ -78,11 +78,12 @@
         return new InvoicesService();
     }
 
-    timeSheet.$inject = ['$stateParams', 'TimesheetsService'];
+    getTimesheet.$inject = ['$stateParams', 'TimesheetsService'];
 
-    function timeSheet($stateParams, TimesheetsService) {
-        return TimesheetsService.query({
-            timesheetId: $stateParams.timesheetId
+    function getTimesheet($stateParams, TimesheetsService) {
+        return TimesheetsService.get({
+          timesheetId: $stateParams.timesheetId
         }).$promise;
     }
+
 }());

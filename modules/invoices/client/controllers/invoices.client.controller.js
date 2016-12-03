@@ -6,7 +6,7 @@
     .module('invoices')
     .controller('InvoicesController', InvoicesController);
 
-  InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve', 'timesheet'];
+  InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve', 'timesheetResolve'];
 
   function InvoicesController ($scope, $state, $window, Authentication, invoice, timesheet) {
     var vm = this;
@@ -18,11 +18,11 @@
     vm.remove = remove;
     vm.save = save;
 
-    vm.timesheet = timesheet[0];
+    vm.timesheet = timesheet;
     console.log(vm.timesheet);
 
     vm.finishDate = new Date(vm.timesheet.finishDate);
-    vm.startDate =  new Date(vm.timesheet.startDate)
+    vm.startDate =  new Date(vm.timesheet.startDate);
 
     // Remove existing Invoice
     function remove() {
