@@ -159,11 +159,11 @@
                     </div>
                 </md-tab-body>
             </md-tab>
+
             <md-tab id="tab2">
                 <md-tab-label>&Oacute;rdenes de compra</md-tab-label>
                 <md-tab-body>
                     <div style="margin-top: 15px">
-                        <!-- ÓRDENES DE COMPRA DEL CLIENTE -->
                         <table class="table table-striped table-hover table-condensed">
                             <thead>
                             <tr>
@@ -175,7 +175,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="purchaseOrder in client.purchaseOrders">
+                            <tr ng-repeat="purchaseOrder in purchaseOrders">
                                 <td>
                                     <a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.purchaseNumber}}</a>
                                 </td>
@@ -196,7 +196,6 @@
                             </tbody>
                         </table>
 
-                        <!-- ASIGNAR ORDEN DE COMPRA -->
                         <div layout-gt-xs="row">
                             <md-input-container class="md-block" flex-gt-xs>
                                 <label>Orden de compra</label>
@@ -216,11 +215,12 @@
                     </div>
                 </md-tab-body>
             </md-tab>
+
+            <!--
             <md-tab id="tab3">
                 <md-tab-label>Equipos de trabajo</md-tab-label>
                 <md-tab-body>
                     <div style="margin-top: 15px">
-                        <!-- EQUIPOS DE TRABAJO DEL CLIENTE -->
                         <table class="table table-striped table-hover table-condensed">
                             <thead>
                             <tr>
@@ -251,7 +251,6 @@
                             </tbody>
                         </table>
 
-                        <!-- ASIGNAR EQUIPO DE TRABAJO -->
                         <div layout-gt-xs="row">
                             <md-input-container class="md-block" flex-gt-xs>
                                 <label>Equipo de trabajo</label>
@@ -271,6 +270,7 @@
                     </div>
                 </md-tab-body>
             </md-tab>
+            -->
         </md-tabs>
     </md-content>
 </div>

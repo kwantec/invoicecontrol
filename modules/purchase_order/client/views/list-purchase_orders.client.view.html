@@ -6,6 +6,7 @@
         <thead>
         <tr>
             <th>Nombre</th>
+            <th>Cliente</th>
             <th>Monto asignado</th>
             <th>Monto restante</th>
         </tr>
@@ -13,6 +14,7 @@
         <tbody>
         <tr ng-repeat="purchaseOrder in purchaseOrders">
             <td><a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.name}}</a></td>
+            <td>{{purchaseOrder.client.name}}</td>
             <td>{{purchaseOrder.assignedAmount}}</td>
             <td>{{purchaseOrder.remainingAmount}}</td>
         </tr>

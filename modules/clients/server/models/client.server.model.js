@@ -29,7 +29,7 @@ var clientSchema = new Schema({
         email: {type: String, required: "Write your email", match: email_match},
         url: String,
         workTeams: [{type: mongoose.Schema.Types.ObjectId, ref: 'WorkTeam'}],
-        purchaseOrders: [{type: mongoose.Schema.Types.ObjectId, ref: 'PurchaseOrder'}]
+        purchaseOrders: [{type: Schema.Types.ObjectId, ref: 'PurchaseOrder'}]
     },
     {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at', deleteAt: 'delete_at'}

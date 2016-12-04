@@ -6,10 +6,13 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
     '$location',
     'Authentication',
     'PurchaseOrders',
+    'Clients',
     '$mdDialog',
     '$mdToast',
-    function ($scope, $stateParams, $location, Authentication, PurchaseOrders, $mdDialog, $mdToast) {
+    function ($scope, $stateParams, $location, Authentication, PurchaseOrders, Clients, $mdDialog, $mdToast) {
         $scope.authentication = Authentication;
+        $scope.client = {};
+        $scope.clients = Clients.query();
 
         $scope.newPurchaseOrder = {
             purchaseNumber: "",
@@ -17,6 +20,7 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
             description: "",
             assignedAmount: 0,
             remainingAmount: 0,
+            client: ""
         };
 
         $scope.create = function (isValid) {
@@ -33,7 +37,8 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
                 name: $scope.newPurchaseOrder.name,
                 description: $scope.newPurchaseOrder.description,
                 assignedAmount: $scope.newPurchaseOrder.assignedAmount,
-                remainingAmount: $scope.newPurchaseOrder.remainingAmount
+                remainingAmount: $scope.newPurchaseOrder.remainingAmount,
+                client: $scope.newPurchaseOrder.client._id
             });
 
             purchaseOrder.$save(function (response) {
