@@ -7,9 +7,10 @@
         .module('employees')
         .controller('EmployeesClientController', EmployeesClientController);
 
-    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location', '$mdToast', 'Admin'];
+    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams',
+        'Employees', '$location', '$mdToast', 'Admin','ResourceTypes'];
 
-    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast, Users) {
+    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast, Users,ResourceTypes) {
         var Employee = $resource('/api/employees');
 
         $scope.userData = {
@@ -19,6 +20,10 @@
         function getUsers() {
             return Users.query({restriction:true});
         }
+
+        $scope.resourceTypeList = {
+          data : ResourceTypes.query()
+        };
 
 
         $scope.addEmployee = function () {
@@ -108,6 +113,7 @@
             $scope.newEmployee.curp = "";
             $scope.newEmployee.picture = "";
             $scope.newEmployee.user = "";
+            $scope.newEmployee.resourceType = "";
         }
     }
 }());
