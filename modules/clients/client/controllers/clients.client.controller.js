@@ -7,15 +7,15 @@ angular.module('clients').controller('ClientsController', [
     'Authentication',
     'Clients',
     'PurchaseOrders',
+    'WorkTeams',
     '$mdDialog',
     '$mdToast',
-    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, $mdDialog, $mdToast) {
+    '$filter',
+    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, WorkTeams, $mdDialog, $mdToast, $filter) {
         $scope.searchClient = '';
         $scope.sortType = 'name';
         $scope.sortReverse = false;
         $scope.authentication = Authentication;
-        $scope.purchaseOrder = {};
-        $scope.purchaseOrders = PurchaseOrders.query();
 
         $scope.newClient = {
             name: "",
@@ -38,17 +38,13 @@ angular.module('clients').controller('ClientsController', [
                 colony: "",
                 lot: "",
                 crosses: ""
-            },
-            workTeams: [],
-            purchaseOrders: []
+            }
         };
 
         $scope.create = function (isValid) {
-            console.log('Llegue');
             $scope.error = null;
 
             if (!isValid) {
-                console.log("error");
                 $scope.$broadcast('show-errors-check-validity', 'clientForm');
 
                 return false;
@@ -69,7 +65,6 @@ angular.module('clients').controller('ClientsController', [
             client.$save(function (response) {
                 $location.path('clients/' + response._id);
             }, function (errorResponse) {
-                console.log('fail');
                 $scope.error = errorResponse.data.message;
             });
         };
@@ -79,26 +74,23 @@ angular.module('clients').controller('ClientsController', [
         };
 
         $scope.findOne = function () {
-            Clients.get(
-                {clientId: $stateParams.clientId},
-                function (client) {
-                    $scope.client = client;
-                    $scope.purchaseOrders = $scope.purchaseOrders.filter(function (item) {
-                        var shouldAddItemToList = true;
+            $scope.purchaseOrders = PurchaseOrders.query().$promise.then(function (result) {
+                $scope.purchaseOrders = result;
+            }).then(function () {
+                Clients.get(
+                    {clientId: $stateParams.clientId},
+                    function (client) {
+                        $scope.client = client;
 
-                        angular.forEach($scope.client.purchaseOrders, function (purchaseOrder, key) {
-                            if (purchaseOrder._id == item._id) {
-                                shouldAddItemToList = false;
-                            }
+                        $scope.purchaseOrders = $filter('filter')($scope.purchaseOrders, function(purchaseOrder) {
+                            return purchaseOrder.client._id === client._id;
                         });
-
-                        return shouldAddItemToList;
-                    });
-                },
-                function (errorResponse) {
-                    $scope.error = errorResponse.data.message;
-                }
-            );
+                    },
+                    function (errorResponse) {
+                        $scope.error = errorResponse.data.message;
+                    }
+                );
+            });
         };
 
         $scope.update = function () {
@@ -130,24 +122,7 @@ angular.module('clients').controller('ClientsController', [
             }
         };
 
-        $scope.addWorkTeam = function () {
-            /* TODO */
-        };
-
-        $scope.addPurchaseOrder = function () {
-            if ($scope.client) {
-                $scope.client.purchaseOrders.push($scope.purchaseOrder);
-                $scope.purchaseOrder = {};
-                $scope.purchaseOrders = $scope.purchaseOrders.filter(function (item) {
-                    return !$scope.client.purchaseOrders.includes(item);
-                });
-
-                $scope.update();
-                $scope.findOne();
-            }
-        };
-
-        $scope.showConfirm = function (event) {
+        $scope.showConfirmDialog = function (event) {
             var confirm = $mdDialog.confirm()
                 .title('¿Desea eliminar a este cliente?')
                 .targetEvent(event)
