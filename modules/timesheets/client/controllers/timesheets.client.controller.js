@@ -264,6 +264,8 @@
 
     function addEmployee(_id) {
       console.log("received");
+      var newEmp = getNewEmployeeInfo(_id);
+      $scope.timesheet.employees.push(newEmp);
       var newLogs = getNewEmployeeLogs(_id, timesheet.startDate, timesheet.finishDate);
       for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
         $scope.timesheet.dayLogs[date].employeesLogsDay.push(newLogs[date]);
@@ -293,6 +295,36 @@
         },
         activity: "Activity"
       }]
+    }
+
+    function getNewEmployeeInfo(_id) {
+      Employees.get(
+          {employeeId: "583e328907f14f71147fefbc"},
+          function (employee) {
+              employee.dob = new Date(employee.dob);
+              console.log("employee", employee);
+              return employee;
+          },
+          function (errorResponse) {
+              $scope.error = errorResponse.data.message;
+          }
+      );
+    
+      /*return {
+          employee: {
+            name: 'Carlos',
+            lastName: 'Riancho'
+          },
+          billing: {
+            level: 'Senior',
+            monthly: '20000',
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
+        } */
     }
   }
 }());
