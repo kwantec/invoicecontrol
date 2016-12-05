@@ -19,6 +19,46 @@ var path = require('path'),
 exports.create = function(req, res) {
   var loggy = new Loggy(req.body);
 
+  Employee
+      .findOne({
+          user: req.user.id
+      })
+      .populate({
+          path: 'user',
+          model: 'User'
+      })
+      .populate({
+          path: 'workTeam',
+          model: 'WorkTeam'
+      })
+      .exec(function(err, employees) {
+          console.log(employees);
+          loggy.employee = employees;
+
+          WorkTeam
+              .findOne({
+                  employees: employees._id
+              })
+              .exec(function (err, workTeamFound) {
+                  if(err) {
+
+                  } else {
+                      loggy.workTeam = workTeamFound;
+                      console.log(loggy);
+
+                      loggy.save(function(err) {
+                          if (err) {
+                              return res.status(400).send({
+                                  message: errorHandler.getErrorMessage(err)
+                              });
+                          } else {
+                              res.jsonp(loggy);
+                          }
+                      });
+                  }
+              });
+      });
+
   /*var resource = new ResourceType({
     name: "Recurso Demo",
     rates: [{
@@ -56,16 +96,6 @@ exports.create = function(req, res) {
   loggy.workTeam = workTeam._id;
 
   console.log(loggy);*/
-
-  loggy.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(loggy);
-    }
-  });
 };
 
 /**
