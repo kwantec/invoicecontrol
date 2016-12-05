@@ -82,7 +82,7 @@
             };
 
             $scope.hasChanged = function () {
-                console.log($scope.selected._id);
+                //console.log($scope.selected._id);
                 $scope.closeDialog();
                 $state.go('invoices.create', {
                     timesheetId: $scope.selected._id

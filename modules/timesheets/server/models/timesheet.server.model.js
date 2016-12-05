@@ -55,8 +55,18 @@ team: {
   }],
   employees: [{
       employee: {
-          type: Schema.ObjectId,
-          ref: 'Employee'
+          /*type: Schema.ObjectId,
+          ref: 'Employee'*/
+        name: {
+          type: String,
+          default: '',
+          trim: true
+        },
+        lastName: {
+          type: String,
+          default: '',
+          trim: true
+        }
       },
       billing: {
           level: {

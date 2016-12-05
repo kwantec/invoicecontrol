@@ -40,37 +40,103 @@ var InvoiceSchema = new Schema({
     required: 'Please fill Invoice For',
     trim: true
   },
-  timesheet: {
-    teamName: {
-      type: String,
-      default: '',
-      required: 'Please fill Invoice Team Name',
-      trim: true
+  teamName: {
+    type: String,
+    default: 'lol',
+    required: 'Please fill Invoice Team Name',
+    trim: true
+  },
+  workDaysInPeriod: {
+    type: Number,
+    default: '',
+    required: 'Please fill Invoice work days period',
+    trim: true
+  },
+  workDaysInMonth: {
+    type: Number,
+    default: '',
+    required: 'Please fill Invoice work days month',
+    trim: true
+  },
+  startDate: {
+    type: Date,
+    default: '',
+    required: 'Please fill Invoice date',
+    trim: true
+  },
+  finishDate: {
+    type: Date,
+    default: '',
+    required: 'Please fill Invoice date',
+    trim: true
+  },
+  employees: [{
+    employee: {
+          /*type: Schema.ObjectId,
+          ref: 'Employee'*/
+      name: {
+        type: String,
+        default: '',
+        trim: true
+      },
+      lastName: {
+        type: String,
+        default: '',
+        trim: true
+      }
     },
-    workDaysInPeriod: {
-      type: Number,
-      default: '',
-      required: 'Please fill Invoice work days period',
-      trim: true
-    },
-    startDate: {
-      type: Date,
-      default: '',
-      required: 'Please fill Invoice date',
-      trim: true
-    },
-    workDaysInMonth: {
-      type: Number,
-      default: '',
-      required: 'Please fill Invoice work days month',
-      trim: true
-    },
-    finishDate: {
-      type: Date,
-      default: '',
-      required: 'Please fill Invoice date',
-      trim: true
+    billing: {
+      level: {
+        type: String,
+        default: '',
+        trim: true
+      },
+      monthly: {
+        type: Number,
+        default: '',
+        trim: true
+      },
+      daysWorked: {
+        type: Number,
+        default: 0
+      },
+      vacationSickDays: {
+        type: Number,
+        default: 0
+      },
+      currentPeriodCharges: {
+        type: Number,
+        default: 0.00
+      },
+      discount: {
+        type: Number,
+        default: 0.00
+      },
+      totalPeriodCharges: {
+        type: Number,
+        default: 0.00
+      }
     }
+  }],
+  totalChargesNoDiscount:{
+    type: Number,
+    default: ''
+  },
+  totalDicount:{
+    type: Number,
+    default: ''
+  },
+  totalCargesDiscount:{
+    type: Number,
+    default: ''
+  },
+  paymentDue:{
+    type: Date,
+    default: Date.now
+  },
+  dueOn:{
+    type: Date,
+    default: Date.now
   },
   created: {
     type: Date,

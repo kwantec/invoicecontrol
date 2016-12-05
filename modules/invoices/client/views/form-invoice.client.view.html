@@ -33,30 +33,30 @@
 
         <md-input-container class="md-block" flex-gt-s>
           <label>Team Name</label>
-          <input type="string" ng-model="vm.timesheet.teamName" id="teamName" class="form-control" required>
+          <input type="string" ng-model="vm.invoice.teamName" id="teamName" class="form-control" required>
         </md-input-container>
 
         <div layout-gt-md="row">
           <md-input-container class="md-block" flex-gt-s>
             <label>Total work days in period</label>
-            <input type="number" ng-model="vm.timesheet.workDaysInPeriod" id="workDaysInPeriod" class="form-control" required>
+            <input type="number" ng-model="vm.invoice.workDaysInPeriod" id="workDaysInPeriod" class="form-control" required>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-s>
             <label>Period Start</label>
-            <md-datepicker ng-model="vm.startDate" md-placeholder="Elija la fecha"></md-datepicker>
+            <md-datepicker ng-model="vm.invoice.startDate" md-placeholder="Elija la fecha"></md-datepicker>
           </md-input-container>
         </div>
 
         <div layout-gt-md="row">
           <md-input-container class="md-block" flex-gt-s>
             <label>Total work days in month</label>
-            <input type="number" ng-model="vm.timesheet.workDaysInMonth" id="workDaysInMonth" class="form-control" required>
+            <input type="number" ng-model="vm.invoice.workDaysInMonth" id="workDaysInMonth" class="form-control" required>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-s>
             <label>Period End</label>
-            <md-datepicker ng-model="vm.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
+            <md-datepicker ng-model="vm.invoice.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
           </md-input-container>
         </div>
 
@@ -68,6 +68,7 @@
             <tbody>
               <td>First Name</td>
               <td>Last Name</td>
+              <td>Level</td>
               <td>Fixed Monthly Rate</td>
               <td>Days Worked</td>
               <td>Vacation/Sick Days</td>
@@ -76,7 +77,8 @@
               <td>Current Period Charges</td>
             </tbody>
             <tbody>
-              <tr ng-repeat="x in StaffBilling">
+              <tr ng-repeat="employee in vm.invoice.employees">
+              <!--
                 <td>{{x.firstName}}</td>
                 <td>{{x.lastName}}</td>
                 <td>{{x.rate}}</td>
@@ -85,6 +87,31 @@
                 <td>{{x.chargesWithoutDiscount}}</td>
                 <td>{{x.discount}}</td>
                 <td>{{x.chargeswithDiscount}}</td>
+              -->
+                <td>{{employee.employee.name}}</td>
+                <td>{{employee.employee.lastName}}</td>
+                <td>
+                  <input type="text" value="{{employee.billing.level}}" ng-model="employee.billing.level">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.monthly}}" ng-model="employee.billing.monthly">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.daysWorked}}" ng-model="employee.billing.daysWorked">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.vacationSickDays}}" ng-model="employee.billing.vacationSickDays">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.currentPeriodCharges}}" ng-model="employee.billing.currentPeriodCharges">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.discount}}" ng-model="employee.billing.discount">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges">
+                </td>
+
               </tr>
             </tbody>
           </table>
