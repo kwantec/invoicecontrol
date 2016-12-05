@@ -15,6 +15,9 @@
             })
             .state('purchase-orders.create', {
                 url: '/create',
+                params: {
+                    client: null
+                },
                 controller: 'PurchaseOrdersController',
                 templateUrl: 'modules/purchase_order/client/views/create-purchase_order.client.view.html'
             })

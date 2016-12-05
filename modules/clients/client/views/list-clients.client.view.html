@@ -33,10 +33,10 @@
             </thead>
             <tbody>
             <tr ng-repeat="client in clients | orderBy:sortType:sortReverse | filter:searchClient">
-                <td><a ng-href="/clients/{{client._id}}">{{client.name}}</a></td>
+                <td><a ui-sref="clients.view({clientId: client._id})">{{client.name}}</a></td>
                 <td>{{client.taxId}}</td>
                 <td>
-                    <md-button class="md-raised" ng-href="#">
+                    <md-button class="md-raised" ui-sref="purchase-orders.create({client: client})">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         Nueva orden de compra
                     </md-button>
@@ -45,7 +45,7 @@
             </tbody>
         </table>
         <div layout="row" layout-align="end" flex>
-            <md-button class="md-fab" aria-label="Agregar cliente" ng-href="/clients/create">
+            <md-button class="md-fab" aria-label="Agregar cliente" ui-sref="clients.create">
                 <span class="glyphicon glyphicon-plus"></span>
             </md-button>
         </div>

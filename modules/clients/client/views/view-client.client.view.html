@@ -177,9 +177,9 @@
                             <tbody>
                             <tr ng-repeat="purchaseOrder in purchaseOrders">
                                 <td>
-                                    <a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.purchaseNumber}}</a>
+                                    <a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.purchaseNumber}}</a>
                                 </td>
-                                <td><a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.name}}</a></td>
+                                <td><a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.name}}</a></td>
                                 <td>{{'$' + purchaseOrder.assignedAmount}}</td>
                                 <td>{{'$' + purchaseOrder.remainingAmount}}</td>
                                 <td>
@@ -187,90 +187,13 @@
                                                ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">
                                         <md-icon class="material-icons">remove_red_eye</md-icon>
                                     </md-button>
-                                    <md-button class="md-secondary md-icon-button md-warn"
-                                               ng-click="removePurchaseOrder(purchaseOrder)">
-                                        <md-icon>close</md-icon>
-                                    </md-button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-
-                        <div layout-gt-xs="row">
-                            <md-input-container class="md-block" flex-gt-xs>
-                                <label>Orden de compra</label>
-                                <md-select ng-model="purchaseOrder">
-                                    <md-option ng-repeat="purchaseOrder in purchaseOrders" ng-value="purchaseOrder">
-                                        {{purchaseOrder.name}}
-                                    </md-option>
-                                </md-select>
-                            </md-input-container>
-                            <md-button
-                                    type="button"
-                                    ng-disabled="!purchaseOrder.name"
-                                    class="md-raised md-primary text-center"
-                                    ng-click="addPurchaseOrder()">Agregar orden de compra
-                            </md-button>
-                        </div>
                     </div>
                 </md-tab-body>
             </md-tab>
-
-            <!--
-            <md-tab id="tab3">
-                <md-tab-label>Equipos de trabajo</md-tab-label>
-                <md-tab-body>
-                    <div style="margin-top: 15px">
-                        <table class="table table-striped table-hover table-condensed">
-                            <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>L&iacute;der Local</th>
-                                <th>L&iacute;der Remoto</th>
-                                <th>Arquitecto</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="workTeam in client.workTeams">
-                                <td><a ng-href="/work-teams/{{workTeam._id}}">{{workTeam.name}}</a></td>
-                                <td>{{workTeam.employeeLeader.name}}</td>
-                                <td>{{workTeam.leader.name}}</td>
-                                <td>{{workTeam.architect.name}}</td>
-                                <td>
-                                    <md-button class="md-secondar md-icon-button md-primary"
-                                               ui-sref="work-teams.view({workTeamId: workTeam._id})">
-                                        <md-icon class="material-icons">remove_red_eye</md-icon>
-                                    </md-button>
-                                    <md-button class="md-secondary md-icon-button md-warn"
-                                               ng-click="removeWorkTeam(workTeam)">
-                                        <md-icon>close</md-icon>
-                                    </md-button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <div layout-gt-xs="row">
-                            <md-input-container class="md-block" flex-gt-xs>
-                                <label>Equipo de trabajo</label>
-                                <md-select ng-model="workTeam">
-                                    <md-option ng-repeat="workTeam in workTeams" ng-value="workTeam">
-                                        {{workTeam.name}}
-                                    </md-option>
-                                </md-select>
-                            </md-input-container>
-                            <md-button
-                                    type="button"
-                                    ng-disabled="!workTeam.name"
-                                    class="md-raised md-primary text-center"
-                                    ng-click="addWorkTeam()">Agregar equipo de trabajo
-                            </md-button>
-                        </div>
-                    </div>
-                </md-tab-body>
-            </md-tab>
-            -->
         </md-tabs>
     </md-content>
 </div>

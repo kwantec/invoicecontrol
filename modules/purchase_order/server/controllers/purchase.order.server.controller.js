@@ -64,7 +64,7 @@ exports.list = function (req, res) {
             console.log(purchaseOrder);
             res.json(purchaseOrder);
         }
-    }).populate('client');
+    }).populate('client', '_id name');
 };
 
 exports.read = function (req, res) {
@@ -82,7 +82,7 @@ exports.read = function (req, res) {
 
             res.json(purchaseOrder);
         }
-    }).populate('client');
+    }).populate('client', '_id name');
 };
 
 exports.delete = function (req, res) {

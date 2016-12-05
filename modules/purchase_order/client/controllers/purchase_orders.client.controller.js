@@ -14,14 +14,28 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
         $scope.client = {};
         $scope.clients = Clients.query();
 
-        $scope.newPurchaseOrder = {
-            purchaseNumber: "",
-            name: "",
-            description: "",
-            assignedAmount: 0,
-            remainingAmount: 0,
-            client: ""
-        };
+        $scope.init = function () {
+            $scope.newPurchaseOrder = {
+                purchaseNumber: "",
+                name: "",
+                description: "",
+                assignedAmount: 0,
+                remainingAmount: 0,
+                client: ""
+            };
+
+            if ($scope.isClientSet()) {
+                $scope.newPurchaseOrder.client = $stateParams.client._id;
+            }
+        }
+
+        $scope.isClientSet = function () {
+            if ($stateParams.client) {
+                return true;
+            }
+
+            return false;
+        }
 
         $scope.create = function (isValid) {
             $scope.error = null;
@@ -38,7 +52,7 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
                 description: $scope.newPurchaseOrder.description,
                 assignedAmount: $scope.newPurchaseOrder.assignedAmount,
                 remainingAmount: $scope.newPurchaseOrder.remainingAmount,
-                client: $scope.newPurchaseOrder.client._id
+                client: $scope.newPurchaseOrder.client
             });
 
             purchaseOrder.$save(function (response) {

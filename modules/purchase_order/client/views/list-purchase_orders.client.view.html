@@ -13,7 +13,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="purchaseOrder in purchaseOrders">
-            <td><a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.name}}</a></td>
+            <td><a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.name}}</a></td>
             <td>{{purchaseOrder.client.name}}</td>
             <td>{{purchaseOrder.assignedAmount}}</td>
             <td>{{purchaseOrder.remainingAmount}}</td>
@@ -21,7 +21,7 @@
         </tbody>
     </table>
     <div layout="row" layout-align="end" flex>
-        <md-button class="md-fab" aria-label="Agregar orden de compra" ng-href="/purchase-orders/create">
+        <md-button class="md-fab" aria-label="Agregar orden de compra" ui-sref="purchase-orders.create">
             <span class="glyphicon glyphicon-plus"></span>
         </md-button>
     </div>
