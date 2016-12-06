@@ -303,7 +303,17 @@
           function (employee) {
               employee.dob = new Date(employee.dob);
               console.log("employee", employee);
-              return employee;
+              var obj = {};
+              obj.employee.id = employee.id;
+              obj.employee.name = employee.name;
+              obj.employee.lastName = employee.lastName;
+              obj.billing.level = employee.resourceType.level;
+              obj.billing.monthly = employee.resourceType.rate;
+              obj.billing.vacationSickDays = 0;
+              obj.billing.currentPeriodCharges = 0.00;
+              obj.billing.discount = 0.00;
+              obj.totalPeriodCharges = obj.billing.monthly;
+              return obj;
           },
           function (errorResponse) {
               $scope.error = errorResponse.data.message;
