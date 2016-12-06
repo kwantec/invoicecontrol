@@ -104,3 +104,8 @@ Material Side Nav
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+md-toolbar.toolbar-app{
+  color: white;
+  background-color: #009688;
+}
