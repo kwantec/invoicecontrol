@@ -12,14 +12,18 @@
 
     var vm = this;
     var Timesheet = $resource('/api/timesheets');
+    var WorkTeam = $resource('/api/workTeams');
 
     $scope.newTimesheet = {};
     $scope.newTimesheet.name = "";
     $scope.newTimesheet.startDate = "";
     $scope.newTimesheet.finishDate = "";
-    $scope.newTimesheet.teamName = "";
+    $scope.newTimesheet.team = "";
 
+    $scope.teams = WorkTeam.query();
     $scope.employees = Employees.query();
+
+    console.log($scope.teams);
 
     vm.authentication = Authentication;
     vm.timesheet = timesheet;
@@ -179,6 +183,7 @@
 
     $scope.addTimesheet = function () {
       console.log($scope.newTimesheet);
+
       Timesheet.save($scope.newTimesheet, function () {
         $scope.newTimesheet = {};
         $scope.newTimesheet.name = "";

@@ -15,6 +15,10 @@ var mongoose = require('mongoose'),
  * Timesheet Schema
  */
 var TimesheetSchema = new Schema({
+  name: {
+    type: String,
+    default: "Timesheet-" + getNow()
+  },
   team: {
     type: Schema.ObjectId,
     ref: 'WorkTeam'
