@@ -5,30 +5,7 @@ angular.module('resourceTypes')
     .controller('ResourceTypesController', ['$scope', '$stateParams', '$location', 'Authentication', 'ResourceTypes', '$mdDialog',
         function ($scope, $stateParams, $location, Authentication, ResourceTypes, $mdDialog) {
             $scope.authentication = Authentication;
-            $scope.rate = {
-                level : 0,
-                name : null,
-                description : null,
-                qualities : [],
-                rate : 0.0
-            };
 
-            $scope.addRate = function(){
-                $scope.resourceType.rates.push($scope.rate);
-                $scope.rate = {
-                    level : 0,
-                    name : null,
-                    description : null,
-                    qualities : [],
-                    rate : 0.0
-                };
-            };
-
-            $scope.deleteRate = function(toDeleteRate){
-                $scope.resourceType.rates = $scope.resourceType.rates.filter(function(current){
-                    return current !== toDeleteRate;
-                });
-            };
             // Create new ResourceType
             $scope.create = function (isValid) {
                 $scope.error = null;
@@ -42,7 +19,7 @@ angular.module('resourceTypes')
                 // Create new ResourceType object
                 var resourceType = new ResourceTypes({
                     name: $scope.resourceType.name,
-                    rates: $scope.resourceType.rates
+                    rate: $scope.resourceType.rate
                 });
 
                 // Redirect after save
@@ -115,7 +92,12 @@ angular.module('resourceTypes')
             $scope.resetResourceType = function(){
                 $scope.resourceType = {
                     name : null,
-                    rates: []
+                    rate: {
+                        level : null,
+                        name : null,
+                        qualities : [],
+                        description : null
+                    }
                 };
             }
         }
