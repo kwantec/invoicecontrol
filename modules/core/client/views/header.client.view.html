@@ -1,3 +1,78 @@
+<div ng-controller="HeaderController" class="header" ng-cloak >
+
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2"
+              md-component-id="left">
+    <md-toolbar layout="row" class="toolbar-app" style="padding-top: 30%">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>Men&uacute;</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Close Side Panel" ng-click="closeSideNavPanel()">
+          <md-tooltip>Close Side Panel</md-tooltip>
+          <md-icon class="md-default-theme material-icons">&#xE5CD;</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content flex role="navigation" ng-if="menu.shouldRender(authentication.user);">
+      <md-list ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-class="{ active: $state.includes(item.state) }" class="{{item.class}}">
+        <md-subheader>{{::item.title}}</md-subheader>
+        <md-list-item ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">
+          <md-button flex aria-label="subitem.title" ui-sref="{{subitem.state}}" ng-bind="subitem.title"></md-button>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </md-sidenav>
+
+  <md-toolbar class="navbar-fixed-top toolbar-app md-whiteframe-9dp">
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="Side Panel" ng-click="openSideNavPanel()">
+        <md-tooltip>Side Panel</md-tooltip>
+        <md-icon class="md-default-theme" class="material-icons">&#xE5D2;</md-icon>
+      </md-button>
+      <md-button href="/" class="md-icon-button">
+        <md-icon class="material-icons">home</md-icon>
+      </md-button>
+      <span flex></span>
+      <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
+        <li ui-sref-active="active">
+          <a ui-sref="authentication.signup">Registrarme</a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li ui-sref-active="active">
+          <a ui-sref="authentication.signin">Iniciar Sesi&oacute;n</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
+        <li class="dropdown" dropdown>
+          <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+            <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+            <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li ui-sref-active="active">
+              <a ui-sref="settings.profile">Edit Profile</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="settings.picture">Change Profile Picture</a>
+            </li>
+            <li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
+              <a ui-sref="settings.password">Change Password</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="settings.accounts">Manage Social Accounts</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="/api/auth/signout" target="_self">Signout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </md-toolbar>
+</div>
+<!--
 <div class="container" ng-controller="HeaderController">
   <div class="navbar-header">
     <button class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
@@ -57,3 +132,4 @@
     </ul>
   </nav>
 </div>
+-->

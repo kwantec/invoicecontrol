@@ -18,15 +18,21 @@
   <table class="table table-striped table-hover">
     <thead>
     <tr>
+      <th>Familia</th>
+      <th>Nivel</th>
       <th>Nombre</th>
-      <th>N&uacute;mero Tarifas</th>
+      <th>Cantidad Tarifa</th>
+      <th>Numero de Cualidades</th>
       <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="current in resourceTypes">
       <td>{{current.name}}</td>
-      <td>{{current.rates.length}}</td>
+      <td>{{current.rate.level}}</td>
+      <td>{{current.rate.name}}</td>
+      <td>{{current.rate.rate}}</td>
+      <td>{{current.rate.qualities.length}}</td>
       <td>
         <md-button class="md-secondar md-icon-button md-primary" ui-sref="resource-types.view({resourceTypeId: current._id})">
           <md-icon class="material-icons">remove_red_eye</md-icon>

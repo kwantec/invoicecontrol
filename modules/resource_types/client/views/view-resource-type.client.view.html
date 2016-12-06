@@ -22,10 +22,10 @@
     </md-card>
     <md-toolbar class="md-theme-light">
       <h4 class="md-toolbar-tools">
-        <span>Tarifas</span>
+        <span>Tarifa</span>
       </h4>
     </md-toolbar>
-    <md-card ng-repeat="current in resourceType.rates">
+    <md-card>
       <md-card-title>
         <md-card-title-media>
           <div class="md-media-sm card-media" layout>
@@ -33,11 +33,11 @@
           </div>
         </md-card-title-media>
         <md-card-title-text>
-          <h4 class="md-headline">#{{current.level}} {{current.name}} ({{current.description}})</h4>
-          <h5 class="md-subhead description">Tarifa : {{ current.rate | currency }}</h5>
+          <h4 class="md-headline">#{{resourceType.rate.level}} {{resourceType.rate.name}} ({{resourceType.rate.description}})</h4>
+          <h5 class="md-subhead description">Tarifa : {{ resourceType.rate.rate | currency }}</h5>
           <h5>Cualidades Deseadas: </h5>
           <ul>
-            <li ng-repeat="item in current.qualities">
+            <li ng-repeat="item in resourceType.rate.qualities">
               {{item}}
             </li>
           </ul>
