@@ -62,17 +62,5 @@
         vm.error = res.data.message;
       }
     }
-
-    vm.toPDF = function () {
-
-        var file = new Blob([document.body], {type: 'applicaotn/pdf'});
-        var fileURL = URL.createObjectURL(file);
-        $scope.mycontent = $sce.trustAsResourceUrl(fileURL);
-
-      // var pdf = new PDFKit('html', document.body[0]);
-      // pdf.toFile('invoice.pdf', function (err, file) {
-      //     console.log('File ' + file + ' written');
-      // })
-    };
   }
 }());
