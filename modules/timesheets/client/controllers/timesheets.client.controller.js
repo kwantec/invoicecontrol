@@ -170,7 +170,6 @@
         TimesheetsService.get(
             {timesheetId: $stateParams.timesheetId},
             function (timesheet) {
-                timesheet.employees = [];
                 $scope.timesheet = timesheet;
                 console.log("timesheet", $scope.timesheet);
                 calculateTotals();

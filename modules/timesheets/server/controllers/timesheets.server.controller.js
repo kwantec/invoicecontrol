@@ -278,7 +278,7 @@ exports.timesheetByID = function(req, res, next, id) {
 
   Timesheet.findById(id).populate('user', 'displayName')
       .populate({
-        path: 'employees',
+        path: 'employees.employee',
         model: 'Employee'})
       .exec(function (err, timesheet) {
     if (err) {
