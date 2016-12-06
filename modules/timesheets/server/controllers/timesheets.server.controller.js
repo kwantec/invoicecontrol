@@ -276,7 +276,11 @@ exports.timesheetByID = function(req, res, next, id) {
     });
   }
 
-  Timesheet.findById(id).populate('user', 'displayName').exec(function (err, timesheet) {
+  Timesheet.findById(id).populate('user', 'displayName')
+      .populate({
+        path: 'employees',
+        model: 'Employee'})
+      .exec(function (err, timesheet) {
     if (err) {
       return next(err);
     } else if (!timesheet) {
