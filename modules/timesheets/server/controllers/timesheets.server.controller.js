@@ -42,7 +42,12 @@ exports.create = function(req, res) {
       WorkTeam.findById(req.body.team)
           .populate({
             path: 'employees',
-            model: 'Employee'
+            model: 'Employee',
+            populate: {
+              path: 'resourceType',
+              model: 'ResourceType',
+
+            }
           })
           .populate({
             path: 'employeeLeader',
@@ -160,7 +165,7 @@ exports.create = function(req, res) {
 
               for(j=0; j < workTeamLength; j++) {
                 employeeData = {
-                  employee: workTeamSearched.employees[j]._id,
+                  employee: workTeamSearched.employees[j],
                   billing: {
                     level: "",
                     monthly: 0,
@@ -176,7 +181,7 @@ exports.create = function(req, res) {
               }
               if(workTeamSearched.employeeLeader) {
                 employeeData = {
-                  employee: workTeamSearched.employeeLeader._id,
+                  employee: workTeamSearched.employeeLeader,
                   billing: {
                     level: "",
                     monthly: 0,
