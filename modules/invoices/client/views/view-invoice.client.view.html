@@ -1,4 +1,4 @@
-<section>
+<section id="invoice">
   <div class="page-header">
     <h1 ng-bind="vm.invoice.number"></h1>
   </div>
@@ -133,5 +133,6 @@
     <md-button class="md-raised md-warn" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.printPage()">Imprimir</md-button>
   </div>
 </section>
