@@ -13,8 +13,6 @@
 
     InvoicesListController.$inject = ['TimesheetsService', 'InvoicesService', '$mdDialog', '$scope'];
 
-    //angular.module("CombineModule", ["timesheets", "invoices"]);
-
     function TimesheetsListController(TimesheetsService) {
         var vm = this;
         vm.timesheets = TimesheetsService.query();

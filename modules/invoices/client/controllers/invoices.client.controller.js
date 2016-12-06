@@ -18,18 +18,16 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.hasChanged = hasChanged;
 
-    //vm.timesheet = timesheet;
-    console.log(timesheet);
     vm.invoice.teamName = timesheet.teamName;
     vm.invoice.workDaysInPeriod= timesheet.workDaysInPeriod;
     vm.invoice.workDaysInMonth = timesheet.workDaysInMonth;
     vm.invoice.finishDate = new Date(timesheet.finishDate);
     vm.invoice.startDate =  new Date(timesheet.startDate);
-    vm.invoice.employees = timesheet.employees;
-    console.log(timesheet.employees[0]);
-    
+    vm.invoice.employees = timesheet.employees;    
 
+    
 
     // Remove existing Invoice
     function remove() {
@@ -62,5 +60,28 @@
         vm.error = res.data.message;
       }
     }
+
+    function hasChanged(){
+      
+      vm.invoice.totalDiscount = 0;
+      vm.invoice.totalChargesDiscount = 0;
+      vm.invoice.totalChargesNoDiscount = 0;
+      angular.forEach(vm.invoice.employees, function(value, key){
+        //console.log(key + ': ' + value.billing.currentPeriodCharges);
+        vm.invoice.totalChargesNoDiscount += value.billing.currentPeriodCharges;
+        vm.invoice.totalDiscount += value.billing.discount;
+        value.billing.totalPeriodCharges = 
+          value.billing.currentPeriodCharges - (value.billing.currentPeriodCharges*(value.billing.discount/100));
+        vm.invoice.totalChargesDiscount += value.billing.totalPeriodCharges;
+      });
+    }
+
   }
+
+  /*$scope.hasChanged = function () {
+    angular.forEach(vm.invoice.employees, function(value, key){
+     console.log(key + ': ' + value.billing.currentPeriodCharges);
+    });
+  };*/
+
 }());
