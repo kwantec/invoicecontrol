@@ -6,17 +6,143 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Timesheet = mongoose.model('Timesheet'),
+  Loggy = mongoose.model('Loggy'),
+  WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
+
 
 /**
  * Create a Timesheet
  */
 exports.create = function(req, res) {
-  var timesheet = new Timesheet(req.body);
-  timesheet.user = req.user;
+  var timesheet = {};
+  var workTeamLength = 0;
+  var workTeamLeaderLength = 0;
 
-  timesheet.save(function(err) {
+  console.log(req.body);
+  Loggy.find({
+    "created": {
+      "$gte": req.body.startDate,
+      "$lte": req.body.finishDate
+    },
+    "workTeam" : req.body.team
+  }).exec(function(err, loggiesSearched) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log("loggies ", loggiesSearched);
+
+      WorkTeam.findById(req.body.team)
+          .populate({
+            path: 'employees',
+            model: 'Employee'
+          })
+          .populate({
+            path: 'employeeLeader',
+            model: 'Employee'
+          })
+          .exec(function(err, workTeamSearched){
+            workTeamLength = workTeamSearched.employees ? workTeamSearched.employees.length : 0;
+            workTeamLeaderLength = workTeamSearched.employeeLeader ? workTeamSearched.employeeLeader.length : 0;
+
+            initTimesheet();
+
+            function initTimesheet(){
+              timesheet = {
+                name: req.body.name,
+                team: req.body.team,
+                startDate: req.body.startDate,
+                finishDate: req.body.finishDate,
+                workDaysInPeriod: 10,
+                workDaysInMonth: 25,
+                dayLogs: [],
+                employees: []
+              };
+
+
+              var startDate = new Date(timesheet.startDate);
+              var finishDate = new Date(timesheet.finishDate);
+
+              var dayLog = {};
+              var employeeLogDay = {};
+              var employeeData = {};
+
+              var timeDiff = Math.abs(startDate.getTime() - finishDate.getTime());
+              var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; //diffDays return diff - 1, FIX: +1 day
+
+              for(var i=0; i< diffDays; i++) {
+                dayLog = {
+                  date: startDate.setDate(startDate.getDate() + i),
+                  employeesLogsDay: []
+                };
+
+                for(var j=0; j < workTeamLength; j++) {
+                  employeeLogDay = {
+                    name: {
+                      firsName: workTeamSearched.employees[j].name,
+                      lastName: workTeamSearched.employees[j].lastName
+                    },
+                    activity: ""
+                  };
+                  dayLog.employeesLogsDay.push(employeeLogDay);
+                }
+                if(workTeamSearched.employeeLeader){
+                  employeeLogDay = {
+                    name: {
+                      firsName: workTeamSearched.employeeLeader.name,
+                      lastName: workTeamSearched.employeeLeader.lastName
+                    },
+                    activity: ""
+                  };
+                  dayLog.employeesLogsDay.push(employeeLogDay);
+                }
+
+                timesheet.dayLogs.push(dayLog);
+
+              }
+
+              for(j=0; j < workTeamLength; j++) {
+                employeeData = {
+                  employee: workTeamSearched.employees[j]._id,
+                  billing: {
+                    level: "",
+                    monthly: 0,
+                    daysWorked: 0,
+                    vacationSickDays: 0,
+                    currentPeriodCharges: 0,
+                    discount: 0,
+                    totalPeriodCharges: 0
+                  }
+                };
+
+                timesheet.employees.push(employeeData);
+              }
+              if(workTeamSearched.employeeLeader) {
+                employeeData = {
+                  employee: workTeamSearched.employeeLeader._id,
+                  billing: {
+                    level: "",
+                    monthly: 0,
+                    daysWorked: 0,
+                    vacationSickDays: 0,
+                    currentPeriodCharges: 0,
+                    discount: 0,
+                    totalPeriodCharges: 0
+                  }
+                };
+                timesheet.employees.push(employeeData);
+              }
+
+              console.log(timesheet);
+            }
+          });
+    }
+  });
+
+  /*timesheet.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -24,7 +150,7 @@ exports.create = function(req, res) {
     } else {
       res.jsonp(timesheet);
     }
-  });
+  });*/
 };
 
 /**
