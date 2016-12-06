@@ -70,7 +70,7 @@ exports.list = function (req, res) {
         } else {
             res.json(teams);
         }
-    });
+    }).populate("employeeLeader");
 };
 
 exports.read = function (req, res) {

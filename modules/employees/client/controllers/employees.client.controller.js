@@ -7,33 +7,38 @@
         .module('employees')
         .controller('EmployeesClientController', EmployeesClientController);
 
-    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams', 'Employees', '$location', '$mdToast'];
+    EmployeesClientController.$inject = ['$scope', '$resource', '$stateParams',
+        'Employees', '$location', '$mdToast', 'Admin','ResourceTypes'];
 
-    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast) {
+    function EmployeesClientController($scope, $resource, $stateParams, Employees, $location, $mdToast, Users,ResourceTypes) {
         var Employee = $resource('/api/employees');
-        var Users = $resource('/api/users');
 
         $scope.userData = {
             userList: getUsers()
         };
 
         function getUsers() {
-            return Users.query();
+            return Users.query({restriction:true});
         }
 
+        $scope.resourceTypeList = {
+          data : ResourceTypes.query()
+        };
+
+
         $scope.addEmployee = function () {
-            Employee.save($scope.newEmployee, function () {
+            var newEmployee = Employee.save($scope.newEmployee, function () {
                 initNewEmployee();
                 $scope.showToastSave();
                 console.log("Employee saved");
             });
+            updateUser(newEmployee)
         };
 
         $scope.findEmployee = function () {
             Employees.get(
                 {employeeId: $stateParams.employeeId},
                 function (employee) {
-                    employee.dob = new Date(employee.dob);
                     $scope.employee = employee;
                 },
                 function (errorResponse) {
@@ -45,11 +50,26 @@
         $scope.update = function () {
             var employee = $scope.employee;
             employee.$update(function () {
-                $location.path('employees/' + employee._id);
+                updateUser(employee);
             }, function (errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
         };
+
+        function updateUser(employee) {
+            return Users.get(
+                {userId: employee.user},
+                function (user) {
+                    user.employee = employee._id;
+
+                    user.$update(function () {
+                        $location.path('employees/' + employee._id);
+                    });
+                },
+                function (errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+        }
 
         $scope.removeEmployee = function () {
             $scope.employee.$delete(
@@ -93,7 +113,7 @@
             $scope.newEmployee.curp = "";
             $scope.newEmployee.picture = "";
             $scope.newEmployee.user = "";
-            return 0;
+            $scope.newEmployee.resourceType = "";
         }
     }
 }());

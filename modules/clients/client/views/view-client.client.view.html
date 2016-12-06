@@ -1,0 +1,206 @@
+<div ng-init="findOne()">
+    <div class="page-header">
+        <div layout="row" layout-align="start center">
+            <h1 class="md-display-1" ng-bind="client.name"></h1>
+
+            <md-button class="md-raised md-primary" ui-sref="clients.edit({clientId: client._id})" flex="none">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Editar
+            </md-button>
+
+            <md-button class="md-raised md-warn" ng-click="showConfirmDialog($event)">
+                <span class="glyphicon glyphicon-trash"></span>
+                Borrar
+            </md-button>
+        </div>
+    </div>
+
+    <md-content class="md-padding">
+        <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom>
+            <md-tab id="tab1">
+                <md-tab-label>Informaci&oacute;n del cliente</md-tab-label>
+                <md-tab-body>
+                    <div layout-xs="column" layout="row">
+                        <div flex-xs flex-gt-xs="50" layout="column">
+                            <md-card>
+                                <md-card-title>
+                                    <md-card-title-text>
+                                        <span class="md-headline">Informaci&oacute;n general</span>
+                                    </md-card-title-text>
+                                </md-card-title>
+
+                                <md-card-content>
+                                    <md-list flex>
+                                        <!-- NOMBRE -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">work</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.name}}</h3>
+                                                <p>Nombre del cliente</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- EMAIL -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">email</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.email}}</h3>
+                                                <p>Email</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- TELÉFONO -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">call</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.phone}}</h3>
+                                                <p>Tel&eacute;fono</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- TAX ID -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">attach_money</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.taxId}}</h3>
+                                                <p>Tax ID</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- SITIO WEB -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">language</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.url}}</h3>
+                                                <p>Sitio web</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- UBICACIÓN -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">room</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.address.city + ", " + client.address.state + ", " +
+                                                    client.address.country}}</h3>
+                                                <p>Ubicaci&oacute;n</p>
+                                            </div>
+                                        </md-list-item>
+                                    </md-list>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+
+                        <!-- CONTACTO -->
+                        <div flex-xs flex-gt-xs="50" layout="column">
+                            <md-card>
+                                <md-card-title>
+                                    <md-card-title-text>
+                                        <span class="md-headline">Informaci&oacute;n de contacto</span>
+                                    </md-card-title-text>
+                                </md-card-title>
+
+                                <md-card-content>
+                                    <md-list flex>
+                                        <!-- CONTACT NAME -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">person</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.contact.name}}</h3>
+                                                <p>Nombre</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- EMAIL -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">email</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.contact.email}}</h3>
+                                                <p>Email</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- PHONE -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">call</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.contact.officePhone}}</h3>
+                                                <p>Tel&eacute;fono de oficina</p>
+                                            </div>
+                                        </md-list-item>
+
+                                        <md-divider></md-divider>
+
+                                        <!-- CELLPHONE -->
+                                        <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">call</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{client.contact.cellPhone}}</h3>
+                                                <p>Tel&eacute;fono celular</p>
+                                            </div>
+                                        </md-list-item>
+                                    </md-list>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                    </div>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab id="tab2">
+                <md-tab-label>&Oacute;rdenes de compra</md-tab-label>
+                <md-tab-body>
+                    <div style="margin-top: 15px">
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>N&uacute;mero de compra</th>
+                                <th>Nombre</th>
+                                <th>Monto asignado</th>
+                                <th>Monto restante</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="purchaseOrder in purchaseOrders">
+                                <td>
+                                    <a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.purchaseNumber}}</a>
+                                </td>
+                                <td><a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.name}}</a></td>
+                                <td>{{'$' + purchaseOrder.assignedAmount}}</td>
+                                <td>{{'$' + purchaseOrder.remainingAmount}}</td>
+                                <td>
+                                    <md-button class="md-secondar md-icon-button md-primary"
+                                               ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">
+                                        <md-icon class="material-icons">remove_red_eye</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div>
+
+
+
+
+
+
+

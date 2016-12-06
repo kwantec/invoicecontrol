@@ -51,6 +51,7 @@ exports.update = function (req, res) {
             employee.curp = req.body.curp;
             employee.picture = req.body.picture;
             employee.user = req.body.user;
+            employee.resourceType = req.body.resourceType;
 
 
 

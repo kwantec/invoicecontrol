@@ -11,7 +11,11 @@ var purchaseOrderSchema = new Schema({
         name: String,
         description: String,
         assignedAmount: Number,
-        remainingAmount: Number
+        remainingAmount: Number,
+        client: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Client'
+        }
     },
     {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
