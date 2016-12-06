@@ -37,22 +37,12 @@
 
                 <div flex>
                   <md-input-container>
-                    <label>Seleccionar Equipo</label>
-                    <md-select ng-model="newTimesheet.teamName">
-                      <md-option><em>None</em></md-option>
-                      <md-option ng-value="team1">
-                        Team 1
-                      </md-option>
-                      <md-option ng-value="team2">
-                        Team 2
-                      </md-option>
-                      <md-option ng-value="team3">
-                        Team 3
-                      </md-option>
+                    <label>Nombre del timesheet:</label>
+                    <md-select ng-model="newTimesheet.team">
+                      <md-option ng-value="team._id" ng-repeat="team in teams">{{ team.name }}</md-option>
                     </md-select>
                   </md-input-container>
                 </div>
-
               </div>
             </md-card-content>
           </md-card>
