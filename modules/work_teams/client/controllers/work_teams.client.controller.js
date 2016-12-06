@@ -2,11 +2,14 @@
 
 // Work Teams controller
 angular.module('workTeams')
-    .controller('WorkTeamsController', ['$scope', '$stateParams', '$mdDialog', '$location', 'Authentication', 'WorkTeams', 'Employees', '$window',
-        function ($scope, $stateParams,$mdDialog, $location, Authentication, WorkTeams, Employees, $window) {
+    .controller('WorkTeamsController', ['$scope', '$stateParams', '$mdDialog', '$location', 'Authentication', 'WorkTeams', 'Employees', 'Clients', '$window',
+        function ($scope, $stateParams,$mdDialog, $location, Authentication, WorkTeams, Employees, Clients, $window) {
             $scope.authentication = Authentication;
             $scope.employees = Employees.query();
             $scope.integrant = {};
+
+            $scope.client = {};
+            $scope.clients = Clients.query();
 
             $scope.addIntegrant = function(){
                 $scope.workTeam.employees.push($scope.integrant);
@@ -127,7 +130,8 @@ angular.module('workTeams')
                         email : null
                     },
                     employees : [],
-                    employeeLeader : {}
+                    employeeLeader : {},
+                    client: ""
                 };
             };
 

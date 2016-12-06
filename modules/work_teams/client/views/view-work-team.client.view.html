@@ -21,6 +21,7 @@
                 <md-card-title-text>
                     <h3 class="md-headline">"{{workTeam.name}}"</h3>
                     <h5 class="md-subhead description">{{workTeam.description}}</h5>
+                    <h5 class="md-subhead description">{{workTeam.client.name}}</h5>
                     <h5>{{workTeam.name}} Stack: </h5>
                     <md-chips>
                       <md-chip ng-repeat="tech in workTeam.technologies" ng-click="searchTerm(tech)">{{tech}}</md-chip>

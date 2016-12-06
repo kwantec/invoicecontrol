@@ -18,6 +18,7 @@
     <thead>
     <tr>
       <th>Nombre</th>
+      <th>Cliente</th>
       <th>Líder Local</th>
       <th>Líder Remoto</th>
       <th>Arquitecto</th>
@@ -30,6 +31,7 @@
     <tbody>
     <tr ng-repeat="current in workTeams">
       <td>{{current.name}}</td>
+      <td>{{current.client.name}}</td>
       <td>{{current.employeeLeader.name}}</td>
       <td>{{current.leader.name}}</td>
       <td>{{current.architect.name}}</td>

@@ -11,7 +11,7 @@
 
             <md-input-container flex="50">
                 <label>Cliente</label>
-                <md-select ng-model="newPurchaseOrder.client" ng-readonly="isClientSet()">
+                <md-select ng-model="newPurchaseOrder.client" ng-disabled="isClientSet()">
                     <md-option ng-repeat="client in clients" ng-value="client._id">
                         {{client.name}}
                     </md-option>

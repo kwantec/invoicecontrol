@@ -27,8 +27,7 @@ var clientSchema = new Schema({
         taxId: String,
         phone: String,
         email: {type: String, required: "Write your email", match: email_match},
-        url: String,
-        workTeams: [{type: mongoose.Schema.Types.ObjectId, ref: 'WorkTeam'}]
+        url: String
     },
     {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at', deleteAt: 'delete_at'}

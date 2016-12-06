@@ -10,25 +10,25 @@ var workTeamSchema = new Schema({
         name: String,
         description: String,
         leader: {
-            name:String,
-            phone:String,
-            office:String,
-            cellphone:String,
+            name: String,
+            phone: String,
+            office: String,
+            cellphone: String,
             email: {type: String, required: "Write your email", match: email_match}
         },
-        architect : {
-            name:String,
-            phone:String,
-            office:String,
-            cellphone:String,
+        architect: {
+            name: String,
+            phone: String,
+            office: String,
+            cellphone: String,
             email: {type: String, required: "Write your email", match: email_match}
         },
         technologies: [String],
         employees: [{type: mongoose.Schema.Types.ObjectId, ref: 'Employee'}],
-        employeeLeader: {type: mongoose.Schema.Types.ObjectId, ref: 'Employee'}
-
+        employeeLeader: {type: mongoose.Schema.Types.ObjectId, ref: 'Employee'},
+        client: {type: mongoose.Schema.Types.ObjectId, ref: 'Client'}
     },
-    { timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'} }
+    {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}}
 );
-workTeamSchema.plugin(mongoose_delete,{ deletedAt : true });
+workTeamSchema.plugin(mongoose_delete, {deletedAt: true});
 mongoose.model("WorkTeam", workTeamSchema);
