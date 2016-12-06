@@ -5,7 +5,7 @@
   <div class="col-md-12">
 
     <md-content flex layout-padding>
-          <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="vm.save(vm.form.timesheetForm.$valid)" novalidate>
+          <form name="vm.form.timesheetForm" class="form-horizontal" ng-submit="update()" novalidate>
         <fieldset>
 
           <div id="info">
@@ -58,8 +58,9 @@
                 <th>Current Period Charges</th>
                 <th>Discount</th>
                 <th>Total Period Charges</th>
+                <th></th>
               </tr>
-              <tr ng-repeat="employee in timesheet.employees">
+              <tr ng-repeat="employee in timesheet.employees track by $index">
                 <td>{{employee.employee.name}}</td>
                 <td>{{employee.employee.lastName}}</td>
                 <td>
@@ -83,9 +84,31 @@
                 <td>
                   <input type="text" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges">
                 </td>
+                <td style="vertical-align:middle">
+                  <a ng-click="removeEmployee($index, employee.employee.name, employee.employee.lastName);"><i class="glyphicon glyphicon-trash"></i></a>
+                </td> 
+              </tr>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Totals:</th>
+                <th>$ {{currentPeriodCharges}}</th>
+                <th>${{discount}} </th>
+                <th>$ {{totalPeriodCharges}}</th>
+                <th></th>
               </tr>
             </table>
+            
           </div>
+          <div layout="row">
+              <div flex style="text-align:right">
+                <md-button class="md-raised md-primary" ng-click="updateTotals()">Actualizar</md-button>
+                <md-button class="md-raised md-primary" ng-click="showDialog($event)">Agregar</md-button>
+              </div>
+            </div>
 
           <div class="form-group" id="logs">
             <div layout="column">
@@ -112,7 +135,7 @@
 
           <!--Update Button-->
           <div class="form-group">
-            <button type="submit" class="btn btn-default">Actualizar</button>
+            <button type="submit" class="md-raised md-primary md-button md-ink-ripple">Actualizar</button>
           </div>
           <div ng-show="vm.error" class="text-danger">
             <strong ng-bind="vm.error"></strong>

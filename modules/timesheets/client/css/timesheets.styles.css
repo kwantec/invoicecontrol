@@ -14,3 +14,20 @@
 md-input-container {
 	margin:0px;
 }
+
+.modal-timesheet {
+	padding: 20px;
+	min-width: 50%;
+}
+
+#select-modal {
+	width: 150px;
+}
+
+#contract {
+	overflow-x: scroll;
+}
+
+#contract input {
+	max-width: 100px;
+}

@@ -3,11 +3,14 @@
 var path = require('path');
 var mongoose = require("mongoose");
 var Employee = mongoose.model("Employee");
+var ResourceType = mongoose.model("ResourceType");
 var errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 exports.create = function (req, res) {
     var employee = new Employee(req.body);
 
+ResourceType.findById('583e31fdc93cfed513c438ce', function(err, resource){
+    employee.resourceType = resource;
     employee.save(function (err) {
         if (err) {
             return res.status(400).send({
@@ -17,6 +20,10 @@ exports.create = function (req, res) {
             res.json(employee);
         }
     });
+});
+
+    // employee.resourceType = '583e31fdc93cfed513c438ce';
+    
 };
 
 exports.update = function (req, res) {
@@ -85,7 +92,7 @@ exports.read = function (req, res) {
 
             res.json(employee);
         }
-    }).populate("user");;
+    }).populate("user").populate('resourceType');
 };
 
 exports.delete = function (req, res) {

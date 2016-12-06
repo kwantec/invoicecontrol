@@ -1,0 +1,18 @@
+<md-dialog aria-label="List dialog" class="modal-timesheet">
+  <md-dialog-content>
+    <label>Selecciona Empleado</label>
+    <div flex>
+      <md-input-container id="select-modal"flex-gt-xs>
+        <md-select ng-model="newEmployee" >
+          <md-option ng-value="opt" ng-repeat="opt in employees">
+            {{ opt.name }}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="closeDialog()" class="md-primary">Cancelar</md-button>
+    <md-button class="md-raised md-primary" ng-click="selectedEmployee(newEmployee._id)">Agregar</md-button>
+  </md-dialog-actions>
+</md-dialog>

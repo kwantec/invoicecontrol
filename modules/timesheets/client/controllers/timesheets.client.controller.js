@@ -6,11 +6,12 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees', '$stateParams', 'TimesheetsService'];
 
-  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees, $stateParams, TimesheetsService) {
 
     var vm = this;
+    var Timesheet = $resource('/api/timesheets');
 
     $scope.newTimesheet = {};
     $scope.newTimesheet.name = "";
@@ -18,106 +19,148 @@
     $scope.newTimesheet.finishDate = "";
     $scope.newTimesheet.teamName = "";
 
+    $scope.employees = Employees.query();
+
     vm.authentication = Authentication;
-    //vm.timesheet = timesheet;
-    vm.timesheet = $scope.timesheet;
+    vm.timesheet = timesheet;
+    //vm.timesheet = getTimesheetMock();
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
 
-    $scope.timesheet = {
-      team: {
-        name: 'FERROS'
-      },
-      startDate: '1/12/2016',
-      finishDate: '30/12/2016',
-      workDaysInPeriod: 15,
-      workDaysInMonth: 15,
-      dayLogs: [{
-        date: "12/12/2016",
-        employeesLogsDay: [{
-          name: {
-            firstName: 'Migui',
+    if($stateParams.timesheetId){
+      //$scope.timesheet = vm.timesheet;
+      $scope.timesheet = getTimesheetMock();
+      $scope.totalPeriodCharges = 0;
+      $scope.currentPeriodCharges = 0;
+      $scope.discount = 0;
+      calculateTotals();
+    }
+
+    function getTimesheetMock(){
+      return {
+        _id: "583b266a41afddb2122415c1",
+        team: {
+          name: 'FERROS'
+        },
+        startDate: '1/12/2016',
+        finishDate: '30/12/2016',
+        workDaysInPeriod: 3,
+        workDaysInMonth: 3,
+        dayLogs: [{
+          date: "12/12/2016",
+          employeesLogsDay: [{
+            name: {
+              firstName: 'Migui',
+              lastName: 'Rodriguez'
+            },
+            activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
+          }, {
+            name: {
+              firstName: 'Rob',
+              lastName: 'Franco'
+            },
+            activity: "Actividad de Rob"
+          }, {
+            name: {
+              firstName: 'Walter',
+              lastName: 'Mendez'
+            },
+            activity: "Actividad de Walter"
+          }]
+        },
+          {
+            date: "12/12/2016",
+            employeesLogsDay: [{
+              name: {
+                firstName: 'Migui',
+                lastName: 'Rodriguez'
+              },
+              activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
+            }, {
+              name: {
+                firstName: 'Rob',
+                lastName: 'Franco'
+              },
+              activity: "Actividad de Rob"
+            }, {
+              name: {
+                firstName: 'Walter',
+                lastName: 'Mendez'
+              },
+              activity: "Actividad de Walter"
+            }]
+          },
+          {
+            date: "12/12/2016",
+            employeesLogsDay: [{
+              name: {
+                firstName: 'Migui',
+                lastName: 'Rodriguez'
+              },
+              activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
+            }, {
+              name: {
+                firstName: 'Rob',
+                lastName: 'Franco'
+              },
+              activity: "Actividad de Rob"
+            }, {
+              name: {
+                firstName: 'Walter',
+                lastName: 'Mendez'
+              },
+              activity: "Actividad de Walter"
+            }]
+          }],
+        employees: [{
+          employee: {
+            name: 'Migui',
             lastName: 'Rodriguez'
           },
-          activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
-        }, {
-          name: {
-            firstName: 'Rob',
+          billing: {
+            level: 'intermediate',
+            monthly: 10000,
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
+        },
+        {
+          employee: {
+            name: 'Rob',
             lastName: 'Franco'
           },
-          activity: "Actividad de Rob"
-        }, {
-          name: {
-            firstName: 'Walter',
+          billing: {
+            level: 'intermediate',
+            monthly: 10000,
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
+        },
+        {
+          employee: {
+            name: 'Walter',
             lastName: 'Mendez'
           },
-          activity: "Actividad de Walter"
+          billing: {
+            level: 'intermediate',
+            monthly: 10000,
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
         }]
-      },
-        {
-          date: "12/12/2016",
-          employeesLogsDay: [{
-            name: {
-              firstName: 'Migui',
-              lastName: 'Rodriguez'
-            },
-            activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
-          }, {
-            name: {
-              firstName: 'Rob',
-              lastName: 'Franco'
-            },
-            activity: "Actividad de Rob"
-          }, {
-            name: {
-              firstName: 'Walter',
-              lastName: 'Mendez'
-            },
-            activity: "Actividad de Walter"
-          }]
-        },
-        {
-          date: "12/12/2016",
-          employeesLogsDay: [{
-            name: {
-              firstName: 'Migui',
-              lastName: 'Rodriguez'
-            },
-            activity: "Actividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de MiguiActividad de Migui"
-          }, {
-            name: {
-              firstName: 'Rob',
-              lastName: 'Franco'
-            },
-            activity: "Actividad de Rob"
-          }, {
-            name: {
-              firstName: 'Walter',
-              lastName: 'Mendez'
-            },
-            activity: "Actividad de Walter"
-          }]
-        }],
-      employees: [{
-        employee: {
-          name: 'Migui',
-          lastName: 'Rodriguez'
-        },
-        billing: {
-          level: 'intermediate',
-          monthly: '10000',
-          daysWorked: 15,
-          vacationSickDays: 1,
-          currentPeriodCharges: 0.00,
-          discount: 0.00,
-          totalPeriodCharges: 0.00
-        }
-      }]
-    };
-
-    var Timesheet = $resource('/api/timesheets');
+      };
+    }
 
     $scope.addTimesheet = function () {
       console.log($scope.newTimesheet);
@@ -170,6 +213,161 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    $scope.update = function () {
+        var timesheet = $scope.timesheet;
+        timesheet.$update(function () {
+            console.log("timesheet actualizada");
+        }, function (errorResponse) {
+            $scope.error = errorResponse.data.message;
+            console.log(errorResponse);
+        });
+    };
+
+    $scope.showDialog = function($event) {
+       
+       console.log("emp", $scope.employees);
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl: 'modules/timesheets/client/views/modal-addemployee.client.view.html',
+         locals: {
+           employees: $scope.employees
+         },
+         controller: DialogController
+      });
+      function DialogController($scope, $mdDialog, employees) {
+        $scope.employees = employees;
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+        }
+
+        $scope.selectedEmployee = function(_id) {
+          $scope.closeDialog();
+          addEmployee(_id);
+        }
+      }
+    }
+
+    function calculateTotals(){
+      for(var index=0; index<$scope.timesheet.employees.length; index++){
+        $scope.timesheet.employees[index].billing.totalPeriodCharges =
+          $scope.timesheet.employees[index].billing.monthly;
+
+        $scope.currentPeriodCharges += $scope.timesheet.employees[index].billing.currentPeriodCharges;
+        $scope.discount += $scope.timesheet.employees[index].billing.discount;
+        $scope.totalPeriodCharges += $scope.timesheet.employees[index].billing.totalPeriodCharges;
+      }
+    }
+
+    $scope.updateTotals = function(){
+      $scope.currentPeriodCharges = 0;
+      $scope.discount = 0;
+      $scope.totalPeriodCharges = 0;
+      calculateTotals();
+    }
+
+    $scope.removeEmployee = function(index, name, lastName){
+      $scope.currentPeriodCharges -= $scope.timesheet.employees[index].billing.currentPeriodCharges;
+      $scope.discount -= $scope.timesheet.employees[index].billing.discount;
+      $scope.totalPeriodCharges -= $scope.timesheet.employees[index].billing.totalPeriodCharges;
+
+      $scope.timesheet.employees.splice(index, 1);
+      var dayLogs = $scope.timesheet.dayLogs[0].employeesLogsDay;
+      var indexLog = 0;
+      for(var i=0; i<dayLogs.length; i++){
+        if(dayLogs[i].name.firstName == name){
+          indexLog = i;
+          break;
+        }
+      }
+      for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
+        $scope.timesheet.dayLogs[date].employeesLogsDay.splice(indexLog, 1);
+      }
+    }
+
+    function addEmployee(_id) {
+      console.log("received");
+      var newEmp = getNewEmployeeInfo(_id);
+      newEmp.billing.totalPeriodCharges =
+          newEmp.billing.monthly;
+      $scope.timesheet.employees.push(newEmp);
+
+      $scope.currentPeriodCharges += newEmp.billing.currentPeriodCharges;
+      $scope.discount += newEmp.billing.discount;
+      $scope.totalPeriodCharges += newEmp.billing.totalPeriodCharges;
+
+      var newLogs = getNewEmployeeLogs(_id, timesheet.startDate, timesheet.finishDate);
+      for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
+        $scope.timesheet.dayLogs[date].employeesLogsDay.push(newLogs[date]);
+      }
+    }
+
+    // recurso para obtener logs del usuario
+    function getNewEmployeeLogs(_id, startDate, finishDate) {
+      return [{
+        name: {
+          firstName: "Carlos",
+          lastName: "Riancho"
+        },
+        activity: "Activity"
+      },
+      {
+        name: {
+          firstName: "Carlos",
+          lastName: "Riancho"
+        },
+        activity: "Activity"
+      },
+      {
+        name: {
+          firstName: "Carlos",
+          lastName: "Riancho"
+        },
+        activity: "Activity"
+      }]
+    }
+
+    function getNewEmployeeInfo(_id) {
+      Employees.get(
+          {employeeId: "583e328907f14f71147fefbc"},
+          function (employee) {
+              employee.dob = new Date(employee.dob);
+              console.log("employee", employee);
+              var obj = {};
+              obj.employee.id = employee.id;
+              obj.employee.name = employee.name;
+              obj.employee.lastName = employee.lastName;
+              obj.billing.level = employee.resourceType.level;
+              obj.billing.monthly = employee.resourceType.rate;
+              obj.billing.vacationSickDays = 0;
+              obj.billing.currentPeriodCharges = 0.00;
+              obj.billing.discount = 0.00;
+              obj.totalPeriodCharges = obj.billing.monthly;
+              return obj;
+          },
+          function (errorResponse) {
+              $scope.error = errorResponse.data.message;
+          }
+      );
+    
+      /*return {
+          employee: {
+            name: 'Carlos',
+            lastName: 'Riancho'
+          },
+          billing: {
+            level: 'Senior',
+            monthly: '20000',
+            daysWorked: 15,
+            vacationSickDays: 1,
+            currentPeriodCharges: 0.00,
+            discount: 0.00,
+            totalPeriodCharges: 0.00
+          }
+        } */
     }
   }
 }());
