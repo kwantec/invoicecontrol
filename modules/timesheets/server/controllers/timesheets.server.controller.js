@@ -53,41 +53,49 @@ exports.create = function(req, res) {
             workTeamLeaderLength = workTeamSearched.employeeLeader ? workTeamSearched.employeeLeader.length : 0;
 
             initTimesheet();
-            loggiesSearched.forEach(function(loggy, i, loggies){
-              var dateTemp = new Date(loggy.created);
-              var loggieDate = new Date(dateTemp.getFullYear(),dateTemp.getMonth(), dateTemp.getDate());
+            fillTimesheetWithLoggies();
+            saveTimesheet();
 
-              /*console.log(loggieDate);*/
-
-              timesheet.dayLogs.forEach(function(dayLog, j, dayLogs){
-                /*console.log(dayLog.date.getTime() + "¿==? " +loggieDate.getTime());*/
-                if(dayLog.date.getTime() == loggieDate.getTime()) {
-                  /*console.log("aiuda 2", loggy.employee.name);*/
-                  dayLog.employeesLogsDay.forEach(function(employeeLogDay, k, employeesLogsDay){
-                    /*console.log("aiuda 3", loggy.employee.name);
-                    console.log("aiuda 4", employeeLogDay.name.firstName);*/
-                    if(employeeLogDay.name.firsName == loggy.employee.name){
-                      /*console.log("aiuda 5", employeeLogDay);*/
-                      employeeLogDay.activity = loggy.activity;
-                      /*console.log("aiuda 6",employeeLogDay);*/
-                    }
-                  });
-                }
-              });
-            });
             console.log("Json final ",util.inspect(timesheet, false, null))
 
-            var newTimesheet = new Timesheet(timesheet);
+            function fillTimesheetWithLoggies(){
+              loggiesSearched.forEach(function(loggy, i, loggies){
+                var dateTemp = new Date(loggy.created);
+                var loggieDate = new Date(dateTemp.getFullYear(),dateTemp.getMonth(), dateTemp.getDate());
 
-            newTimesheet.save(function(err) {
-             if (err) {
-               return res.status(400).send({
-                 message: errorHandler.getErrorMessage(err)
-               });
-             } else {
-               res.jsonp(timesheet);
-             }
-            });
+                /*console.log(loggieDate);*/
+
+                timesheet.dayLogs.forEach(function(dayLog, j, dayLogs){
+                  /*console.log(dayLog.date.getTime() + "¿==? " +loggieDate.getTime());*/
+                  if(dayLog.date.getTime() == loggieDate.getTime()) {
+                    /*console.log("aiuda 2", loggy.employee.name);*/
+                    dayLog.employeesLogsDay.forEach(function(employeeLogDay, k, employeesLogsDay){
+                      /*console.log("aiuda 3", loggy.employee.name);
+                       console.log("aiuda 4", employeeLogDay.name.firstName);*/
+                      if(employeeLogDay.name.firsName == loggy.employee.name){
+                        /*console.log("aiuda 5", employeeLogDay);*/
+                        employeeLogDay.activity = loggy.activity;
+                        /*console.log("aiuda 6",employeeLogDay);*/
+                      }
+                    });
+                  }
+                });
+              });
+            }
+
+            function saveTimesheet(){
+              var newTimesheet = new Timesheet(timesheet);
+
+              newTimesheet.save(function(err) {
+                if (err) {
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  res.jsonp(timesheet);
+                }
+              });
+            }
 
             function initTimesheet(){
               timesheet = {
