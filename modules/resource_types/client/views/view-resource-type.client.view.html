@@ -11,31 +11,39 @@
       <md-card-title>
         <md-card-title-media>
           <div class="md-media-sm card-media" layout>
-            <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+            <md-icon class="material-icons md-48">work</md-icon>
           </div>
         </md-card-title-media>
         <md-card-title-text>
           <span class="md-headline">{{resourceType.name}}</span>
-          <span class="md-subhead description">{{resourceType.created_at}}</span>
+          <span class="md-subhead description">Creado en {{resourceType.created_at}}</span>
         </md-card-title-text>
       </md-card-title>
     </md-card>
     <md-toolbar class="md-theme-light">
       <h4 class="md-toolbar-tools">
-        <span>Tarifa</span>
+        <span>Tarifas</span>
       </h4>
     </md-toolbar>
-    <md-list>
-      <md-list-item class="md-3-line" ng-repeat="current in resourceType.rates">
-        <div class="md-list-item-text">
-          <h2>{{current.level}} - {{current.name}}</h2>
-          <h3>Tarifa : {{ current.rate | currency }}</h3>
-          <h4>Descripcion : {{current.description}}</h4>
-          <h5>Habilidades : {{current.qualities}}</h5>
-        </div>
-        <md-divider ng-if="!$last"></md-divider>
-      </md-list-item>
-    </md-list>
+    <md-card ng-repeat="current in resourceType.rates">
+      <md-card-title>
+        <md-card-title-media>
+          <div class="md-media-sm card-media" layout>
+            <md-icon class="material-icons md-48">portrait</md-icon>
+          </div>
+        </md-card-title-media>
+        <md-card-title-text>
+          <h4 class="md-headline">#{{current.level}} {{current.name}} ({{current.description}})</h4>
+          <h5 class="md-subhead description">Tarifa : {{ current.rate | currency }}</h5>
+          <h5>Cualidades Deseadas: </h5>
+          <ul>
+            <li ng-repeat="item in current.qualities">
+              {{item}}
+            </li>
+          </ul>
+        </md-card-title-text>
+      </md-card-title>
+    </md-card>
     <md-button class="text-center md-raised md-primary" ui-sref="resource-types.edit({resourceTypeId: resourceType._id})">Editar</md-button>
   </md-content>
 </section>

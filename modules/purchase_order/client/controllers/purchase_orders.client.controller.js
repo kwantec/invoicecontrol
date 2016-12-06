@@ -1,28 +1,47 @@
 'use strict';
 
-angular.module('purchaseOrders').controller('PurchaseOrdersController', ['$scope', '$stateParams', '$location', 'Authentication', 'PurchaseOrders',
-    function ($scope, $stateParams, $location, Authentication, PurchaseOrders) {
+angular.module('purchaseOrders').controller('PurchaseOrdersController', [
+    '$scope',
+    '$stateParams',
+    '$location',
+    'Authentication',
+    'PurchaseOrders',
+    'Clients',
+    '$mdDialog',
+    '$mdToast',
+    function ($scope, $stateParams, $location, Authentication, PurchaseOrders, Clients, $mdDialog, $mdToast) {
         $scope.authentication = Authentication;
-        /*
-        $scope.sortType = 'name';
-        $scope.sortReverse = false;
-        $scope.searchCustomer = '';
-        */
+        $scope.client = {};
+        $scope.clients = Clients.query();
 
-        $scope.newPurchaseOrder = {
-            purchaseNumber: "",
-            name: "",
-            description: "",
-            assignedAmount: "",
-            remainingAmount: "",
-        };
+        $scope.init = function () {
+            $scope.newPurchaseOrder = {
+                purchaseNumber: "",
+                name: "",
+                description: "",
+                assignedAmount: 0,
+                remainingAmount: 0,
+                client: ""
+            };
+
+            if ($scope.isClientSet()) {
+                $scope.newPurchaseOrder.client = $stateParams.client._id;
+            }
+        }
+
+        $scope.isClientSet = function () {
+            if ($stateParams.client) {
+                return true;
+            }
+
+            return false;
+        }
 
         $scope.create = function (isValid) {
             $scope.error = null;
 
             if (!isValid) {
-                console.log("error");
-                //$scope.$broadcast('show-errors-check-validity', 'customerForm');
+                $scope.$broadcast('show-errors-check-validity', 'purchaseOrderForm');
 
                 return false;
             }
@@ -32,13 +51,13 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', ['$scope
                 name: $scope.newPurchaseOrder.name,
                 description: $scope.newPurchaseOrder.description,
                 assignedAmount: $scope.newPurchaseOrder.assignedAmount,
-                remainingAmount: $scope.newPurchaseOrder.remainingAmount
+                remainingAmount: $scope.newPurchaseOrder.remainingAmount,
+                client: $scope.newPurchaseOrder.client
             });
 
             purchaseOrder.$save(function (response) {
                 $location.path('purchase-orders/' + response._id);
             }, function (errorResponse) {
-                console.log('fail');
                 $scope.error = errorResponse.data.message;
             });
         };
@@ -73,11 +92,34 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', ['$scope
                 {purchaseOrderId: $stateParams.purchaseOrderId},
                 function () {
                     $location.path('purchase-orders/list');
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Orden de compra eliminada')
+                            .hideDelay(3000)
+                    );
                 },
                 function (errorResponse) {
                     $scope.error = errorResponse.data.message;
                 }
             );
         };
+
+        $scope.showConfirmDialog = function (event) {
+            var confirm = $mdDialog.confirm()
+                .title('¿Desea eliminar esta orden de compra?')
+                .targetEvent(event)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+
+            $mdDialog.show(confirm).then(function () {
+                $scope.remove();
+            });
+        };
+
+        $scope.setRemainingAmount = function () {
+            if ($scope.purchaseOrderForm.remainingAmount.$untouched) {
+                $scope.newPurchaseOrder.remainingAmount = $scope.newPurchaseOrder.assignedAmount;
+            }
+        }
     }
 ]);

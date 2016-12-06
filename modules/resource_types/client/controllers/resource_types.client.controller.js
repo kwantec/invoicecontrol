@@ -2,14 +2,10 @@
 
 // ResourceTypes controller
 angular.module('resourceTypes')
-    .controller('ResourceTypesController', ['$scope', '$stateParams', '$location', 'Authentication', 'ResourceTypes',
-        function ($scope, $stateParams, $location, Authentication, ResourceTypes) {
+    .controller('ResourceTypesController', ['$scope', '$stateParams', '$location', 'Authentication', 'ResourceTypes', '$mdDialog',
+        function ($scope, $stateParams, $location, Authentication, ResourceTypes, $mdDialog) {
             $scope.authentication = Authentication;
-            $scope.newResourceType = {
-                name : null,
-                rates: []
-            };
-            $scope.newRate = {
+            $scope.rate = {
                 level : 0,
                 name : null,
                 description : null,
@@ -18,8 +14,8 @@ angular.module('resourceTypes')
             };
 
             $scope.addRate = function(){
-                $scope.newResourceType.rates.push($scope.newRate);
-                $scope.newRate = {
+                $scope.resourceType.rates.push($scope.rate);
+                $scope.rate = {
                     level : 0,
                     name : null,
                     description : null,
@@ -29,7 +25,7 @@ angular.module('resourceTypes')
             };
 
             $scope.deleteRate = function(toDeleteRate){
-                $scope.newResourceType.rates = $scope.newResourceType.rates.filter(function(current){
+                $scope.resourceType.rates = $scope.resourceType.rates.filter(function(current){
                     return current !== toDeleteRate;
                 });
             };
@@ -45,8 +41,8 @@ angular.module('resourceTypes')
 
                 // Create new ResourceType object
                 var resourceType = new ResourceTypes({
-                    name: $scope.newResourceType.name,
-                    rates: $scope.newResourceType.rates
+                    name: $scope.resourceType.name,
+                    rates: $scope.resourceType.rates
                 });
 
                 // Redirect after save
@@ -82,7 +78,7 @@ angular.module('resourceTypes')
                     return false;
                 }
 
-                var resourceType = $scope.newResourceType;
+                var resourceType = $scope.resourceType;
 
                 resourceType.$update(function () {
                     $location.path('resource-types/' + resourceType._id);
@@ -102,7 +98,25 @@ angular.module('resourceTypes')
                 $scope.resourceType = ResourceTypes.get({
                     resourceTypeId: $stateParams.resourceTypeId
                 });
-                $scope.newResourceType = $scope.resourceType;
             };
+
+            $scope.showConfirmDialog = function(current) {
+                var confirm = $mdDialog.confirm()
+                    .title('¿Realmente deseas eliminar este tipo de recurso?')
+                    .textContent('Después de esta acción el tipo de recurso seleccionado ya no sera visible')
+                    .ok('Si')
+                    .cancel('No');
+
+                $mdDialog.show(confirm).then(function() {
+                    $scope.remove(current);
+                });
+            };
+
+            $scope.resetResourceType = function(){
+                $scope.resourceType = {
+                    name : null,
+                    rates: []
+                };
+            }
         }
     ]);
