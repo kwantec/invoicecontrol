@@ -101,6 +101,18 @@
                         </md-select>
 
                     </md-input-container>
+                    <br/>
+
+                    <md-input-container>
+                        <md-select ng-model="newEmployee.resourceType" title="resourceType">
+                            <md-select-header>
+                                <span> Selecciona un tipo de recurso </span>
+                            </md-select-header>
+                            <md-option ng-repeat="resource in resourceTypeList.data" value="{{resource._id}}">
+                                {{resource.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
                 </div>
 
                 <md-button type="submit" class="md-raised md-primary">Save</md-button>

@@ -1,12 +1,14 @@
 <div ng-init="findOne()">
     <div class="page-header">
         <div layout="row" layout-align="start center">
-            <h1 class="md-title" ng-bind="client.name"></h1>
+            <h1 class="md-display-1" ng-bind="client.name"></h1>
+
             <md-button class="md-raised md-primary" ui-sref="clients.edit({clientId: client._id})" flex="none">
                 <span class="glyphicon glyphicon-pencil"></span>
                 Editar
             </md-button>
-            <md-button class="md-raised md-warn" ng-click="showConfirm($event)">
+
+            <md-button class="md-raised md-warn" ng-click="showConfirmDialog($event)">
                 <span class="glyphicon glyphicon-trash"></span>
                 Borrar
             </md-button>
@@ -29,16 +31,20 @@
 
                                 <md-card-content>
                                     <md-list flex>
+                                        <!-- NOMBRE -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">work</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.name}}</h3>
-                                                <p>Nombre</p>
+                                                <p>Nombre del cliente</p>
                                             </div>
                                         </md-list-item>
 
                                         <md-divider></md-divider>
 
+                                        <!-- EMAIL -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">email</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.email}}</h3>
                                                 <p>Email</p>
@@ -47,7 +53,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- TELÉFONO -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">call</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.phone}}</h3>
                                                 <p>Tel&eacute;fono</p>
@@ -56,7 +64,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- TAX ID -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">attach_money</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.taxId}}</h3>
                                                 <p>Tax ID</p>
@@ -65,7 +75,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- SITIO WEB -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">language</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.url}}</h3>
                                                 <p>Sitio web</p>
@@ -74,7 +86,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- UBICACIÓN -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">room</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.address.city + ", " + client.address.state + ", " +
                                                     client.address.country}}</h3>
@@ -86,6 +100,7 @@
                             </md-card>
                         </div>
 
+                        <!-- CONTACTO -->
                         <div flex-xs flex-gt-xs="50" layout="column">
                             <md-card>
                                 <md-card-title>
@@ -96,8 +111,9 @@
 
                                 <md-card-content>
                                     <md-list flex>
-
+                                        <!-- CONTACT NAME -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">person</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.contact.name}}</h3>
                                                 <p>Nombre</p>
@@ -106,7 +122,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- EMAIL -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">email</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.contact.email}}</h3>
                                                 <p>Email</p>
@@ -115,7 +133,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- PHONE -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">call</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.contact.officePhone}}</h3>
                                                 <p>Tel&eacute;fono de oficina</p>
@@ -124,7 +144,9 @@
 
                                         <md-divider></md-divider>
 
+                                        <!-- CELLPHONE -->
                                         <md-list-item class="md-2-line" ng-click="null">
+                                            <md-icon class="material-icons md-24">call</md-icon>
                                             <div class="md-list-item-text" layout="column">
                                                 <h3>{{client.contact.cellPhone}}</h3>
                                                 <p>Tel&eacute;fono celular</p>
@@ -137,45 +159,38 @@
                     </div>
                 </md-tab-body>
             </md-tab>
+
             <md-tab id="tab2">
                 <md-tab-label>&Oacute;rdenes de compra</md-tab-label>
                 <md-tab-body>
-                    <div>
-                        <!-- ÓRDENES DE COMPRA DEL CLIENTE -->
+                    <div style="margin-top: 15px">
                         <table class="table table-striped table-hover table-condensed">
                             <thead>
                             <tr>
+                                <th>N&uacute;mero de compra</th>
                                 <th>Nombre</th>
                                 <th>Monto asignado</th>
                                 <th>Monto restante</th>
+                                <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="purchaseOrder in client.purchaseOrders">
-                                <td><a ng-href="/purchase-orders/{{purchaseOrder._id}}">{{purchaseOrder.name}}</a></td>
-                                <td>{{purchaseOrder.assignedAmount}}</td>
-                                <td>{{purchaseOrder.remainingAmount}}</td>
+                            <tr ng-repeat="purchaseOrder in purchaseOrders">
+                                <td>
+                                    <a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.purchaseNumber}}</a>
+                                </td>
+                                <td><a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.name}}</a></td>
+                                <td>{{'$' + purchaseOrder.assignedAmount}}</td>
+                                <td>{{'$' + purchaseOrder.remainingAmount}}</td>
+                                <td>
+                                    <md-button class="md-secondar md-icon-button md-primary"
+                                               ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">
+                                        <md-icon class="material-icons">remove_red_eye</md-icon>
+                                    </md-button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
-
-                        <!-- ASIGNAR ORDEN DE COMPRA -->
-                        <div layout-gt-xs="row">
-                            <md-input-container class="md-block" flex-gt-xs>
-                                <label>Orden de compra</label>
-                                <md-select ng-model="purchaseOrder">
-                                    <md-option ng-repeat="purchaseOrder in purchaseOrders" ng-value="purchaseOrder">
-                                        {{purchaseOrder.name}}
-                                    </md-option>
-                                </md-select>
-                            </md-input-container>
-                            <md-button
-                                    type="button"
-                                    ng-disabled="!purchaseOrder.name"
-                                    class="md-raised md-primary text-center"
-                                    ng-click="addPurchaseOrder()">Agregar orden de compra
-                            </md-button>
-                        </div>
                     </div>
                 </md-tab-body>
             </md-tab>

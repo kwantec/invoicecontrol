@@ -6,18 +6,36 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
     '$location',
     'Authentication',
     'PurchaseOrders',
+    'Clients',
     '$mdDialog',
     '$mdToast',
-    function ($scope, $stateParams, $location, Authentication, PurchaseOrders, $mdDialog, $mdToast) {
+    function ($scope, $stateParams, $location, Authentication, PurchaseOrders, Clients, $mdDialog, $mdToast) {
         $scope.authentication = Authentication;
+        $scope.client = {};
+        $scope.clients = Clients.query();
 
-        $scope.newPurchaseOrder = {
-            purchaseNumber: "",
-            name: "",
-            description: "",
-            assignedAmount: 0,
-            remainingAmount: 0,
-        };
+        $scope.init = function () {
+            $scope.newPurchaseOrder = {
+                purchaseNumber: "",
+                name: "",
+                description: "",
+                assignedAmount: 0,
+                remainingAmount: 0,
+                client: ""
+            };
+
+            if ($scope.isClientSet()) {
+                $scope.newPurchaseOrder.client = $stateParams.client._id;
+            }
+        }
+
+        $scope.isClientSet = function () {
+            if ($stateParams.client) {
+                return true;
+            }
+
+            return false;
+        }
 
         $scope.create = function (isValid) {
             $scope.error = null;
@@ -33,7 +51,8 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
                 name: $scope.newPurchaseOrder.name,
                 description: $scope.newPurchaseOrder.description,
                 assignedAmount: $scope.newPurchaseOrder.assignedAmount,
-                remainingAmount: $scope.newPurchaseOrder.remainingAmount
+                remainingAmount: $scope.newPurchaseOrder.remainingAmount,
+                client: $scope.newPurchaseOrder.client
             });
 
             purchaseOrder.$save(function (response) {
@@ -85,7 +104,7 @@ angular.module('purchaseOrders').controller('PurchaseOrdersController', [
             );
         };
 
-        $scope.showConfirm = function (event) {
+        $scope.showConfirmDialog = function (event) {
             var confirm = $mdDialog.confirm()
                 .title('¿Desea eliminar esta orden de compra?')
                 .targetEvent(event)

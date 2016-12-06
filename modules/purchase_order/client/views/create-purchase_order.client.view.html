@@ -1,12 +1,23 @@
-<section>
+<section ng-init="init()">
     <div class="page-header">
         <h1>Nueva orden de compra</h1>
     </div>
     <form name="purchaseOrderForm" class="form-horizontal" ng-submit="create(purchaseOrderForm.$valid)" novalidate>
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>N&uacute;mero de compra</label>
-            <input type="text" ng-model="newPurchaseOrder.purchaseNumber" title="purchaseNumber" required>
-        </md-input-container>
+        <div layout="row">
+            <md-input-container flex="50">
+                <label>N&uacute;mero de compra</label>
+                <input type="text" ng-model="newPurchaseOrder.purchaseNumber" title="purchaseNumber" required>
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>Cliente</label>
+                <md-select ng-model="newPurchaseOrder.client" ng-readonly="isClientSet()">
+                    <md-option ng-repeat="client in clients" ng-value="client._id">
+                        {{client.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
 
         <md-input-container class="md-block" layout-gt-xs="row">
             <label>Nombre</label>

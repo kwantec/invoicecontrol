@@ -6,17 +6,17 @@ var mongoose_delete = require('mongoose-delete');
 var Schema = mongoose.Schema;
 
 var resourceTypeSchema = new Schema({
-        name:String,
-        rates: [{
+        name: String,
+        rate: {
             level: Number,
             name: String,
             description: String,
             qualities: [String],
-            rate:Number
-        }]
+            rate: Number
+        },
+        family: String
     },
-    { timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'} }
-
+    {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}}
 );
-resourceTypeSchema.plugin(mongoose_delete,{ deletedAt : true });
+resourceTypeSchema.plugin(mongoose_delete, {deletedAt: true});
 mongoose.model("ResourceType", resourceTypeSchema);

@@ -23,7 +23,6 @@ exports.create = function (req, res) {
     });
 };
 
-
 exports.update = function (req, res) {
     PurchaseOrder.findById(req.params.purchaseOrderId).exec(function (err, purchaseOrder) {
         if (err) {
@@ -53,23 +52,20 @@ exports.update = function (req, res) {
                 }
 
             });
-
-
         }
     });
 };
-
 
 exports.list = function (req, res) {
     PurchaseOrder.find({deleted:false}, function (err, purchaseOrder) {
         if (err) {
             console.log(err);
         } else {
+            console.log(purchaseOrder);
             res.json(purchaseOrder);
         }
-    });
+    }).populate('client', '_id name');
 };
-
 
 exports.read = function (req, res) {
     PurchaseOrder.findById(req.params.purchaseOrderId, function (err, purchaseOrder) {
@@ -86,9 +82,8 @@ exports.read = function (req, res) {
 
             res.json(purchaseOrder);
         }
-    });
+    }).populate('client', '_id name');
 };
-
 
 exports.delete = function (req, res) {
     PurchaseOrder.findById(req.params.purchaseOrderId).exec(function (err, purchaseOrder) {

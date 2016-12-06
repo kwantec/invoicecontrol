@@ -28,8 +28,7 @@ var clientSchema = new Schema({
         phone: String,
         email: {type: String, required: "Write your email", match: email_match},
         url: String,
-        workTeams: [{type: mongoose.Schema.Types.ObjectId, ref: 'WorkTeam'}],
-        purchaseOrders: [{type: mongoose.Schema.Types.ObjectId, ref: 'PurchaseOrder'}]
+        workTeams: [{type: mongoose.Schema.Types.ObjectId, ref: 'WorkTeam'}]
     },
     {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at', deleteAt: 'delete_at'}
