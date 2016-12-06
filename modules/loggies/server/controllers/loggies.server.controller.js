@@ -114,42 +114,88 @@ exports.delete = function(req, res) {
  * List of Loggies
  */
 exports.list = function(req, res) {
-  Loggy
-      .find({
-      })
-      .sort('-created')
-      .populate({
-        path : 'employee',
-        model: 'Employee',
-        match: {
-          user: {
-            $in: req.user._id
+  console.log("req", req.body);
+  //console.log("req query", req.query);
+  if(req.query.startDate == undefined){
+    Loggy
+        .find({
+        })
+        .sort('-created')
+        .populate({
+          path : 'employee',
+          model: 'Employee',
+          match: {
+            user: {
+              $in: req.user._id
+            }
+          },
+          populate: {
+            path: 'user',
+            model: 'User'
           }
-        },
-        populate: {
-          path: 'user',
-          model: 'User'
-        }
-      })
-      .populate({
-        path: 'workTeam',
-        model: 'WorkTeam'
-      })
-      .exec(function(err, loggies) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+        })
+        .populate({
+          path: 'workTeam',
+          model: 'WorkTeam'
+        })
+        .exec(function(err, loggies) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
 
-    } else {
-      loggies = loggies.filter(function(loggie) {
-        return loggie.employee;
-      });
-      //TODO WARNING: When execute the following line the app will crash, but the seeder documents are created correct, comment the next line and restart the app to repair
-      /*seeder.seedMongo(req.user._id);*/
-      res.jsonp(loggies);
-    }
-  });
+      } else {
+        loggies = loggies.filter(function(loggie) {
+          return loggie.employee;
+        });
+        //TODO WARNING: When execute the following line the app will crash, but the seeder documents are created correct, comment the next line and restart the app to repair
+        /*seeder.seedMongo(req.user._id);*/
+        res.jsonp(loggies);
+      }
+    });
+  } else {
+    console.log("en else");
+    Loggy.find({
+      "created": {
+        "$gte": req.query.startDate,
+        "$lt": req.query.finishDate
+      },
+      "employee" : req.query.employeeId
+    })
+    .sort('-created')
+        .populate({
+          path : 'employee',
+          model: 'Employee',
+          match: {
+            user: {
+              $in: req.user._id
+            }
+          },
+          populate: {
+            path: 'user',
+            model: 'User'
+          }
+        })
+        .populate({
+          path: 'workTeam',
+          model: 'WorkTeam'
+        })
+        .exec(function(err, loggies) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+
+      } else {
+        loggies = loggies.filter(function(loggie) {
+          return loggie.employee;
+        });
+        //TODO WARNING: When execute the following line the app will crash, but the seeder documents are created correct, comment the next line and restart the app to repair
+        /*seeder.seedMongo(req.user._id);*/
+        res.jsonp(loggies);
+      }
+    });  
+  }
 };
 
 /**

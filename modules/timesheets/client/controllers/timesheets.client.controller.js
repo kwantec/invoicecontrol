@@ -6,9 +6,9 @@
     .module('timesheets')
     .controller('TimesheetsController', TimesheetsController);
 
-  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees', '$stateParams', 'TimesheetsService'];
+  TimesheetsController.$inject = ['$scope', '$state', '$resource', '$window', 'Authentication', 'timesheetResolve', '$mdToast', '$mdDialog', 'Employees', '$stateParams', 'TimesheetsService', 'LoggiesService'];
 
-  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees, $stateParams, TimesheetsService) {
+  function TimesheetsController ($scope, $state, $resource,$window, Authentication, timesheet, $mdToast, $mdDialog, Employees, $stateParams, TimesheetsService, LoggiesService) {
 
     var vm = this;
     var Timesheet = $resource('/api/timesheets');
@@ -305,24 +305,39 @@
 
     function addEmployee(_id) {
       console.log("received");
-      var newEmp = getNewEmployeeInfo(_id);
-      newEmp.billing.totalPeriodCharges =
-          newEmp.billing.monthly;
-      $scope.timesheet.employees.push(newEmp);
+      getNewEmployeeInfo(_id);
 
-      $scope.currentPeriodCharges += newEmp.billing.currentPeriodCharges;
-      $scope.discount += newEmp.billing.discount;
-      $scope.totalPeriodCharges += newEmp.billing.totalPeriodCharges;
-
-      var newLogs = getNewEmployeeLogs(_id, timesheet.startDate, timesheet.finishDate);
-      for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
+      getNewEmployeeLogs(_id, timesheet.startDate, timesheet.finishDate);
+      /*for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
         $scope.timesheet.dayLogs[date].employeesLogsDay.push(newLogs[date]);
-      }
+      }*/
     }
 
     // recurso para obtener logs del usuario
     function getNewEmployeeLogs(_id, startDate, finishDate) {
-      return [{
+      LoggiesService.query({
+        startDate: $scope.timesheet.startDate,
+        finishDate: $scope.timesheet.finishDate,
+        employeeId : _id
+      }, function (loggys) {
+        console.log("loggys", loggys);
+        for(var index=0; index<loggys.length; index++){
+          var newLog = {
+            name: {
+              firstName: loggys[index].employee.name,
+              lastName: loggys[index].employee.lastName
+            },
+            activity: loggys[index].activity
+          }
+          $scope.timesheet.dayLogs[index].employeesLogsDay.push(newLog);
+        }
+
+        //return loggys;
+      }, function (errorResponse) {
+        console.log(errorResponse);
+      });
+
+      /*return [{
         name: {
           firstName: "Carlos",
           lastName: "Riancho"
@@ -342,7 +357,7 @@
           lastName: "Riancho"
         },
         activity: "Activity"
-      }]
+      }] */
     }
 
     function getNewEmployeeInfo(_id) {
@@ -353,7 +368,9 @@
               employee.dob = new Date(employee.dob);
               console.log("employee", employee);
               var obj = {};
-              obj.employee.id = employee.id;
+              obj.employee = {};
+              obj.billing = {};
+              obj.employee.id = employee._id;
               obj.employee.name = employee.name;
               obj.employee.lastName = employee.lastName;
               obj.billing.level = employee.resourceType.rate.name;
@@ -361,8 +378,15 @@
               obj.billing.vacationSickDays = 0;
               obj.billing.currentPeriodCharges = 0.00;
               obj.billing.discount = 0.00;
-              obj.totalPeriodCharges = obj.billing.monthly;
-              return obj;
+              obj.billing.totalPeriodCharges = obj.billing.monthly;
+
+              $scope.timesheet.employees.push(obj);
+
+              $scope.currentPeriodCharges += obj.billing.currentPeriodCharges;
+              $scope.discount += obj.billing.discount;
+              $scope.totalPeriodCharges += obj.billing.totalPeriodCharges;
+
+              //return obj;
           },
           function (errorResponse) {
               $scope.error = errorResponse.data.message;
