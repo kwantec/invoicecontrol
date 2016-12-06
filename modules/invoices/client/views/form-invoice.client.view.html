@@ -93,13 +93,13 @@
                   <input type="text" value="{{employee.billing.vacationSickDays}}" ng-model="employee.billing.vacationSickDays">
                 </td>
                 <td>
-                  <input type="text" value="{{employee.billing.currentPeriodCharges}}" ng-model="employee.billing.currentPeriodCharges">
+                  <input type="number" value="{{employee.billing.currentPeriodCharges}}" ng-model="employee.billing.currentPeriodCharges" ng-change="vm.hasChanged()">
                 </td>
                 <td>
-                  <input type="text" value="{{employee.billing.discount}}" ng-model="employee.billing.discount">
+                  <input type="number" value="{{employee.billing.discount}}" ng-model="employee.billing.discount" ng-change="vm.hasChanged()">
                 </td>
                 <td>
-                  <input type="text" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges">
+                  <input type="number" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges" ng-change="vm.hasChanged()">
                 </td>
 
               </tr>
@@ -118,8 +118,8 @@
             </tbody>
             <tbody>
                 <td>{{vm.invoice.totalChargesNoDiscount}}</td>
-                <td>{{vm.invoice.totalDicount}}</td>
-                <td>{{vm.invoice.totalCargesDiscount}}</td>
+                <td>{{vm.invoice.totalDiscount}}</td>
+                <td>{{vm.invoice.totalChargesDiscount}}</td>
             </tbody>
           </table>
         </div>
