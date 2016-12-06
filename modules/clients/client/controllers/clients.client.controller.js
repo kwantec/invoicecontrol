@@ -11,7 +11,8 @@ angular.module('clients').controller('ClientsController', [
     '$mdDialog',
     '$mdToast',
     '$filter',
-    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, WorkTeams, $mdDialog, $mdToast, $filter) {
+    '$q',
+    function ($scope, $stateParams, $location, Authentication, Clients, PurchaseOrders, WorkTeams, $mdDialog, $mdToast, $filter, $q) {
         $scope.searchClient = '';
         $scope.sortType = 'name';
         $scope.sortReverse = false;
@@ -57,9 +58,7 @@ angular.module('clients').controller('ClientsController', [
                 email: $scope.newClient.email,
                 url: $scope.newClient.url,
                 contact: $scope.newClient.contact,
-                address: $scope.newClient.address,
-                workTeams: $scope.newClient.workTeams,
-                purchaseOrders: $scope.newClient.purchaseOrders
+                address: $scope.newClient.address
             });
 
             client.$save(function (response) {
@@ -74,16 +73,24 @@ angular.module('clients').controller('ClientsController', [
         };
 
         $scope.findOne = function () {
-            $scope.purchaseOrders = PurchaseOrders.query().$promise.then(function (result) {
-                $scope.purchaseOrders = result;
-            }).then(function () {
+            $q.all([
+                PurchaseOrders.query().$promise,
+                WorkTeams.query().$promise
+            ]).then(function (response) {
+                $scope.purchaseOrders = response[0];
+                $scope.workTeams = response[1];
+
                 Clients.get(
                     {clientId: $stateParams.clientId},
                     function (client) {
                         $scope.client = client;
 
-                        $scope.purchaseOrders = $filter('filter')($scope.purchaseOrders, function(purchaseOrder) {
+                        $scope.purchaseOrders = $filter('filter')($scope.purchaseOrders, function (purchaseOrder) {
                             return purchaseOrder.client._id === client._id;
+                        });
+
+                        $scope.workTeams = $filter('filter')($scope.workTeams, function (workTeam) {
+                            return workTeam.client._id === client._id;
                         });
                     },
                     function (errorResponse) {

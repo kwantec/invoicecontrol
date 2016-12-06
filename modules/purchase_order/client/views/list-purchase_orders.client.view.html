@@ -1,28 +1,42 @@
 <section ng-init="find()">
-    <div class="page-header">
-        <h1>&Oacute;rdenes de Compra</h1>
-    </div>
-    <table class="table table-striped table-hover table-condensed">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Cliente</th>
-            <th>Monto asignado</th>
-            <th>Monto restante</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="purchaseOrder in purchaseOrders">
-            <td><a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.name}}</a></td>
-            <td>{{purchaseOrder.client.name}}</td>
-            <td>{{purchaseOrder.assignedAmount}}</td>
-            <td>{{purchaseOrder.remainingAmount}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <div layout="row" layout-align="end" flex>
-        <md-button class="md-fab" aria-label="Agregar orden de compra" ui-sref="purchase-orders.create">
-            <span class="glyphicon glyphicon-plus"></span>
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <h1>
+                <span>&Oacute;rdenes de compra</span>
+            </h1>
+            <span flex></span>
+            <md-button ui-sref="purchase-orders.create" class="md-fab md-mini" aria-label="Favorite">
+                <md-icon class="material-icons">plus_one</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div class="text-center" ng-show="!purchaseOrders.length">
+        <h2>A&uacute;n no has agregado ninguna orden de compra. ¿Por qu&eacute; no a&ntilde;ades una?</h2>
+        <md-button class="text-center md-raised md-primary" ui-sref="purchase-orders.create()">A&ntilde;adir orden de
+            compra
         </md-button>
+    </div>
+
+    <div ng-show="purchaseOrders.length">
+        <table class="table table-striped table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cliente</th>
+                <th>Monto asignado</th>
+                <th>Monto restante</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="purchaseOrder in purchaseOrders">
+                <td><a ui-sref="purchase-orders.view({purchaseOrderId: purchaseOrder._id})">{{purchaseOrder.name}}</a>
+                </td>
+                <td>{{purchaseOrder.client.name}}</td>
+                <td>{{purchaseOrder.assignedAmount}}</td>
+                <td>{{purchaseOrder.remainingAmount}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </section>

@@ -1,113 +1,121 @@
 <section ng-init="findOne()">
-    <div class="page-header">
-        <h1>Editando {{client.name}}</h1>
-    </div>
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <h3>
+                <span>Editando {{client.name}}</span>
+            </h3>
+        </div>
+    </md-toolbar>
 
-    <form name="editClient" class="form-horizontal" ng-submit="update()" novalidate>
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Nombre</label>
-            <input type="text" ng-model="client.name" title="name" required>
-        </md-input-container>
+    <md-content layout-padding>
+        <form name="editClient" class="form-horizontal" ng-submit="update()" novalidate>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Nombre</label>
+                <input type="text" ng-model="client.name" title="name" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Tax ID</label>
-            <input type="text" ng-model="client.taxId" title="taxId" required>
-        </md-input-container>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Tax ID</label>
+                <input type="text" ng-model="client.taxId" title="taxId" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Tel&eacute;fono</label>
-            <input type="text" ng-model="client.phone" title="phone" required>
-        </md-input-container>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Tel&eacute;fono</label>
+                <input type="text" ng-model="client.phone" title="phone" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>URL</label>
-            <input type="text" ng-model="client.url" title="url" required>
-        </md-input-container>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>URL</label>
+                <input type="text" ng-model="client.url" title="url" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Email</label>
-            <input type="email" ng-model="client.email" title="email" required>
-            <div ng-messages="client.email.$error" role="alert">
-                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                    Ingrese un email v&aacute;lido. Ej: john.smith&#64;example.org
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Email</label>
+                <input type="email" ng-model="client.email" title="email" required>
+                <div ng-messages="client.email.$error" role="alert">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        Ingrese un email v&aacute;lido. Ej: john.smith&#64;example.org
+                    </div>
                 </div>
-            </div>
-        </md-input-container>
+            </md-input-container>
 
-        <h3 class="md-title">Informaci&oacute;n de contacto</h3>
+            <h3 class="md-title">Informaci&oacute;n de contacto</h3>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Nombre</label>
-            <input type="text" ng-model="client.contact.name" title="contactName" required>
-        </md-input-container>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Nombre</label>
+                <input type="text" ng-model="client.contact.name" title="contactName" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Tel&eacute;fono de oficina</label>
-            <input type="text" ng-model="client.contact.officePhone" title="officePhone" required>
-        </md-input-container>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Tel&eacute;fono de oficina</label>
+                <input type="text" ng-model="client.contact.officePhone" title="officePhone" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Tel&eacute;fono celular</label>
-            <input type="text" ng-model="client.contact.cellPhone" title="cellPhone" required>
-        </md-input-container>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Tel&eacute;fono celular</label>
+                <input type="text" ng-model="client.contact.cellPhone" title="cellPhone" required>
+            </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Email</label>
-            <input type="email" ng-model="client.contact.email" title="contactEmail" required>
-            <div ng-messages="client.contact.email.$error" role="alert">
-                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                    Ingrese un email v&aacute;lido. Ej: john.smith&#64;example.org
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Email</label>
+                <input type="email" ng-model="client.contact.email" title="contactEmail" required>
+                <div ng-messages="client.contact.email.$error" role="alert">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        Ingrese un email v&aacute;lido. Ej: john.smith&#64;example.org
+                    </div>
                 </div>
+            </md-input-container>
+
+            <h3 class="md-title">Direcci&oacute;n</h3>
+
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block">
+                    <label>Pa&iacute;s</label>
+                    <input type="text" ng-model="client.address.country" title="country" required>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Estado</label>
+                    <input type="text" ng-model="client.address.state" title="state" required>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Ciudad</label>
+                    <input type="text" ng-model="client.address.city" title="city" required>
+                </md-input-container>
             </div>
-        </md-input-container>
 
-        <h3 class="md-title">Direcci&oacute;n</h3>
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block">
+                    <label>Calle</label>
+                    <input type="text" ng-model="client.address.street" title="street" required>
+                </md-input-container>
 
-        <div layout-gt-xs="row">
-            <md-input-container class="md-block">
-                <label>Pa&iacute;s</label>
-                <input type="text" ng-model="client.address.country" title="country" required>
-            </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Cruzamientos</label>
+                    <input type="text" ng-model="client.address.crosses" title="crosses" required>
+                </md-input-container>
 
-            <md-input-container class="md-block">
-                <label>Estado</label>
-                <input type="text" ng-model="client.address.state" title="state" required>
-            </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Lote</label>
+                    <input type="text" ng-model="client.address.lot" title="lot" required>
+                </md-input-container>
 
-            <md-input-container class="md-block">
-                <label>Ciudad</label>
-                <input type="text" ng-model="client.address.city" title="city" required>
-            </md-input-container>
-        </div>
+                <md-input-container class="md-block">
+                    <label>Colonia</label>
+                    <input type="text" ng-model="client.address.colony" title="colony" required>
+                </md-input-container>
 
-        <div layout-gt-xs="row">
-            <md-input-container class="md-block">
-                <label>Calle</label>
-                <input type="text" ng-model="client.address.street" title="street" required>
-            </md-input-container>
-
-            <md-input-container class="md-block">
-                <label>Cruzamientos</label>
-                <input type="text" ng-model="client.address.crosses" title="crosses" required>
-            </md-input-container>
-
-            <md-input-container class="md-block">
-                <label>Lote</label>
-                <input type="text" ng-model="client.address.lot" title="lot" required>
-            </md-input-container>
-
-            <md-input-container class="md-block">
-                <label>Colonia</label>
-                <input type="text" ng-model="client.address.colony" title="colony" required>
-            </md-input-container>
-
-            <md-input-container class="md-block">
-                <label>C&oacute;digo Postal</label>
-                <input type="text" ng-model="client.address.zipCode" title="zipCode" required>
-            </md-input-container>
-        </div>
-        <div layout="row" layout-align="end" flex>
-            <md-button type="submit" class="md-primary" ng-disabled="editClient.$invalid">Guardar cambios</md-button>
-        </div>
-    </form>
+                <md-input-container class="md-block">
+                    <label>C&oacute;digo Postal</label>
+                    <input type="text" ng-model="client.address.zipCode" title="zipCode" required>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-align="end" flex>
+                <md-button type="submit" class="md-raised md-primary text-center" ng-disabled="editClient.$invalid">Guardar cambios
+                </md-button>
+            </div>
+        </form>
+    </md-content>
+    <br><br><br>
 </section>

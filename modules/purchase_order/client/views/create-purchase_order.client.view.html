@@ -1,58 +1,66 @@
 <section ng-init="init()">
-    <div class="page-header">
-        <h1>Nueva orden de compra</h1>
-    </div>
-    <form name="purchaseOrderForm" class="form-horizontal" ng-submit="create(purchaseOrderForm.$valid)" novalidate>
-        <div layout="row">
-            <md-input-container flex="50">
-                <label>N&uacute;mero de compra</label>
-                <input type="text" ng-model="newPurchaseOrder.purchaseNumber" title="purchaseNumber" required>
-            </md-input-container>
-
-            <md-input-container flex="50">
-                <label>Cliente</label>
-                <md-select ng-model="newPurchaseOrder.client" ng-disabled="isClientSet()">
-                    <md-option ng-repeat="client in clients" ng-value="client._id">
-                        {{client.name}}
-                    </md-option>
-                </md-select>
-            </md-input-container>
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <h3>
+                <span>Nueva orden de compra</span>
+            </h3>
         </div>
+    </md-toolbar>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Nombre</label>
-            <input type="text" title="name" ng-model="newPurchaseOrder.name" md-maxlength="50" required>
-        </md-input-container>
+    <md-content layout-padding>
+        <form name="purchaseOrderForm" class="form-horizontal" ng-submit="create(purchaseOrderForm.$valid)" novalidate>
+            <div layout="row">
+                <md-input-container flex="50">
+                    <label>N&uacute;mero de compra</label>
+                    <input type="text" ng-model="newPurchaseOrder.purchaseNumber" title="purchaseNumber" required>
+                </md-input-container>
 
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Descripci&oacute;n</label>
-            <textarea title="description" ng-model="newPurchaseOrder.description" md-maxlength="250"
-                      rows="5"></textarea>
-        </md-input-container>
-
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Monto asignado (MXN)</label>
-            <input type="number" title="assignedAmount" ng-model="newPurchaseOrder.assignedAmount" min="0"
-                   ng-change="setRemainingAmount()" required>
-        </md-input-container>
-
-        <md-input-container class="md-block" layout-gt-xs="row">
-            <label>Monto restante (MXN)</label>
-            <input type="number" name="remainingAmount" title="remainingAmount"
-                   ng-model="newPurchaseOrder.remainingAmount" min="0"
-                   max="{{newPurchaseOrder.assignedAmount}}" required>
-
-            <div ng-messages="purchaseOrderForm.remainingAmount.$error">
-                <div ng-message="max">
-                    El monto restante no puede ser mayor que el monto asignado.
-                </div>
+                <md-input-container flex="50">
+                    <label>Cliente</label>
+                    <md-select ng-model="newPurchaseOrder.client" ng-disabled="isClientSet()">
+                        <md-option ng-repeat="client in clients" ng-value="client._id">
+                            {{client.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
             </div>
-        </md-input-container>
 
-        <div layout="row" class="md-block" layout-align="end" flex>
-            <md-button type="submit" ng-disabled="purchaseOrderForm.$invalid" class="md-primary">Agregar orden de
-                compra
-            </md-button>
-        </div>
-    </form>
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Nombre</label>
+                <input type="text" title="name" ng-model="newPurchaseOrder.name" md-maxlength="50" required>
+            </md-input-container>
+
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Descripci&oacute;n</label>
+                <textarea title="description" ng-model="newPurchaseOrder.description" md-maxlength="250"
+                          rows="5"></textarea>
+            </md-input-container>
+
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Monto asignado (MXN)</label>
+                <input type="number" title="assignedAmount" ng-model="newPurchaseOrder.assignedAmount" min="0"
+                       ng-change="setRemainingAmount()" required>
+            </md-input-container>
+
+            <md-input-container class="md-block" layout-gt-xs="row">
+                <label>Monto restante (MXN)</label>
+                <input type="number" name="remainingAmount" title="remainingAmount"
+                       ng-model="newPurchaseOrder.remainingAmount" min="0"
+                       max="{{newPurchaseOrder.assignedAmount}}" required>
+
+                <div ng-messages="purchaseOrderForm.remainingAmount.$error">
+                    <div ng-message="max">
+                        El monto restante no puede ser mayor que el monto asignado.
+                    </div>
+                </div>
+            </md-input-container>
+
+            <div layout="row" class="md-block" layout-align="end" flex>
+                <md-button type="submit" ng-disabled="purchaseOrderForm.$invalid" class="md-raised md-primary text-center">Agregar orden de
+                    compra
+                </md-button>
+            </div>
+        </form>
+    </md-content>
+    <br><br><br>
 </section>

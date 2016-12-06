@@ -1,12 +1,24 @@
 <section ng-init="find()">
-    <div class="page-header">
-        <h1>Clientes</h1>
-    </div>
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <h1>
+                <span>Clientes</span>
+            </h1>
+            <span flex></span>
+            <md-button ui-sref="clients.create" class="md-fab md-mini" aria-label="Favorite">
+                <md-icon class="material-icons">plus_one</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
     <div class="text-center" ng-show="!clients.length">
         <h2>A&uacute;n no has agregado ning&uacute;n cliente. ¿Por qu&eacute; no a&ntilde;ades uno?</h2>
         <md-button class="text-center md-raised md-primary" ui-sref="clients.create()">A&ntilde;adir cliente</md-button>
     </div>
+
     <div ng-show="clients.length">
+        <br>
+
         <form>
             <div class="form-group">
                 <div class="input-group">
@@ -44,10 +56,5 @@
             </tr>
             </tbody>
         </table>
-        <div layout="row" layout-align="end" flex>
-            <md-button class="md-fab" aria-label="Agregar cliente" ui-sref="clients.create">
-                <span class="glyphicon glyphicon-plus"></span>
-            </md-button>
-        </div>
     </div>
 </section>
