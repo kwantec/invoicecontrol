@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 
 var resourceTypeSchema = new Schema({
         name: String,
-        rates: {
+        rate: {
             level: Number,
             name: String,
             description: String,
