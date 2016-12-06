@@ -2,25 +2,136 @@
   <div class="page-header">
     <h1 ng-bind="vm.invoice.number"></h1>
   </div>
+  <md-content flex layout-padding>
+    <div>
+      <div>
+        <label>Numero de factura</label><br>
+        <p ng-bind="vm.invoice.number"></p>
+      </div>
+
+      <div flex-gt-xs>
+        <label>Fecha</label><br>
+        <p ng-bind="vm.invoice.date | date:'mediumDate'"></p>
+      </div>
+
+      <div class="md-block" flex-gt-s>
+        <label>Dirección</label><br>
+        <p ng-bind="vm.invoice.address" ></p>
+      </div>
+
+      <div class="md-block" flex-gt-s>
+        <label>Purchase Order</label><br>
+        <p ng-bind="vm.invoice.purchaseOrder"></p>
+      </div>
+
+      <div class="md-block" flex-gt-s>
+        <label>Invoice for</label><br>
+        <p ng-bind="vm.invoice.invoiceFor"></p>
+      </div>
+
+      <div class="md-block" flex-gt-s>
+        <label>Team Name</label><br>
+        <p ng-bind="vm.invoice.teamName"></p>
+      </div>
+
+      <div layout-gt-md="row">
+        <div class="md-block" flex-gt-s>
+          <label>Total work days in period</label><br>
+          <p ng-bind="vm.invoice.workDaysInPeriod"> </p>
+        </div>
+
+        <div class="md-block" flex-gt-s>
+          <label>Period Start</label><br>
+          <p ng-bind="vm.invoice.startDate | date:'mediumDate'" ></p>
+        </div>
+      </div>
+
+      <div layout-gt-md="row">
+        <div class="md-block" flex-gt-s>
+          <label>Total work days in month</label><br>
+          <p ng-bind="vm.invoice.workDaysInMonth"></p>
+        </div>
+
+        <div class="md-block" flex-gt-s>
+          <label>Period End</label><br>
+          <p ng-bind="vm.invoice.finishDate | date:'mediumDate'"></p>
+        </div>
+      </div>
+
+      <div>
+        <table class="table">
+          <thead>
+          <tr align="center"><b>Contract Team Staff Billing</b></tr>
+          </thead>
+          <tbody>
+          <td>First Name</td>
+          <td>Last Name</td>
+          <td>Level</td>
+          <td>Fixed Monthly Rate</td>
+          <td>Days Worked</td>
+          <td>Vacation/Sick Days</td>
+          <td>Current Period Charges</td>
+          <td>Discount</td>
+          <td>Current Period Charges</td>
+          </tbody>
+          <tbody>
+          <tr ng-repeat="employee in vm.invoice.employees">
+            <td>{{employee.employee.name}}</td>
+            <td>{{employee.employee.lastName}}</td>
+            <td>
+              <p ng-bind="employee.billing.level" ></p>
+            </td>
+            <td>
+              <p ng-bind="employee.billing.monthly" ></p>
+            </td>
+            <td>
+              <p ng-bind="employee.billing.daysWorked" ></p>
+            </td>
+            <td>
+              <p ng-bind="employee.billing.vacationSickDays" ></p>
+            </td>
+            <td>
+              <p ng-bind="employee.billing.currentPeriodCharges" ></p>
+            </td>
+            <td>
+              <p ng-bind="employee.billing.discount" ></p>
+            </td>
+            <td>
+              <p ng-bind="employee.billing.totalPeriodCharges" ></p>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="table">
+          <thead>
+          <tr align="center">Totals</tr>
+          </thead>
+          <tbody>
+          <td>Total current carges period</td>
+          <td>Total dicount</td>
+          <td>Total charges</td>
+          </tbody>
+          <tbody>
+          <td>{{vm.invoice.totalChargesNoDiscount}}</td>
+          <td>{{vm.invoice.totalDicount}}</td>
+          <td>{{vm.invoice.totalCargesDiscount}}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </md-content>
+
   <div class="pull-right"
        ng-show="vm.invoice.isCurrentUserOwner">
-    <a class="btn btn-primary"
+    <md-button class="md-raised md-primary"
        ui-sref="invoices.edit({ invoiceId: vm.invoice._id })">
       <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="vm.remove()">
+    </md-button>
+    <md-button class="md-raised md-warn" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
-    </a>
+    </md-button>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.invoice.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.invoice.user"
-            ng-bind="vm.invoice.user.displayName"></span>
-      <span ng-if="!vm.invoice.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="vm.invoice.content"></p>
 </section>
