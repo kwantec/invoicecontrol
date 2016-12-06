@@ -17,56 +17,48 @@ var path = require('path'),
  * Create a Loggy
  */
 exports.create = function(req, res) {
-  var loggy = new Loggy(req.body);
+    var loggy = new Loggy(req.body);
 
-  /*var resource = new ResourceType({
-    name: "Recurso Demo",
-    rates: [{
-      level: 1,
-      name: "Junior",
-      description: "Descripcion de prueba",
-      qualities: [
-          "PHP","Java", "COBOL"
-      ],
-      rate: 10000
-    }]
-  });
+    Employee
+        .findOne({
+            user: req.user.id
+        })
+        .populate({
+            path: 'user',
+            model: 'User'
+        })
+        .populate({
+            path: 'workTeam',
+            model: 'WorkTeam'
+        })
+        .exec(function (err, employees) {
+            console.log(employees);
+            loggy.employee = employees;
 
-  var workTeam = new WorkTeam({
-    name: "Team Ferros",
-    description: "Equipo Ferros es el mejor"
-  });
+            WorkTeam
+                .findOne({
+                    employees: employees._id
+                })
+                .exec(function (err, workTeamFound) {
+                    if (err) {
 
-  var employee = new Employee({
-    name: req.user.name,
-    lastname : req.user.lastname,
-    addrees: {
-      city: "Merida",
-      state: "Yucatan",
-      country: "Mexico",
-      zipCode: "97203"
-    },
-    personEmail: req.user.email,
-    workEmail:req.user.email,
-    user: req.user._id,
-    resourceType : resource._id
-  });
+                    } else {
+                        loggy.workTeam = workTeamFound;
+                        console.log(loggy);
 
-  loggy.employee = employee._id;
-  loggy.workTeam = workTeam._id;
-
-  console.log(loggy);*/
-
-  loggy.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(loggy);
-    }
-  });
-};
+                        loggy.save(function (err) {
+                            if (err) {
+                                return res.status(400).send({
+                                    message: errorHandler.getErrorMessage(err)
+                                });
+                            } else {
+                                res.jsonp(loggy);
+                            }
+                        });
+                    }
+                });
+        });
+}
 
 /**
  * Show the current Loggy
@@ -191,4 +183,4 @@ exports.loggyByID = function(req, res, next, id) {
         req.loggy = loggy;
         next();
       });
-};
+}
