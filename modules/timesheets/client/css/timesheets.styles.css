@@ -28,3 +28,6 @@ md-input-container {
 	overflow-x: scroll;
 }
 
+#contract input {
+	max-width: 100px;
+}

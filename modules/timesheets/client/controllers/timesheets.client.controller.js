@@ -32,6 +32,10 @@
     if($stateParams.timesheetId){
       //$scope.timesheet = vm.timesheet;
       $scope.timesheet = getTimesheetMock();
+      $scope.totalPeriodCharges = 0;
+      $scope.currentPeriodCharges = 0;
+      $scope.discount = 0;
+      calculateTotals();
     }
 
     function getTimesheetMock(){
@@ -117,7 +121,7 @@
           },
           billing: {
             level: 'intermediate',
-            monthly: '10000',
+            monthly: 10000,
             daysWorked: 15,
             vacationSickDays: 1,
             currentPeriodCharges: 0.00,
@@ -132,7 +136,7 @@
           },
           billing: {
             level: 'intermediate',
-            monthly: '10000',
+            monthly: 10000,
             daysWorked: 15,
             vacationSickDays: 1,
             currentPeriodCharges: 0.00,
@@ -147,7 +151,7 @@
           },
           billing: {
             level: 'intermediate',
-            monthly: '10000',
+            monthly: 10000,
             daysWorked: 15,
             vacationSickDays: 1,
             currentPeriodCharges: 0.00,
@@ -247,7 +251,29 @@
       }
     }
 
+    function calculateTotals(){
+      for(var index=0; index<$scope.timesheet.employees.length; index++){
+        $scope.timesheet.employees[index].billing.totalPeriodCharges =
+          $scope.timesheet.employees[index].billing.monthly;
+
+        $scope.currentPeriodCharges += $scope.timesheet.employees[index].billing.currentPeriodCharges;
+        $scope.discount += $scope.timesheet.employees[index].billing.discount;
+        $scope.totalPeriodCharges += $scope.timesheet.employees[index].billing.totalPeriodCharges;
+      }
+    }
+
+    $scope.updateTotals = function(){
+      $scope.currentPeriodCharges = 0;
+      $scope.discount = 0;
+      $scope.totalPeriodCharges = 0;
+      calculateTotals();
+    }
+
     $scope.removeEmployee = function(index, name, lastName){
+      $scope.currentPeriodCharges -= $scope.timesheet.employees[index].billing.currentPeriodCharges;
+      $scope.discount -= $scope.timesheet.employees[index].billing.discount;
+      $scope.totalPeriodCharges -= $scope.timesheet.employees[index].billing.totalPeriodCharges;
+
       $scope.timesheet.employees.splice(index, 1);
       var dayLogs = $scope.timesheet.dayLogs[0].employeesLogsDay;
       var indexLog = 0;
@@ -265,7 +291,14 @@
     function addEmployee(_id) {
       console.log("received");
       var newEmp = getNewEmployeeInfo(_id);
+      newEmp.billing.totalPeriodCharges =
+          newEmp.billing.monthly;
       $scope.timesheet.employees.push(newEmp);
+
+      $scope.currentPeriodCharges += newEmp.billing.currentPeriodCharges;
+      $scope.discount += newEmp.billing.discount;
+      $scope.totalPeriodCharges += newEmp.billing.totalPeriodCharges;
+
       var newLogs = getNewEmployeeLogs(_id, timesheet.startDate, timesheet.finishDate);
       for(var date=0; date<$scope.timesheet.dayLogs.length; date++){
         $scope.timesheet.dayLogs[date].employeesLogsDay.push(newLogs[date]);

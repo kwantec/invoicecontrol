@@ -88,11 +88,24 @@
                   <a ng-click="removeEmployee($index, employee.employee.name, employee.employee.lastName);"><i class="glyphicon glyphicon-trash"></i></a>
                 </td> 
               </tr>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Totals:</th>
+                <th>$ {{currentPeriodCharges}}</th>
+                <th>${{discount}} </th>
+                <th>$ {{totalPeriodCharges}}</th>
+                <th></th>
+              </tr>
             </table>
             
           </div>
           <div layout="row">
               <div flex style="text-align:right">
+                <md-button class="md-raised md-primary" ng-click="updateTotals()">Actualizar</md-button>
                 <md-button class="md-raised md-primary" ng-click="showDialog($event)">Agregar</md-button>
               </div>
             </div>
