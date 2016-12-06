@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * Module dependencies.
  */
@@ -10,6 +9,7 @@ var path = require('path'),
   WorkTeam = mongoose.model('WorkTeam'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
+const util = require('util');
 
 
 /**
@@ -27,7 +27,11 @@ exports.create = function(req, res) {
       "$lte": req.body.finishDate
     },
     "workTeam" : req.body.team
-  }).exec(function(err, loggiesSearched) {
+  }).populate({
+    path : 'employee',
+    model: 'Employee'
+  })
+      .exec(function(err, loggiesSearched) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -49,6 +53,41 @@ exports.create = function(req, res) {
             workTeamLeaderLength = workTeamSearched.employeeLeader ? workTeamSearched.employeeLeader.length : 0;
 
             initTimesheet();
+            loggiesSearched.forEach(function(loggy, i, loggies){
+              var dateTemp = new Date(loggy.created);
+              var loggieDate = new Date(dateTemp.getFullYear(),dateTemp.getMonth(), dateTemp.getDate());
+
+              /*console.log(loggieDate);*/
+
+              timesheet.dayLogs.forEach(function(dayLog, j, dayLogs){
+                /*console.log(dayLog.date.getTime() + "¿==? " +loggieDate.getTime());*/
+                if(dayLog.date.getTime() == loggieDate.getTime()) {
+                  /*console.log("aiuda 2", loggy.employee.name);*/
+                  dayLog.employeesLogsDay.forEach(function(employeeLogDay, k, employeesLogsDay){
+                    /*console.log("aiuda 3", loggy.employee.name);
+                    console.log("aiuda 4", employeeLogDay.name.firstName);*/
+                    if(employeeLogDay.name.firsName == loggy.employee.name){
+                      /*console.log("aiuda 5", employeeLogDay);*/
+                      employeeLogDay.activity = loggy.activity;
+                      /*console.log("aiuda 6",employeeLogDay);*/
+                    }
+                  });
+                }
+              });
+            });
+            console.log("Json final ",util.inspect(timesheet, false, null))
+
+            var newTimesheet = new Timesheet(timesheet);
+
+            newTimesheet.save(function(err) {
+             if (err) {
+               return res.status(400).send({
+                 message: errorHandler.getErrorMessage(err)
+               });
+             } else {
+               res.jsonp(timesheet);
+             }
+            });
 
             function initTimesheet(){
               timesheet = {
@@ -74,8 +113,15 @@ exports.create = function(req, res) {
               var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; //diffDays return diff - 1, FIX: +1 day
 
               for(var i=0; i< diffDays; i++) {
+                var dayDate;
+                if(i==0){
+                  dayDate = new Date(startDate.setDate(startDate.getDate()));
+                }else{
+                  dayDate = new Date(startDate.setDate(startDate.getDate() + 1));
+                }
+
                 dayLog = {
-                  date: startDate.setDate(startDate.getDate() + i),
+                  date: dayDate,
                   employeesLogsDay: []
                 };
 
@@ -135,22 +181,10 @@ exports.create = function(req, res) {
                 };
                 timesheet.employees.push(employeeData);
               }
-
-              console.log(timesheet);
             }
           });
     }
   });
-
-  /*timesheet.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(timesheet);
-    }
-  });*/
 };
 
 /**
