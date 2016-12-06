@@ -31,11 +31,11 @@
 
     if($stateParams.timesheetId){
       //$scope.timesheet = vm.timesheet;
-      $scope.timesheet = getTimesheetMock();
+      //$scope.timesheet = getTimesheetMock();
+      findOne();
       $scope.totalPeriodCharges = 0;
       $scope.currentPeriodCharges = 0;
       $scope.discount = 0;
-      calculateTotals();
     }
 
     function getTimesheetMock(){
@@ -162,6 +162,21 @@
       };
     }
 
+    function findOne() {
+        TimesheetsService.get(
+            {timesheetId: $stateParams.timesheetId},
+            function (timesheet) {
+                timesheet.employees = [];
+                $scope.timesheet = timesheet;
+                console.log("timesheet", $scope.timesheet);
+                calculateTotals();
+            },
+            function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            }
+        );
+    };
+
     $scope.addTimesheet = function () {
       console.log($scope.newTimesheet);
       Timesheet.save($scope.newTimesheet, function () {
@@ -196,7 +211,7 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.timesheetForm');
         return false;
       }
-
+      vm.timesheet = $scope.timesheet;
       // TODO: move create/update logic to service
       if (vm.timesheet._id) {
         vm.timesheet.$update(successCallback, errorCallback);
@@ -216,8 +231,8 @@
     }
 
     $scope.update = function () {
-        var timesheet = $scope.timesheet;
-        timesheet.$update(function () {
+        var Updatedtimesheet = $scope.timesheet;
+        Updatedtimesheet.$update(function () {
             console.log("timesheet actualizada");
         }, function (errorResponse) {
             $scope.error = errorResponse.data.message;
@@ -331,8 +346,9 @@
     }
 
     function getNewEmployeeInfo(_id) {
+      // "583e328907f14f71147fefbc"
       Employees.get(
-          {employeeId: "583e328907f14f71147fefbc"},
+          {employeeId: _id},
           function (employee) {
               employee.dob = new Date(employee.dob);
               console.log("employee", employee);
@@ -340,8 +356,8 @@
               obj.employee.id = employee.id;
               obj.employee.name = employee.name;
               obj.employee.lastName = employee.lastName;
-              obj.billing.level = employee.resourceType.level;
-              obj.billing.monthly = employee.resourceType.rate;
+              obj.billing.level = employee.resourceType.rate.name;
+              obj.billing.monthly = employee.resourceType.rate.rate;
               obj.billing.vacationSickDays = 0;
               obj.billing.currentPeriodCharges = 0.00;
               obj.billing.discount = 0.00;
@@ -352,7 +368,7 @@
               $scope.error = errorResponse.data.message;
           }
       );
-    
+      
       /*return {
           employee: {
             name: 'Carlos',
