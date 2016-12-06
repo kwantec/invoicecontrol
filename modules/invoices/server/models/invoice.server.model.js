@@ -120,15 +120,15 @@ var InvoiceSchema = new Schema({
   }],
   totalChargesNoDiscount:{
     type: Number,
-    default: ''
+    default: 0.00
   },
   totalDicount:{
     type: Number,
-    default: ''
+    default: 0.00
   },
   totalCargesDiscount:{
     type: Number,
-    default: ''
+    default: 0.00
   },
   paymentDue:{
     type: Date,

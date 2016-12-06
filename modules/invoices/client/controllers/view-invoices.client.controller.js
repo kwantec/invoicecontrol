@@ -4,11 +4,11 @@
   // Invoices controller
   angular
     .module('invoices')
-    .controller('InvoicesController', InvoicesController);
+    .controller('ViewInvoicesController', InvoicesController);
 
-  InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve', 'timesheetResolve'];
+  InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve'];
 
-  function InvoicesController ($scope, $state, $window, Authentication, invoice, timesheet) {
+  function InvoicesController ($scope, $state, $window, Authentication, invoice) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,17 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-
-    //vm.timesheet = timesheet;
-    console.log(timesheet);
-    vm.invoice.teamName = timesheet.teamName;
-    vm.invoice.workDaysInPeriod= timesheet.workDaysInPeriod;
-    vm.invoice.workDaysInMonth = timesheet.workDaysInMonth;
-    vm.invoice.finishDate = new Date(timesheet.finishDate);
-    vm.invoice.startDate =  new Date(timesheet.startDate);
-    vm.invoice.employees = timesheet.employees;
-    console.log(timesheet.employees[0]);
-    
+  
 
 
     // Remove existing Invoice

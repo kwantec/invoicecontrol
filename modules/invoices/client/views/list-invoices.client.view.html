@@ -8,6 +8,11 @@
        ui-sref="invoices.view({ invoiceId: invoice._id })"
        class="list-group-item">
       <small class="list-group-item-text">
+      <h3>{{invoice.number}}</h3>
+       <h3>{{invoice.teamName}}</h3>
+       <h4><span ng-bind="invoice.startDate | date:'mediumDate'"></span>
+       -
+       <span ng-bind="invoice.finishDate | date:'mediumDate'"></span></h4>
         Posted on
         <span ng-bind="invoice.created | date:'mediumDate'"></span>
         by

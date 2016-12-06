@@ -5,7 +5,7 @@
 
   <md-content flex layout-padding>
     <div>
-      <form class="form-horizontal" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
+      <form class="form-horizontal" name="vm.form.invoiceForm" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
         <md-input-container class="md-block" flex-gt-sm>
           <label>Numero de factura</label>
           <input type="number" ng-model="vm.invoice.number" id="number" class="form-control" required>
@@ -78,16 +78,6 @@
             </tbody>
             <tbody>
               <tr ng-repeat="employee in vm.invoice.employees">
-              <!--
-                <td>{{x.firstName}}</td>
-                <td>{{x.lastName}}</td>
-                <td>{{x.rate}}</td>
-                <td>{{x.daysWorked}}</td>
-                <td>{{x.vacationDays}}</td>
-                <td>{{x.chargesWithoutDiscount}}</td>
-                <td>{{x.discount}}</td>
-                <td>{{x.chargeswithDiscount}}</td>
-              -->
                 <td>{{employee.employee.name}}</td>
                 <td>{{employee.employee.lastName}}</td>
                 <td>
@@ -113,6 +103,23 @@
                 </td>
 
               </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="table">
+            <thead>
+              <tr align="center">Totals</tr>
+            </thead>
+            <tbody>
+              <td>Total current carges period</td>
+              <td>Total dicount</td>
+              <td>Total charges</td>
+            </tbody>
+            <tbody>
+                <td>{{vm.invoice.totalChargesNoDiscount}}</td>
+                <td>{{vm.invoice.totalDicount}}</td>
+                <td>{{vm.invoice.totalCargesDiscount}}</td>
             </tbody>
           </table>
         </div>
