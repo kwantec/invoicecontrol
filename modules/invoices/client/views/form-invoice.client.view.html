@@ -1,0 +1,138 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.invoice._id ? 'Editar factura' : 'Nueva factura'}}</h1>
+  </div>
+
+  <md-content flex layout-padding>
+    <div>
+      <form class="form-horizontal" name="vm.form.invoiceForm" ng-submit="vm.save(vm.form.invoiceForm.$valid)" novalidate>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero de factura</label>
+          <input type="number" ng-model="vm.invoice.number" id="number" class="form-control" required>
+        </md-input-container>
+
+        <div flex-gt-xs>
+          <label>Fecha</label>
+          <md-datepicker ng-model="vm.invoice.date" md-placeholder="Elija la fecha"></md-datepicker>
+        </div>
+
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Dirección</label>
+          <input type="string" ng-model="vm.invoice.address" id="address" class="form-control" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Purchase Order</label>
+          <input type="string" ng-model="vm.invoice.purchaseOrder" id="purchaseOrder" class="form-control" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Invoice for</label>
+          <input type="string" ng-model="vm.invoice.invoiceFor" id="invoiceFor" class="form-control" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-s>
+          <label>Team Name</label>
+          <input type="string" ng-model="vm.invoice.teamName" id="teamName" class="form-control" required>
+        </md-input-container>
+
+        <div layout-gt-md="row">
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Total work days in period</label>
+            <input type="number" ng-model="vm.invoice.workDaysInPeriod" id="workDaysInPeriod" class="form-control" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Period Start</label>
+            <md-datepicker ng-model="vm.invoice.startDate" md-placeholder="Elija la fecha"></md-datepicker>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-md="row">
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Total work days in month</label>
+            <input type="number" ng-model="vm.invoice.workDaysInMonth" id="workDaysInMonth" class="form-control" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-s>
+            <label>Period End</label>
+            <md-datepicker ng-model="vm.invoice.finishDate" md-placeholder="Elija la fecha"></md-datepicker>
+          </md-input-container>
+        </div>
+
+        <div>
+          <table class="table">
+            <thead>
+              <tr align="center">Contract Team Staff Billing</tr>
+            </thead>
+            <tbody>
+              <td>First Name</td>
+              <td>Last Name</td>
+              <td>Level</td>
+              <td>Fixed Monthly Rate</td>
+              <td>Days Worked</td>
+              <td>Vacation/Sick Days</td>
+              <td>Current Period Charges</td>
+              <td>Discount</td>
+              <td>Current Period Charges</td>
+            </tbody>
+            <tbody>
+              <tr ng-repeat="employee in vm.invoice.employees">
+                <td>{{employee.employee.name}}</td>
+                <td>{{employee.employee.lastName}}</td>
+                <td>
+                  <input type="text" value="{{employee.billing.level}}" ng-model="employee.billing.level">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.monthly}}" ng-model="employee.billing.monthly">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.daysWorked}}" ng-model="employee.billing.daysWorked">
+                </td>
+                <td>
+                  <input type="text" value="{{employee.billing.vacationSickDays}}" ng-model="employee.billing.vacationSickDays">
+                </td>
+                <td>
+                  <input type="number" value="{{employee.billing.currentPeriodCharges}}" ng-model="employee.billing.currentPeriodCharges" ng-change="vm.hasChanged()">
+                </td>
+                <td>
+                  <input type="number" value="{{employee.billing.discount}}" ng-model="employee.billing.discount" ng-change="vm.hasChanged()">
+                </td>
+                <td>
+                  <input type="number" value="{{employee.billing.totalPeriodCharges}}" ng-model="employee.billing.totalPeriodCharges" ng-change="vm.hasChanged()">
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table class="table">
+            <thead>
+              <tr align="center">Totals</tr>
+            </thead>
+            <tbody>
+              <td>Total current carges period</td>
+              <td>Total dicount</td>
+              <td>Total charges</td>
+            </tbody>
+            <tbody>
+                <td>{{vm.invoice.totalChargesNoDiscount}}</td>
+                <td>{{vm.invoice.totalDiscount}}</td>
+                <td>{{vm.invoice.totalChargesDiscount}}</td>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-group">
+          <md-button type="submit" class="md-raised md-primary">{{vm.invoice._id ? 'Update' : 'Create'}}</md-button>
+          <md-button class="md-raised md-primary">Imprimir</md-button>
+        </div>
+
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </form>
+    </div>
+  </md-content>
+</section>

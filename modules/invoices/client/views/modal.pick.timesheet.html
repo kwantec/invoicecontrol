@@ -1,0 +1,13 @@
+<div>
+  <md-dialog aria-label="List dialog" style="padding: 5%; width: 50em;">
+    <h3>Escoge el timesheet a facturar.</h3>
+    <md-dialog-content>
+      <select ng-options="item.team.name for item in fieldTable" ng-change="hasChanged()" ng-model="selected" class="form-control"></select>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button ng-click="closeDialog()" class="md-raised md-primary">
+        Cerrar
+      </md-button>
+    </md-dialog-actions>
+  </md-dialog>
+</div>
