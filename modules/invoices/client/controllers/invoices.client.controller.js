@@ -19,7 +19,7 @@
     vm.save = save;
     vm.hasChanged = hasChanged;
 
-    vm.invoice.teamName = timesheet.teamName;
+    vm.invoice.teamName = timesheet.team.name;
     vm.invoice.workDaysInPeriod= timesheet.workDaysInPeriod;
     vm.invoice.workDaysInMonth = timesheet.workDaysInMonth;
     vm.invoice.finishDate = new Date(timesheet.finishDate);
@@ -66,7 +66,6 @@
       vm.invoice.totalChargesDiscount = 0;
       vm.invoice.totalChargesNoDiscount = 0;
       angular.forEach(vm.invoice.employees, function(value, key){
-        //console.log(key + ': ' + value.billing.currentPeriodCharges);
         vm.invoice.totalChargesNoDiscount += value.billing.currentPeriodCharges;
         vm.invoice.totalDiscount += value.billing.discount;
         value.billing.totalPeriodCharges = 
@@ -76,11 +75,5 @@
     }
 
   }
-
-  /*$scope.hasChanged = function () {
-    angular.forEach(vm.invoice.employees, function(value, key){
-     console.log(key + ': ' + value.billing.currentPeriodCharges);
-    });
-  };*/
 
 }());

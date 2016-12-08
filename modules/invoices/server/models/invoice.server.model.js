@@ -41,10 +41,8 @@ var InvoiceSchema = new Schema({
     trim: true
   },
   teamName: {
-    type: String,
-    default: 'lol',
-    required: 'Please fill Invoice Team Name',
-    trim: true
+    type: Schema.ObjectId,
+    ref: 'WorkTeam'
   },
   workDaysInPeriod: {
     type: Number,
@@ -72,18 +70,8 @@ var InvoiceSchema = new Schema({
   },
   employees: [{
     employee: {
-          /*type: Schema.ObjectId,
-          ref: 'Employee'*/
-      name: {
-        type: String,
-        default: '',
-        trim: true
-      },
-      lastName: {
-        type: String,
-        default: '',
-        trim: true
-      }
+      type: Schema.ObjectId,
+      ref: 'Employee'
     },
     billing: {
       level: {
