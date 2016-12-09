@@ -55,8 +55,10 @@
         function printPage() {
             console.log('PRINTING');
             vm.originalBody = document.body.innerHTML;
+            document.getElementById('sign').style.display = 'inherit';
             document.body.innerHTML = document.getElementById('invoice').innerHTML;
             window.print();
+            document.getElementById('sign').style.display = 'none';
             document.body.innerHTML = vm.originalBody;
         }
     }
