@@ -1,30 +1,32 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  // Invoices controller
-  angular
-    .module('invoices')
-    .controller('InvoicesController', InvoicesController);
+    // Invoices controller
+    angular
+        .module('invoices')
+        .controller('InvoicesController', InvoicesController);
 
-  InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve', 'timesheetResolve'];
+    InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve', 'timesheetResolve', '$sce'];
 
-  function InvoicesController ($scope, $state, $window, Authentication, invoice, timesheet) {
-    var vm = this;
+    function InvoicesController($scope, $state, $window, Authentication, invoice, timesheet, $sce) {
 
-    vm.authentication = Authentication;
-    vm.invoice = invoice;
-    vm.error = null;
-    vm.form = {};
-    vm.remove = remove;
-    vm.save = save;
-    vm.hasChanged = hasChanged;
+        var vm = this;
 
-    vm.invoice.teamName = timesheet.team.name;
-    vm.invoice.workDaysInPeriod= timesheet.workDaysInPeriod;
-    vm.invoice.workDaysInMonth = timesheet.workDaysInMonth;
-    vm.invoice.finishDate = new Date(timesheet.finishDate);
-    vm.invoice.startDate =  new Date(timesheet.startDate);
-    vm.invoice.employees = timesheet.employees;    
+        vm.authentication = Authentication;
+        vm.invoice = invoice;
+        vm.error = null;
+        vm.form = {};
+        vm.remove = remove;
+        vm.save = save;
+        vm.hasChanged = hasChanged;
+        vm.printPage = printPage;
+
+        vm.invoice.teamName = timesheet.team.name;
+        vm.invoice.workDaysInPeriod = timesheet.workDaysInPeriod;
+        vm.invoice.workDaysInMonth = timesheet.workDaysInMonth;
+        vm.invoice.finishDate = new Date(timesheet.finishDate);
+        vm.invoice.startDate = new Date(timesheet.startDate);
+        vm.invoice.employees = timesheet.employees;
 
     
 
@@ -74,6 +76,14 @@
       });
     }
 
-  }
+        function printPage () {
+            console.log('PRINTING');
+            vm.originalBody = document.body.innerHTML;
+            document.body.innerHTML = document.getElementById('invoice').innerHTML;
+            window.print();
+            document.body.innerHTML = vm.originalBody;
+        }
+
+    }
 
 }());

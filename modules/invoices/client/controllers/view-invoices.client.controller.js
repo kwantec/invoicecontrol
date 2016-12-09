@@ -1,55 +1,65 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  // Invoices controller
-  angular
-    .module('invoices')
-    .controller('ViewInvoicesController', InvoicesController);
+    // Invoices controller
+    angular
+        .module('invoices')
+        .controller('ViewInvoicesController', InvoicesController);
 
-  InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve'];
+    InvoicesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'invoiceResolve'];
 
-  function InvoicesController ($scope, $state, $window, Authentication, invoice) {
-    var vm = this;
+    function InvoicesController($scope, $state, $window, Authentication, invoice) {
+        var vm = this;
 
-    vm.authentication = Authentication;
-    vm.invoice = invoice;
-    vm.error = null;
-    vm.form = {};
-    vm.remove = remove;
-    vm.save = save;
-  
+        vm.authentication = Authentication;
+        vm.invoice = invoice;
+        vm.error = null;
+        vm.form = {};
+        vm.remove = remove;
+        vm.save = save;
+        vm.printPage = printPage;
 
 
-    // Remove existing Invoice
-    function remove() {
-      if ($window.confirm('Are you sure you want to delete?')) {
-        vm.invoice.$remove($state.go('invoices.list'));
-      }
+        // Remove existing Invoice
+        function remove() {
+            if ($window.confirm('Are you sure you want to delete?')) {
+                vm.invoice.$remove($state.go('invoices.list'));
+            }
+        }
+
+        // Save Invoice
+        function save(isValid) {
+            if (!isValid) {
+                $scope.$broadcast('show-errors-check-validity', 'vm.form.invoiceForm');
+                return false;
+            }
+
+            // TODO: move create/update logic to service
+            if (vm.invoice._id) {
+                vm.invoice.$update(successCallback, errorCallback);
+            } else {
+                vm.invoice.$save(successCallback, errorCallback);
+            }
+
+            function successCallback(res) {
+                $state.go('invoices.view', {
+                    invoiceId: res._id
+                });
+            }
+
+            function errorCallback(res) {
+                vm.error = res.data.message;
+            }
+        }
+
+        function printPage() {
+            console.log('PRINTING');
+            vm.originalBody = document.body.innerHTML;
+            document.getElementById('sign').style.display = 'inherit';
+            document.body.innerHTML = document.getElementById('invoice').innerHTML;
+            window.print();
+            document.getElementById('sign').style.display = 'none';
+            document.body.innerHTML = vm.originalBody;
+        }
     }
-
-    // Save Invoice
-    function save(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.invoiceForm');
-        return false;
-      }
-
-      // TODO: move create/update logic to service
-      if (vm.invoice._id) {
-        vm.invoice.$update(successCallback, errorCallback);
-      } else {
-        vm.invoice.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-        $state.go('invoices.view', {
-          invoiceId: res._id
-        });
-      }
-
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
-    }
-  }
 }());
